@@ -1,0 +1,122 @@
+<div class="wrapper">
+  <app-navbar></app-navbar>
+
+</div>
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div class="hero-copy">
+        <h1>GTEA: Gestiona y Asiste a Eventos Académicos de tu Facultad</h1>
+        <p class="lead">
+          Sistema integral para la gestión de eventos académicos. Inscríbete, organiza y gestiona
+          eventos de manera eficiente y profesional.
+        </p>
+        <div class="hero-ctas">
+          <button class="btn solid lg" (click)="onComenzar()">Comenzar Ahora</button>
+          <a class="btn ghost lg" href="#eventos">Ver Eventos</a>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <img src="assets/landing/hero.jpg" alt="Laptop y teléfono sobre escritorio" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- Próximos Eventos -->
+  <section id="eventos" class="section">
+    <div class="container">
+      <h2 class="section-title">Próximos Eventos Destacados</h2>
+      <p class="section-sub">
+        Descubre los eventos académicos más relevantes de tu facultad. Inscríbete fácilmente y mantente informado.
+      </p>
+
+      <div class="cards">
+        <article class="card" *ngFor="let ev of eventos">
+          <figure class="card-media">
+            <img [src]="ev.img" [alt]="ev.titulo" />
+          </figure>
+          <div class="card-body">
+            <h3 class="card-title">{{ ev.titulo }}</h3>
+            <span class="badge">{{ ev.tipo }}</span>
+            <ul class="meta">
+              <li>
+                <span class="icon">📅</span>
+                <span>{{ ev.fecha }}</span>
+              </li>
+              <li>
+                <span class="icon">📍</span>
+                <span>{{ ev.lugar }}</span>
+              </li>
+            </ul>
+            <button class="btn solid w-full" (click)="verEvento(ev)">Ver detalles</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="center more">
+        <button class="btn ghost" (click)="verCatalogo()">Ver Catálogo Completo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ¿Cómo Funciona? -->
+  <section class="section alt">
+    <div class="container">
+      <h2 class="section-title">¿Cómo Funciona?</h2>
+      <p class="section-sub">
+        GTEA está diseñado para facilitar la gestión de eventos académicos para todos los roles dentro de tu facultad.
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <div class="icon-wrap">👤</div>
+          <h3>Estudiante</h3>
+          <p>Inscríbete fácilmente a eventos y mantén un historial completo de tu participación.</p>
+        </div>
+
+        <div class="feature">
+          <div class="icon-wrap">🗓️</div>
+          <h3>Organizador</h3>
+          <p>Crea y gestiona eventos de manera eficiente con control de inscripciones y asistencia.</p>
+        </div>
+
+        <div class="feature">
+          <div class="icon-wrap">📊</div>
+          <h3>Administrador</h3>
+          <p>Accede a reportes completos y trazabilidad de todos los eventos de la facultad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Preguntas Frecuentes</h2>
+      <p class="section-sub">Encuentra respuestas rápidas a las preguntas más comunes sobre GTEA.</p>
+
+      <div class="faq">
+        <details>
+          <summary>¿Cómo me inscribo a un evento?</summary>
+          <p>Regístrate o inicia sesión, elige el evento y confirma la inscripción con un clic.</p>
+        </details>
+
+        <details>
+          <summary>¿Puedo cancelar mi inscripción a un evento?</summary>
+          <p>Sí, desde tu perfil podrás cancelar antes del límite indicado por el organizador.</p>
+        </details>
+
+        <details>
+          <summary>¿Cómo creo un evento como organizador?</summary>
+          <p>Solicita rol de organizador a un administrador y usa el asistente de creación paso a paso.</p>
+        </details>
+
+        <details>
+          <summary>¿Qué tipos de reportes están disponibles?</summary>
+          <p>Inscripciones, asistencia, capacidad y feedback posterior al evento.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>

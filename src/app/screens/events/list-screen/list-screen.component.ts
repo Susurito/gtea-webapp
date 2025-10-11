@@ -1,0 +1,11 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-list-screen',
+  imports: [],
+  templateUrl: './list-screen.component.html',
+  styleUrl: './list-screen.component.scss'
+})
+export class ListScreenComponent {
+
+}
