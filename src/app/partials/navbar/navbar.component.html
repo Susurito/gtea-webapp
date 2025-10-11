@@ -1,14 +1,36 @@
-<div class="wrapper">
-  <nav class="navbar">
-    <div class="navbar-left">
-      <div class="logo-box"></div>
-      <span class="logo-text">GTEA</span>
-    </div>
+<nav class="top-navbar">
+  <div class="brand">
+    <div class="logo-box"></div>
+    <span class="logo-text">GTEA</span>
+  </div>
 
-    <div class="navbar-right">
-      <a href="#" class="nav-link">Eventos</a>
-      <a href="#" class="btn-outline">Iniciar Sesión</a>
-      <a href="#" class="btn-blue">Crear Cuenta</a>
-    </div>
+  <button class="toggle-btn" *ngIf="isMobileView" (click)="toggleSidebar()" aria-label="Abrir menú">
+    <span class="material-icons">menu_open</span>
+  </button>
+
+
+  <div class="right-actions">
+    <a routerLink="/eventos" routerLinkActive="active-link" class="link hide-sm">Eventos</a>
+    <a routerLink="/login" routerLinkActive="active-link" class="btn-outline hide-sm">Iniciar Sesión</a>
+    <a routerLink="/registro" routerLinkActive="active-link" class="btn-blue hide-sm">Crear Cuenta</a>
+  </div>
+</nav>
+
+<!-- reemplaza el nav.mobile-drawer por un dropdown -->
+<ng-container *ngIf="isMobileView">
+  <div class="mobile-overlay" [ngClass]="{'mobile-open': mobileOpen}" (click)="closeSidebar()"></div>
+
+  <nav class="mobile-dropdown" [ngClass]="{'open': mobileOpen}">
+    <ul class="nav-list">
+      <li class="nav-item" routerLink="/eventos" routerLinkActive="active" (click)="closeSidebar()">
+        <span class="material-icons">event</span><span>Eventos</span>
+      </li>
+      <li class="nav-item" routerLink="/login" routerLinkActive="active" (click)="closeSidebar()">
+        <span class="material-icons">login</span><span>Iniciar Sesión</span>
+      </li>
+      <li class="nav-item" routerLink="/registro" routerLinkActive="active" (click)="closeSidebar()">
+        <span class="material-icons">person_add</span><span>Crear Cuenta</span>
+      </li>
+    </ul>
   </nav>
-</div>
+</ng-container>

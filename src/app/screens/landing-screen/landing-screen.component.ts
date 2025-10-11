@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { NavbarComponent } from "../../partials/navbar/navbar.component";
+import { FooterComponent } from "../../partials/footer/footer.component";
 
 type Evento = {
   titulo: string;
@@ -11,7 +12,7 @@ type Evento = {
 
 @Component({
   selector: 'app-landing-screen',
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, FooterComponent],
   templateUrl: './landing-screen.component.html',
   styleUrl: './landing-screen.component.scss'
 })

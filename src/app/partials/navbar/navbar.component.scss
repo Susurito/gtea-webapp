@@ -1,69 +1,167 @@
-.wrapper {
-  width: 100%;
-
-}
-.navbar {
+.top-navbar {
+  height: 64px;
+  background: #ffffff;
+  color: #000000;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 40px;
-  margin: 0.5rem;
-  font-family: Arial, sans-serif;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.navbar-left {
+.brand {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .logo-box {
-  width: 35px;
-  height: 35px;
-  background-color: #0d47a1; /* Azul fuerte */
-  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  background: #0d47a1;
+  border-radius: 6px;
 }
 
 .logo-text {
-  font-weight: bold;
-  color: #000;
-  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .5px;
 }
 
-.navbar-right {
+.right-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
 
-.nav-link {
-  color: #000;
+.link {
+  color: #000000;
   text-decoration: none;
-  font-size: 15px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.link.active-link {
+  background: rgba(33, 150, 243, .2);
 }
 
 .btn-outline {
-  border: 1px solid #ddd;
-  padding: 8px 16px;
+  border: 1px solid #e4e6e7;
+  color: #000000;
+  padding: 6px 12px;
   border-radius: 8px;
-  color: #000;
   text-decoration: none;
-  font-weight: 600;
 }
 
 .btn-blue {
-  background-color: #007bff;
+  background: #1e88e5;
   color: #fff;
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 8px;
   text-decoration: none;
-  font-weight: 600;
 }
 
-.btn-blue:hover {
-  background-color: #0069d9;
+.toggle-btn {
+  background: transparent;
+  border: 0;
+  color: #000000;
+  display: inline-flex;
+  align-items: center;
 }
 
-.btn-outline:hover {
-  background-color: #f5f5f5;
+/* Drawer móvil */
+/* elimina reglas del .mobile-drawer y agrega estas */
+.mobile-dropdown {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 64px;
+  /* justo debajo de .top-navbar */
+  background: #0e1a2b;
+  color: #fff;
+  overflow: hidden;
+  /* oculta mientras colapsa */
+  max-height: 0;
+  /* cerrado */
+  transition: max-height .28s ease;
+  /* animación de caída */
+  z-index: 20;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+  transition: max-height .45s cubic-bezier(.22, .61, .36, 1);
+  /* ease-out avanzada */
+}
+
+.mobile-dropdown.open {
+  max-height: 70vh;
+}
+
+/* altura máxima del panel abierto */
+
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s ease-out;
+  z-index: 15;
+
+}
+
+.mobile-overlay.mobile-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.nav-list {
+  list-style: none;
+  padding: 12px;
+  margin: 0;
+}
+
+.nav-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, .08);
+}
+
+.nav-item.active {
+  background: rgba(33, 150, 243, .25);
+}
+
+/* Solo móvil: logo a la izquierda, hamburguesa a la derecha */
+@media (max-width: 768px) {
+  .brand {
+    margin-right: auto;
+  }
+
+  /* empuja el resto a la derecha */
+  .toggle-btn {
+    margin-left: auto;
+  }
+
+  /* se pega al borde derecho */
+  .hide-sm {
+    display: none;
+  }
+}
+
+/* Respeta usuarios con “reducir movimiento” */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-dropdown {
+    transition-duration: 0.01ms;
+  }
+
+  .mobile-overlay {
+    transition-duration: 0.01ms;
+  }
 }
