@@ -1,1 +1,63 @@
-<p>list-screen works!</p>
+<main>
+  <div class="page">
+
+    <main class="wrap">
+      <h1 class="page-title">Catálogo de Eventos</h1>
+
+      <!-- Filtros -->
+      <section class="card mb-6">
+        <div class="card__content pt-6">
+          <div class="filters">
+            <!-- Buscador -->
+            <div class="search">
+              <span class="icon search__icon" aria-hidden="true">
+                <!-- Lucide Search -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </svg>
+              </span>
+              <input id="searchInput" class="input pl-10" type="search" placeholder="Buscar eventos..." />
+            </div>
+
+            <!-- Categoria -->
+            <div class="select">
+              <label class="sr-only" for="categorySelect">Categoría</label>
+              <select id="categorySelect" class="input">
+                <option value="all">Todas las categorías</option>
+                <option value="Tecnología">Tecnología</option>
+                <option value="IA">Inteligencia Artificial</option>
+                <option value="Diseño">Diseño</option>
+              </select>
+            </div>
+
+            <!-- Modality -->
+            <div class="select">
+              <label class="sr-only" for="modalitySelect">Modalidad</label>
+              <select id="modalitySelect" class="input">
+                <option value="all">Todas</option>
+                <option value="presencial">Presencial</option>
+                <option value="virtual">Virtual</option>
+                <option value="hybrid">Híbrido</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Events Grid -->
+      <section>
+        <div id="eventsGrid" class="grid"></div>
+      </section>
+
+      <!-- Pagination -->
+      <nav class="pagination" aria-label="Paginación">
+        <button class="btn btn--outline" id="prevBtn" disabled>Anterior</button>
+        <div id="pages"></div>
+        <button class="btn btn--outline" id="nextBtn">Siguiente</button>
+      </nav>
+    </main>
+
+  </div>
+</main>

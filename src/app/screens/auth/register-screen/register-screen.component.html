@@ -1,1 +1,68 @@
-<p>register-screen works!</p>
+<app-navbar></app-navbar>
+<main class="page">
+  <section class="card">
+    <header class="card__header">
+      <a class="brand-circle-link" href="/" aria-label="Ir al inicio">
+        <div class="brand-circle" aria-hidden="true"></div>
+      </a>
+      <h1 class="card__title">Crear Cuenta</h1>
+      <p class="card__description">Regístrate en GTEA</p>
+    </header>
+
+    <div class="card__content">
+      <form id="registerForm" class="form" novalidate>
+        <div class="grid-2">
+          <div class="form__group">
+            <label for="firstName" class="form__label">Nombre</label>
+            <input id="firstName" name="firstName" class="input" placeholder="Juan" required />
+            <span class="form__error" id="firstNameError" role="alert"></span>
+          </div>
+          <div class="form__group">
+            <label for="lastName" class="form__label">Apellidos</label>
+            <input id="lastName" name="lastName" class="input" placeholder="Pérez" required />
+            <span class="form__error" id="lastNameError" role="alert"></span>
+          </div>
+        </div>
+
+        <div class="form__group">
+          <label for="email" class="form__label">Correo Institucional</label>
+          <input id="email" name="email" type="email" class="input" placeholder="tu.correo@institucion.edu"
+            autocomplete="email" required aria-required="true" />
+          <p class="help-text">Debe ser un correo institucional válido</p>
+          <span class="form__error" id="emailError" role="alert"></span>
+        </div>
+
+        <div class="form__group">
+          <label for="password" class="form__label">Contraseña</label>
+          <input id="password" name="password" type="password" class="input" placeholder="Mínimo 8 caracteres"
+            autocomplete="new-password" required minlength="8" aria-required="true" />
+          <span class="form__error" id="passwordError" role="alert"></span>
+        </div>
+
+        <div class="form__group">
+          <label for="confirmPassword" class="form__label">Confirmar Contraseña</label>
+          <input id="confirmPassword" name="confirmPassword" type="password" class="input"
+            placeholder="Repite tu contraseña" autocomplete="new-password" required minlength="8"
+            aria-required="true" />
+          <span class="form__error" id="confirmPasswordError" role="alert"></span>
+        </div>
+
+        <div class="checkbox-row">
+          <input id="terms" name="terms" type="checkbox" class="checkbox" required aria-required="true" />
+          <label for="terms" class="checkbox__label">
+            Acepto los términos y condiciones de uso de la plataforma
+          </label>
+        </div>
+        <span class="form__error" id="termsError" role="alert"></span>
+
+        <button type="submit" class="btn btn--primary btn--block">Crear Cuenta</button>
+
+        <p class="helper">
+          ¿Ya tienes cuenta?
+          <button type="button" id="goLoginBtn" class="link" routerLink="/login">Inicia sesión</button>
+        </p>
+      </form>
+    </div>
+  </section>
+</main>
+<app-footer></app-footer>

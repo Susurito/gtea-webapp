@@ -1,7 +1,7 @@
 <nav class="top-navbar">
   <div class="brand">
     <div class="logo-box"></div>
-    <span class="logo-text">GTEA</span>
+    <a class="logo-text" href="/">GTEA</a>
   </div>
 
   <button class="toggle-btn" *ngIf="isMobileView" (click)="toggleSidebar()" aria-label="Abrir menú">
@@ -10,9 +10,9 @@
 
 
   <div class="right-actions">
-    <a routerLink="/eventos" routerLinkActive="active-link" class="link hide-sm">Eventos</a>
+    <a routerLink="/events" routerLinkActive="active-link" class="link hide-sm">Eventos</a>
     <a routerLink="/login" routerLinkActive="active-link" class="btn-outline hide-sm">Iniciar Sesión</a>
-    <a routerLink="/registro" routerLinkActive="active-link" class="btn-blue hide-sm">Crear Cuenta</a>
+    <a routerLink="/register" routerLinkActive="active-link" class="btn-blue hide-sm">Crear Cuenta</a>
   </div>
 </nav>
 
@@ -22,7 +22,7 @@
 
   <nav class="mobile-dropdown" [ngClass]="{'open': mobileOpen}">
     <ul class="nav-list">
-      <li class="nav-item" routerLink="/eventos" routerLinkActive="active" (click)="closeSidebar()">
+      <li class="nav-item" routerLink="/events" routerLinkActive="active" (click)="closeSidebar()">
         <span class="material-icons">event</span><span>Eventos</span>
       </li>
       <li class="nav-item" routerLink="/login" routerLinkActive="active" (click)="closeSidebar()">

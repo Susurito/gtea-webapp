@@ -1,0 +1,222 @@
+// styles.scss
+// Paleta según el ejemplo
+$bg-page: #F8F9FA;
+$primary: #007BFF;
+$primary-dark: #0D47A1;
+$text-muted: #717182;
+$border: #CED4DA;
+$white: #FFFFFF;
+$shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 4px 12px rgba(16, 24, 40, 0.06);
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: #0F172A;
+  background: $bg-page;
+  line-height: 1.5;
+}
+
+.page {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 640px;
+  background: $white;
+  border-radius: 12px;
+  box-shadow: $shadow;
+  border: 1px solid rgba(0,0,0,0.04);
+  overflow: hidden;
+
+  &__header {
+    text-align: center;
+    padding: 24px 24px 8px;
+  }
+
+  &__title {
+    font-size: 20px;
+    margin: 0 0 6px 0;
+  }
+
+  &__description {
+    margin: 0;
+    color: $text-muted;
+    font-size: 14px;
+  }
+
+  &__content {
+    padding: 16px 24px 24px;
+  }
+}
+
+.brand-circle {
+  width: 64px;
+  height: 64px;
+  background: $primary-dark;
+  border-radius: 12px;
+  margin: 0 auto 16px auto;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+
+  &__group {
+    display: grid;
+    gap: 8px;
+  }
+
+  &__label {
+    font-size: 14px;
+  }
+
+  &__error {
+    min-height: 18px;
+    font-size: 12px;
+    color: #B42318;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid $border;
+  border-radius: 8px;
+  background: $white;
+  outline: none;
+  font-size: 14px;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+
+  &::placeholder {
+    color: #A1A1B1;
+  }
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.12);
+  }
+
+  &[aria-invalid="true"] {
+    border-color: #F97066;
+    box-shadow: 0 0 0 4px rgba(249, 112, 102, 0.15);
+  }
+}
+
+.btn {
+  --btn-bg: #f8fafc;
+  --btn-border: #d0d5dd;
+  --btn-color: #111827;
+
+  appearance: none;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+
+  &:hover {
+    background: #eef2f7;
+  }
+
+  &:active {
+    transform: translateY(0.5px);
+  }
+
+  &--block {
+    width: 100%;
+  }
+
+  &--primary {
+    --btn-bg: #{$primary};
+    --btn-border: #{$primary};
+    --btn-color: #fff;
+
+    &:hover {
+      background: $primary-dark;
+      border-color: $primary-dark;
+    }
+  }
+
+  &--outline {
+    --btn-bg: #fff;
+    --btn-border: #d0d5dd;
+    --btn-color: #111827;
+
+    &:hover {
+      border-color: #9aa3af;
+      background: #fafafa;
+    }
+  }
+
+  &--xs {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+.helper {
+  text-align: center;
+  font-size: 13px;
+  color: $text-muted;
+  margin: 4px 0 0 0;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: $primary;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+  transition: color 120ms ease, text-decoration-color 120ms ease;
+
+  &:hover {
+    text-decoration: underline;
+    color: $primary-dark;
+  }
+}
+
+.demo {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid $border;
+
+  &__label {
+    color: $text-muted;
+    font-size: 13px;
+    margin: 0 0 8px 0;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+// Responsivo
+@media (min-width: 480px) {
+  .card {
+    max-width: 480px;
+  }
+}
