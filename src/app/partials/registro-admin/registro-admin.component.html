@@ -34,6 +34,7 @@
         <mat-icon matSuffix class="eye-icon" (click)="showPassword()">{{hide_1 ? 'visibility_off' :
           'visibility'}}</mat-icon>
       </mat-form-field>
+      <div *ngIf="errors.password" class="invalid-feedback">{{ errors.password }}</div>
 
       <mat-form-field appearance="outline">
         <mat-label>Confirmar contraseña</mat-label>
@@ -42,6 +43,7 @@
         <mat-icon matSuffix class="eye-icon" (click)="showPwdConfirmar()">{{hide_2 ? 'visibility_off' :
           'visibility'}}</mat-icon>
       </mat-form-field>
+      <div *ngIf="errors.confirmar_password" class="invalid-feedback">{{ errors.confirmar_password }}</div>
 
       <div class="checkbox-row">
         <input id="terms" name="terms" type="checkbox" class="checkbox" required aria-required="true" />
