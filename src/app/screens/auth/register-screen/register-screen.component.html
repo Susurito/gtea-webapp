@@ -1,68 +1,68 @@
 <app-navbar></app-navbar>
-<main class="page">
-  <section class="card">
-    <header class="card__header">
-      <a class="brand-circle-link" href="/" aria-label="Ir al inicio">
-        <div class="brand-circle" aria-hidden="true"></div>
-      </a>
-      <h1 class="card__title">Crear Cuenta</h1>
-      <p class="card__description">Regístrate en GTEA</p>
-    </header>
-
-    <div class="card__content">
-      <form id="registerForm" class="form" novalidate>
-        <div class="grid-2">
-          <div class="form__group">
-            <label for="firstName" class="form__label">Nombre</label>
-            <input id="firstName" name="firstName" class="input" placeholder="Juan" required />
-            <span class="form__error" id="firstNameError" role="alert"></span>
-          </div>
-          <div class="form__group">
-            <label for="lastName" class="form__label">Apellidos</label>
-            <input id="lastName" name="lastName" class="input" placeholder="Pérez" required />
-            <span class="form__error" id="lastNameError" role="alert"></span>
-          </div>
-        </div>
-
-        <div class="form__group">
-          <label for="email" class="form__label">Correo Institucional</label>
-          <input id="email" name="email" type="email" class="input" placeholder="tu.correo@institucion.edu"
-            autocomplete="email" required aria-required="true" />
-          <p class="help-text">Debe ser un correo institucional válido</p>
-          <span class="form__error" id="emailError" role="alert"></span>
-        </div>
-
-        <div class="form__group">
-          <label for="password" class="form__label">Contraseña</label>
-          <input id="password" name="password" type="password" class="input" placeholder="Mínimo 8 caracteres"
-            autocomplete="new-password" required minlength="8" aria-required="true" />
-          <span class="form__error" id="passwordError" role="alert"></span>
-        </div>
-
-        <div class="form__group">
-          <label for="confirmPassword" class="form__label">Confirmar Contraseña</label>
-          <input id="confirmPassword" name="confirmPassword" type="password" class="input"
-            placeholder="Repite tu contraseña" autocomplete="new-password" required minlength="8"
-            aria-required="true" />
-          <span class="form__error" id="confirmPasswordError" role="alert"></span>
-        </div>
-
-        <div class="checkbox-row">
-          <input id="terms" name="terms" type="checkbox" class="checkbox" required aria-required="true" />
-          <label for="terms" class="checkbox__label">
-            Acepto los términos y condiciones de uso de la plataforma
-          </label>
-        </div>
-        <span class="form__error" id="termsError" role="alert"></span>
-
-        <button type="submit" class="btn btn--primary btn--block">Crear Cuenta</button>
-
-        <p class="helper">
-          ¿Ya tienes cuenta?
-          <button type="button" id="goLoginBtn" class="link" routerLink="/login">Inicia sesión</button>
-        </p>
-      </form>
+<div class="wrapper">
+  <div class="section-registro">
+    <div class="header-registro">
     </div>
-  </section>
-</main>
+    <div class="body-registro">
+      <section class="slider">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </section>
+      <!-- Aquí van a ir los radio buttons para elegir el rol de usuario a registrar -->
+      <section class="rol-user">
+        <div class="container">
+          <!-- Radio buttons -->
+          <div class="row mt-5" style="text-align: center;">
+            <div class="form-group col-12">
+              <label class="title-user" for="tipo_usuario">Tipo de usuario</label>
+            </div>
+            <div class="row mt-3" style="text-align: center;">
+              <div class="form-group col-12">
+                <mat-radio-group [(ngModel)]="user.tipo_usuario" (change)="radioChange($event)" [disabled]="editar">
+                  <mat-radio-button value="administrador">Administrador</mat-radio-button>
+                  <mat-radio-button value="organizador">Organizador</mat-radio-button>
+                  <mat-radio-button value="estudiante">Estudiante</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <!-- Formularios de todos los usuarios -->
+            <section class="forms-registro">
+              <!-- Formulario del admin -->
+              <section class="registro-admin" *ngIf="isAdmin">
+                <app-registro-admin [rol]="tipo_user" [datos_user]="user"></app-registro-admin>
+              </section>
+              <!-- Formulario del alumno -->
+              <section class="registro-organizador" *ngIf="isOrganizador">
+                <app-registro-organizador [rol]="tipo_user" [datos_user]="user"></app-registro-organizador>
+              </section>
+              <!-- Formulario del maestro -->
+              <section class="registro-estudiantes" *ngIf="isEstudiante">
+                <app-registro-estudiante [rol]="tipo_user" [datos_user]="user"></app-registro-estudiante>
+              </section>
+            </section>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
 <app-footer></app-footer>
