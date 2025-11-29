@@ -46,12 +46,11 @@
       <div *ngIf="errors.confirmar_password" class="invalid-feedback">{{ errors.confirmar_password }}</div>
 
       <div class="checkbox-row">
-        <input id="terms" name="terms" type="checkbox" class="checkbox" required aria-required="true" />
-        <label for="terms" class="checkbox__label">
+        <mat-checkbox [(ngModel)]="admin.terms" (change)="validate()">
           Acepto los términos y condiciones de uso de la plataforma
-        </label>
+        </mat-checkbox>
       </div>
-      <span class="form__error" id="termsError" role="alert"></span>
+      <div *ngIf="errors.terms" class="invalid-feedback">{{ errors.terms }}</div>
 
       <div class="section-buttons">
         <button class="btn btn-danger" (click)="regresar()">Cancelar</button>

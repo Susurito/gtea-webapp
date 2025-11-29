@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -26,7 +27,8 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCheckboxModule
   ],
   templateUrl: './registro-admin.component.html',
   styleUrl: './registro-admin.component.scss'
@@ -64,6 +66,13 @@ export class RegistroAdminComponent implements OnInit {
     console.log("Datos admin: ", this.admin);
   }
 
+  //VALIDACIÓN en tiempo real (incluye el checkbox)
+  validate() {
+    this.errors = this.administradoresService.validarAdmin(
+      this.admin,
+      this.editar
+    );
+  }
 
   //Funciones para password
   showPassword() {

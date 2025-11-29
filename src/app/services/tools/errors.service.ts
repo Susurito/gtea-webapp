@@ -10,6 +10,7 @@ export class ErrorsService {
   public numeric: string;
   public betweenDate: string;
   public email: string;
+  public terms: string;
 
 
   constructor() {
@@ -18,6 +19,7 @@ export class ErrorsService {
     this.numeric = 'Solo se aceptan valores numéricos';
     this.betweenDate = 'Fecha no es válida';
     this.email = 'Favor de introducir un correo con el formato correcto';
+    this.terms = 'Debes aceptar los términos y condiciones.';  // <- NUEVO
   }
 
   between(min: any, max: any) {

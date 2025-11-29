@@ -1,19 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
 import { ErrorsService } from './tools/errors.service';
 import { ValidatorService } from './tools/validator.service';
-import { AuthService } from './auth.service';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdministradoresService {
+export class EstudiantesService {
 
   constructor(
     private http: HttpClient,
@@ -22,9 +16,9 @@ export class AdministradoresService {
     private authService: AuthService
   ) { }
 
-  public esquemaAdmin(){
+  public esquemaEstudiante() {
     return {
-      'rol':'',
+      'rol': '',
       'first_name': '',
       'last_name': '',
       'email': '',
@@ -36,34 +30,34 @@ export class AdministradoresService {
 
 
 
-  //Validación para el formulario administrador
-  public validarAdmin(data: any, editar: boolean){
-    console.log("Validando admin... ", data);
+  //Validación para el formulario estudiantes
+  public validarEstudiante(data: any, editar: boolean) {
+    console.log("Validando estudiante... ", data);
 
     let error: any = [];
 
-    if(!this.validatorService.required(data["first_name"])){
+    if (!this.validatorService.required(data["first_name"])) {
       error["first_name"] = this.errorService.required;
     }
 
-    if(!this.validatorService.required(data["last_name"])){
+    if (!this.validatorService.required(data["last_name"])) {
       error["last_name"] = this.errorService.required;
     }
 
-    if(!this.validatorService.required(data["email"])){
+    if (!this.validatorService.required(data["email"])) {
       error["email"] = this.errorService.required;
-    }else if(!this.validatorService.max(data["email"], 40)){
+    } else if (!this.validatorService.max(data["email"], 40)) {
       error["email"] = this.errorService.max(40);
-    }else if (!this.validatorService.email(data['email'])) {
+    } else if (!this.validatorService.email(data['email'])) {
       error['email'] = this.errorService.email;
     }
 
-    if(!editar){
-      if(!this.validatorService.required(data["password"])){
+    if (!editar) {
+      if (!this.validatorService.required(data["password"])) {
         error["password"] = this.errorService.required;
       }
 
-      if(!this.validatorService.required(data["confirmar_password"])){
+      if (!this.validatorService.required(data["confirmar_password"])) {
         error["confirmar_password"] = this.errorService.required;
       }
     }

@@ -9,45 +9,46 @@
 
     <div class="card__content">
       <form id="loginForm" class="form" novalidate>
+
+        <!-- CORREO -->
         <div class="form__group">
-          <label for="email" class="form__label">Correo Electrónico</label>
-          <input id="email" name="email" type="email" class="input" placeholder="tu.correo@institucion.edu"
-            autocomplete="email" required aria-required="true" />
-          <span class="form__error" id="emailError" role="alert"></span>
+          <label for="email" class="form__label">Correo electrónico</label>
+          <input type="email" id="email" class="input" placeholder="Correo electrónico" [(ngModel)]="username"
+            name="username" autocomplete="email" />
+          <div *ngIf="errors.username" class="form__error">{{ errors.username }}</div>
         </div>
 
+        <!-- CONTRASEÑA -->
         <div class="form__group">
           <label for="password" class="form__label">Contraseña</label>
-          <input id="password" name="password" type="password" class="input" placeholder="••••••••"
-            autocomplete="current-password" required aria-required="true" minlength="8" />
-          <span class="form__error" id="passwordError" role="alert"></span>
+
+          <div class="input-group-custom">
+            <input id="password" name="password" type="{{ type }}" class="input" placeholder="••••••••"
+              [(ngModel)]="password" autocomplete="current-password" />
+
+            <!-- ÍCONO MOSTRAR/OCULTAR -->
+            <span class="input-icon" (click)="showPassword()">
+              <i *ngIf="type == 'password'" class="bi bi-eye-fill"></i>
+              <i *ngIf="type == 'text'" class="bi bi-eye-slash-fill"></i>
+            </span>
+          </div>
+
+          <div *ngIf="errors.password" class="form__error">{{ errors.password }}</div>
         </div>
 
-        <button type="submit" class="btn btn--primary btn--block">
+        <!-- BOTÓN LOGIN -->
+        <button type="button" class="btn btn--primary btn--block" (click)="login()">
           Iniciar Sesión
         </button>
 
+        <!-- REGISTRO -->
         <p class="helper">
           ¿No tienes cuenta?
-          <button type="button" id="registerBtn" class="link" routerLink="/register">
+          <button type="button" class="link" routerLink="/register">
             Regístrate aquí
           </button>
         </p>
 
-        <div class="demo">
-          <p class="demo__label">Demo: Iniciar como:</p>
-          <div class="demo__grid">
-            <button type="button" class="btn btn--outline btn--xs" data-role="student">
-              Estudiante
-            </button>
-            <button type="button" class="btn btn--outline btn--xs" data-role="organizer">
-              Organizador
-            </button>
-            <button type="button" class="btn btn--outline btn--xs" data-role="admin">
-              Admin
-            </button>
-          </div>
-        </div>
       </form>
     </div>
   </section>

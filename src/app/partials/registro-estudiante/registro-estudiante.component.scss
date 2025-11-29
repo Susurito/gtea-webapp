@@ -1,0 +1,146 @@
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.section-registro{
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.body-registro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 2.5rem;
+  gap: 2.2rem;
+  background: #fff;
+  align-items: center;  // ✔ esencial
+}
+
+.title-user{
+  font-size: 28px;
+  text-align: left;
+  letter-spacing: 2px;
+  color: #231F20;
+  text-transform: capitalize;
+  opacity: 1;
+}
+
+mat-form-field{
+  width: 90%!important;
+  margin-left: 5%;
+  text-align: left!important;
+  height: 40px;
+}
+
+.mat-form-field-wrapper {
+  padding: 0 !important;   // ✔ respeta MDC
+}
+
+.mat-form-field-flex {
+  align-items: center !important;
+  min-height: 56px !important;    // ✔ evita colapso interno
+}
+
+.mat-form-field-infix {
+  padding-top: 1.1rem !important;   // ✔ necesario para mostrar label
+}
+
+.mat-input-element {
+  line-height: 1.2rem !important;
+}
+
+/* ===========================
+   CHECKBOX
+=========================== */
+.checkbox-row {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  gap: .6rem;
+}
+
+.checkbox__label {
+  font-size: 14px;
+}
+/* ==========================================================================
+   Checkbox (Acepto los términos...)
+   ========================================================================== */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 25px; // Espacio debajo del checkbox
+  width: 100%; // Asegurar que ocupe el ancho completo para centrado
+  justify-content: center; // Alinea a la izquierda dentro del body-registro
+  padding-left: 5px; // Pequeño padding para alinear con los inputs
+}
+
+.checkbox {
+  margin-right: 10px;
+  width: 18px; // Ajusta el tamaño del checkbox
+  height: 18px;
+  // Puedes personalizar el estilo del checkbox aquí, si no usa un framework CSS que ya lo haga
+}
+
+.checkbox__label {
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  text-align: left;
+}
+
+
+/* ==========================================================================
+   Botones (Crear cuenta, Cancelar, Actualizar)
+   ========================================================================== */
+.section-buttons {
+  display: flex;
+  justify-content: center; // Centrar botones
+  width: 100%;
+  margin-top: 15px; // Espacio superior
+}
+
+.btn {
+  padding: 12px 25px; // Padding para hacer los botones más grandes
+  font-size: 16px;
+  border-radius: 8px; // Bordes redondeados para los botones
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px; // Ancho mínimo para consistencia
+  border: none; // Remover bordes predeterminados de Bootstrap si existen
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  margin: 0 10px; // Espacio entre botones
+  &:hover {
+    background-color: darken(#007bff, 10%); // Oscurecer al pasar el mouse
+  }
+}
+
+.btn-danger {
+  background-color: #dc3545; // Color rojo para cancelar (Bootstrap default)
+  color: white;
+  margin: 0 10px;
+  &:hover {
+    background-color: darken(#dc3545, 10%);
+  }
+}
+
+
+
+::ng-deep .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background, .mdc-checkbox__ripple {
+  background-color: #3687cd !important;
+  border-color: #0092B8 !important;
+}
