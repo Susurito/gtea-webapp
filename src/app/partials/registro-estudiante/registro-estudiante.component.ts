@@ -104,12 +104,38 @@ export class RegistroEstudianteComponent implements OnInit {
   }
 
   public registrar(): void {
-    this.errors = {};
+    //Validación del formulario
+    this.errors = [];
+
     this.errors = this.estudiantesServices.validarEstudiante(this.estudiante, this.editar);
-    if (Object.keys(this.errors).length > 0) {
-      return;
+    if (!$.isEmptyObject(this.errors)) {
+      return;   // detener ejecución sin retornar un boolean
     }
-    console.log("paso la validacion");
+    //validar contraseña
+    if (this.estudiante.password == this.estudiante.confirm_password) {
+      //Aquí se va a ejecutar la lógica de programación para registrar un usuario
+      this.estudiantesServices.registrarEstudiantes(this.estudiante).subscribe(
+        (response) => {
+          //Aquí va la ejecución del servicio si todo es correcto
+          alert("Usuario registrado correctamente");
+          console.log("Usuario registrado: ", response);
+          if (this.token != "") {
+            this.router.navigate(["home"]);
+          } else {
+            this.router.navigate(["/"]);
+          }
+        }, (error) => {
+          //Aquí se ejecuta el error
+          alert("No se pudo registrar usuario");
+        }
+      );
+
+
+    } else {
+      alert("Las contraseñas no coinciden");
+      this.estudiante.password = "";
+      this.estudiante.confirm_password = "";
+    }
   }
 
   public actualizar() {

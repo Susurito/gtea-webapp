@@ -1,8 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { ErrorsService } from './tools/errors.service';
 import { ValidatorService } from './tools/validator.service';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +29,7 @@ export class EstudiantesService {
       'last_name': '',
       'email': '',
       'password': '',
-      'confirmar_password': '',
-      'terms': false
+      'confirm_password': '',
     }
   }
 
@@ -57,8 +62,8 @@ export class EstudiantesService {
         error["password"] = this.errorService.required;
       }
 
-      if (!this.validatorService.required(data["confirmar_password"])) {
-        error["confirmar_password"] = this.errorService.required;
+      if (!this.validatorService.required(data["confirm_password"])) {
+        error["confirm_password"] = this.errorService.required;
       }
     }
 
@@ -73,13 +78,13 @@ export class EstudiantesService {
 
 
 
-  /*
   //Aquí van los servicios HTTP
   //Servicio para registrar un nuevo usuario
-  public registrarAdmin (data: any): Observable <any>{
-    return this.http.post<any>(`${environment.url_api}/admin/`,data, httpOptions);
-  }
+  public registrarEstudiantes (data: any): Observable <any>{
+    return this.http.post<any>(`${environment.url_api}/Estudiantes/`,data, httpOptions);
+    }
 
+    /*
   //Obtener lista admins
   public obtenerListaAdmins (): Observable <any>{
     var token = this.authService.getSessionToken();

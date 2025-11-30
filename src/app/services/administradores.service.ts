@@ -29,7 +29,7 @@ export class AdministradoresService {
       'last_name': '',
       'email': '',
       'password': '',
-      'confirmar_password': '',
+      'confirm_password': '',
       'terms': false
     }
   }
@@ -63,8 +63,8 @@ export class AdministradoresService {
         error["password"] = this.errorService.required;
       }
 
-      if(!this.validatorService.required(data["confirmar_password"])){
-        error["confirmar_password"] = this.errorService.required;
+      if(!this.validatorService.required(data["confirm_password"])){
+        error["confirm_password"] = this.errorService.required;
       }
     }
 
