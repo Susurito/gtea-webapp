@@ -25,13 +25,31 @@
 }
 
 .logo-text {
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: .5px;
-}
-
-.logo-text {
   text-decoration: none;
 }
+
+
+.logo-box {
+  width: 48px; // Más grande
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden; // Evita que la imagen sobresalga
+
+  img {
+    width: 90%; // Ajusta la imagen al contenedor
+    height: auto;
+    object-fit: contain;
+    display: block;
+    border-radius: 5px;
+  }
+}
+
 
 .right-actions {
   display: flex;

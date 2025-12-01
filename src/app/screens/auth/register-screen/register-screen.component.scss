@@ -140,15 +140,30 @@ button {
   --mat-radio-checked-ripple-color: #0092B8;
 }
 
-/* ==========================================================================
-   Texto de Ayuda (¿Ya tienes cuenta? Inicia sesión)
-   ========================================================================== */
+/* ============================================================
+   Texto de ayuda: ¿Ya tienes cuenta? Inicia sesión
+============================================================ */
 p.helper {
-  margin-top: 30px; // Espacio superior
+  margin-top: 2rem;
   font-size: 15px;
   color: #555;
   text-align: center;
+
+  .link {
+    color: #3687cd;
+    font-weight: 500;
+    margin-left: 5px;
+    text-decoration: none;
+    cursor: pointer;
+
+
+    &:hover {
+      color: #2d6dad;
+      text-decoration: underline;
+    }
+  }
 }
+
 
 .link {
   background: none;

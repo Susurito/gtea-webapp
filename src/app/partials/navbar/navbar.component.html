@@ -1,8 +1,11 @@
 <nav class="top-navbar">
   <div class="brand">
-    <div class="logo-box"></div>
-    <a class="logo-text" href="/">GTEA</a>
+    <div class="logo-box">
+      <img src="../../../assets/images/logo_gtea.png" alt="GTEA Logo" />
+    </div>
+    <a class="logo-text" routerLink="/">GTEA</a>
   </div>
+
 
   <button class="toggle-btn" *ngIf="isMobileView" (click)="toggleSidebar()" aria-label="Abrir menú">
     <span class="material-icons">menu_open</span>

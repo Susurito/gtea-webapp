@@ -25,7 +25,7 @@ import { RegistroOrganizadorComponent } from "../../../partials/registro-organiz
     FormsModule,
     CommonModule,
     RegistroEstudianteComponent
-],
+  ],
   templateUrl: './register-screen.component.html',
   styleUrls: ['./register-screen.component.scss']
 })
@@ -45,7 +45,7 @@ export class RegisterScreenComponent implements OnInit {
   public tipo_user: string = "estudiante";
 
   constructor(
-    private location : Location,
+    private location: Location,
     public activatedRoute: ActivatedRoute,
     private router: Router,
     public authService: AuthService
@@ -53,4 +53,8 @@ export class RegisterScreenComponent implements OnInit {
 
   ngOnInit(): void { }
 
+
+  goLogin() {
+    this.router.navigate(['/login']);
+  }
 }
