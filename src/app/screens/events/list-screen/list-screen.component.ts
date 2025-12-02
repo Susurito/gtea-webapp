@@ -4,6 +4,8 @@ import { NavbarComponent } from "../../../partials/navbar/navbar.component";
 import { FooterComponent } from "../../../partials/footer/footer.component";
 import { Router } from '@angular/router';
 import { EventsService } from '../../../services/events.service';
+import { FormsModule } from '@angular/forms';
+
 
 interface EventItem {
   id: string;
@@ -24,7 +26,8 @@ interface EventItem {
   imports: [
     CommonModule,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    FormsModule
   ],
   templateUrl: './list-screen.component.html',
   styleUrls: ['./list-screen.component.scss']

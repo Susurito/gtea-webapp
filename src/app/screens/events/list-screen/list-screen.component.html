@@ -13,20 +13,20 @@
             <!-- Buscador -->
             <div class="search">
               <span class="icon search__icon" aria-hidden="true">
-                <!-- Lucide Search -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.3-4.3"></path>
                 </svg>
               </span>
-              <input id="searchInput" class="input pl-10" type="search" placeholder="Buscar eventos..." />
+              <input id="searchInput" class="input pl-10" type="search" placeholder="Buscar eventos..."
+                [(ngModel)]="searchTerm" (input)="filterEvents()" />
             </div>
 
-            <!-- Categoria -->
+            <!-- Categoría -->
             <div class="select">
               <label class="sr-only" for="categorySelect">Categoría</label>
-              <select id="categorySelect" class="input">
+              <select id="categorySelect" class="input" [(ngModel)]="categoryFilter" (change)="filterEvents()">
                 <option value="all">Todas las categorías</option>
                 <option value="Tecnología">Tecnología</option>
                 <option value="IA">Inteligencia Artificial</option>
@@ -34,24 +34,30 @@
               </select>
             </div>
 
-            <!-- Modality -->
+            <!-- Modalidad -->
             <div class="select">
               <label class="sr-only" for="modalitySelect">Modalidad</label>
-              <select id="modalitySelect" class="input">
+              <select id="modalitySelect" class="input" [(ngModel)]="modalityFilter" (change)="filterEvents()">
                 <option value="all">Todas</option>
-                <option value="presencial">Presencial</option>
-                <option value="virtual">Virtual</option>
-                <option value="hybrid">Híbrido</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Virtual">Virtual</option>
+                <option value="Hibrido">Híbrido</option>
               </select>
             </div>
+
           </div>
         </div>
       </section>
 
       <!-- Events Grid -->
       <section>
-        <div id="eventsGrid" class="grid">
+        <!-- Mostrar mensaje si no hay eventos -->
+        <div *ngIf="filteredEvents.length === 0" class="no-events">
+          <p>No se encontraron eventos con los filtros aplicados.</p>
+        </div>
 
+        <!-- Events Grid -->
+        <div id="eventsGrid" class="grid" *ngIf="filteredEvents.length > 0">
           <div class="card card--hover" *ngFor="let event of paginatedEvents" (click)="openEventDetail(event.id)">
             <div class="card__header">
               <div class="card__media"></div>
@@ -63,50 +69,29 @@
 
             <div class="card__content">
               <div class="meta">
-
                 <div class="meta__item">
                   <span class="icon">
                     <!-- Calendar icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
-                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                      <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-                      <path d="M16 2v4M8 2v4M3 10h18"></path>
-                    </svg>
                   </span>
                   {{ event.date }} • {{ event.time }}
                 </div>
-
                 <div class="meta__item">
                   <span class="icon">
                     <!-- MapPin icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
-                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                      <path d="M21 10c0 7-9 13-9 13S3 17 3 10c0-4 3-7 7-7s7 3 7 7z"></path>
-                      <circle cx="10" cy="10" r="2"></circle>
-                    </svg>
                   </span>
                   {{ event.venue }}
                 </div>
-
                 <div class="meta__item">
                   <span class="icon">
                     <!-- Users icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
-                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="9" cy="7" r="4"></circle>
-                      <path d="M23 21v-2a4 4 0 0 0-3-4"></path>
-                      <circle cx="17" cy="7" r="4"></circle>
-                    </svg>
                   </span>
                   Cupo: {{ event.capacity }}
                 </div>
-
               </div>
             </div>
           </div>
-
         </div>
+
       </section>
 
 
