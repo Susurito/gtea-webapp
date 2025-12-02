@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
   isMobileView = false;
@@ -20,7 +20,24 @@ export class NavbarComponent implements OnInit {
     mq.addEventListener('change', handler);
   }
 
-  toggleSidebar() { this.mobileOpen = !this.mobileOpen; }
-  closeSidebar() { this.mobileOpen = false; }
+  toggleSidebar() {
+    this.mobileOpen = !this.mobileOpen;
+    // toggle class on the main layout so sidebar SCSS reacts
+    const layout = document.querySelector('.gtea-layout');
+    if (layout) {
+      layout.classList.toggle('menu-open', this.mobileOpen);
+    }
+    // notify other components (Sidebar) about the change
+    try { window.dispatchEvent(new CustomEvent('gtea:menu-toggle', { detail: { open: this.mobileOpen } })); } catch (e) { }
+  }
+
+  closeSidebar() {
+    this.mobileOpen = false;
+    const layout = document.querySelector('.gtea-layout');
+    if (layout) {
+      layout.classList.remove('menu-open');
+    }
+    try { window.dispatchEvent(new CustomEvent('gtea:menu-toggle', { detail: { open: false } })); } catch (e) { }
+  }
   togglePalette() { /* tema */ }
 }

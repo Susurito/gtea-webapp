@@ -1,0 +1,90 @@
+<div class="app-layout">
+      <app-sidebar></app-sidebar>
+      <div class="content-area">
+        <main class="categories-container">
+          <div class="event-management-container">
+  <header class="header">
+    <h2>Gestión de Eventos</h2>
+    <button class="create-btn" (click)="crearEvento()">
+      <i class="fas fa-plus"></i> Crear Evento
+    </button>
+  </header>
+
+  <div class="filter-bar">
+    <div class="search-input">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Buscar eventos..." [(ngModel)]="searchTerm"
+      >
+    </div>
+
+    <input
+      type="text"
+      placeholder="dd/mm/aaaa"
+      [(ngModel)]="selectedDate"
+      class="date-input"
+      onfocus="(this.type='date')"
+      onblur="(this.type='text')"
+    >
+
+    <select [(ngModel)]="selectedStatus">
+      <option value="Todos los estados">Todos los estados</option>
+      <option value="Publicado">Publicado</option>
+      <option value="Borrador">Borrador</option>
+      <option value="Cancelado">Cancelado</option>
+    </select>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="events-table">
+      <thead>
+          <th>Título</th>
+          <th>Categoría</th>
+          <th>Organizador</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Inscritos</th>
+          <th class="actions-header">Acciones</th>
+          <th *ngIf="shouldShowPublishColumn"></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let evento of filteredEvents">
+          <td>{{ evento.titulo }}</td>
+          <td>{{ evento.categoria }}</td>
+          <td>{{ evento.organizador }}</td>
+          <td>{{ evento.fecha }}</td>
+          <td>
+            <span [ngClass]="['status-tag', 'status-' + evento.estado.toLowerCase()]">
+              {{ evento.estado }}
+            </span>
+          </td>
+          <td>{{ evento.inscritos }}</td>
+
+          <!--<td *ngIf="evento.estado === 'Borrador'"> -->
+            <!--<button class="publish-btn">Pub</button>-->
+          <!--</td>-->
+          <!--<th *ngIf="shouldShowPublishColumn"></th>-->
+
+          <td class="actions-cell">
+            <button class="users-btn" (click)="editarUsuarios(evento.id)">
+              <mat-icon>supervisor_account</mat-icon>
+            </button>
+            <button class="edit-btn" (click)="editarEvento(evento.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button class="delete-btn" (click)="eliminarEvento(evento.id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="scroll-bar-visual">
+  </div>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+

@@ -37,13 +37,13 @@
         <div class="demo">
           <p class="demo__label">Demo: Iniciar como:</p>
           <div class="demo__grid">
-            <button type="button" class="btn btn--outline btn--xs" data-role="student">
+            <button (click)="setRole(ROLES.ESTUDIANTE)" type="button" class="btn btn--outline btn--xs" data-role="student">
               Estudiante
             </button>
-            <button type="button" class="btn btn--outline btn--xs" data-role="organizer">
+            <button (click)="setRole(ROLES.ORGANIZADOR)" type="button" class="btn btn--outline btn--xs" data-role="organizer">
               Organizador
             </button>
-            <button type="button" class="btn btn--outline btn--xs" data-role="admin">
+            <button (click)="setRole(ROLES.ADMINISTRADOR)" type="button" class="btn btn--outline btn--xs" data-role="admin" (click)="goAdmin()" >
               Admin
             </button>
           </div>

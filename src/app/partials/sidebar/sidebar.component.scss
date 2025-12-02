@@ -1,0 +1,390 @@
+$color-primary: #007bff; // Azul del item activo
+$color-text: #2c3e50; // Color de texto oscuro
+$color-light-bg: #f8f9fa; // Fondo general del layout
+$color-sidebar-bg: #ffffff; // Fondo de la barra lateral
+$color-navbar-bg: hsl(120, 33%, 1%); // Fondo de la barra de navegación
+$color-sidebar-hover: #f1f1f1; // Fondo al pasar el mouse por un item
+
+
+/* VARIABLES */
+$navbar-height: 70px;
+$sidebar-width: 250px;
+$bg-light: #f8f9fa;
+
+/* --- CONTENEDOR GENERAL --- */
+.gtea-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* --- NAVBAR SUPERIOR --- */
+.gtea-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $navbar-height;
+  background: white;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  z-index: 1000;
+
+  .top-navbar {
+    width: 100%;
+    padding: 0 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .logo-box {
+        width: 35px;
+        height: 35px;
+        background: #1e40af;
+        border-radius: 7px;
+      }
+
+      .logo-text {
+        font-size: 23px;
+        font-weight: bold;
+        color: #1e40af;
+      }
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+}
+
+/* --- ÁREA PRINCIPAL (SIDEBAR + CONTENIDO) --- */
+.gtea-main-content {
+  display: flex;
+  flex: 1;
+
+  /* Deja espacio debajo del navbar */
+  margin-top: $navbar-height;
+}
+
+/* --- SIDEBAR LATERAL --- */
+.gtea-sidebar {
+  width: $sidebar-width;
+  background: white;
+  height: calc(100vh - $navbar-height);
+  position: fixed;
+  top: $navbar-height;
+  left: 0;
+  border-right: 1px solid #e5e5e5;
+  padding-top: 1.5rem;
+
+  nav {
+    display: flex;
+    flex-direction: column;
+
+    .sidebar-item {
+      padding: 0.8rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: #333;
+      text-decoration: none;
+      transition: 0.2s ease;
+
+      &:hover,
+      &.active {
+        background: #eef2ff;
+        color: #1e40af;
+      }
+    }
+  }
+
+  .sidebar-footer {
+    position: absolute;
+    bottom: 20px;
+    padding: 0 1rem;
+  }
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.gtea-content {
+  flex: 1;
+  margin-left: $sidebar-width;
+  padding: 1.5rem;
+  background: $bg-light;
+  min-height: calc(100vh - $navbar-height);
+}
+
+
+
+
+.logo-box {
+  width: 32px;
+  height: 32px;
+  background: #0d47a1;
+  border-radius: 6px;
+}
+
+.top-navbar {
+  height: 50px;
+  background: #ffffff;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-text {
+  font-weight: 600;
+  letter-spacing: .5px;
+}
+
+.logo-text {
+  text-decoration: none;
+}
+
+
+
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-icon-item,
+.navbar-action-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #2c3e50;
+  cursor: pointer;
+  margin-left: 0;
+  margin-right: 0;
+
+  mat-icon {
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.navbar-action-item {
+  padding-left: 5px;
+  padding-right: 20px;
+
+  mat-icon {
+    margin-right: 5px;
+  }
+}
+
+.navbar-icon-item {
+  padding: 0 5px;
+}
+
+
+
+
+
+/* --- 2. Sidebar --- */
+
+
+.gtea-sidebar nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: $color-text;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+  font-size: 1rem;
+  font-weight: 500;
+
+  i {
+    margin-right: 15px;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+  }
+
+  &:hover:not(.active) {
+    background-color: $color-primary;
+    color: white;
+  }
+
+  &.active {
+    background-color: $color-primary;
+    color: white !important;
+    border-right: 4px solid $color-primary;
+    border-radius: 0;
+
+    i {
+      color: white;
+    }
+  }
+}
+
+/* Footer del Sidebar */
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: auto;
+
+  button {
+    background: none;
+    border: none;
+    color: #4c9adf;
+    font-size: 0.8rem;
+    text-align: left;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+
+    &:hover {
+      color: $color-text;
+    }
+  }
+
+  :root {
+    --sidebar-width: 240px;
+    --navbar-height: 64px;
+    /* 4rem, altura estándar */
+    --primary-blue: #007bff;
+    --bg-light: #f4f6f9;
+    --text-primary: #1f2937;
+    --mobile-breakpoint: 768px;
+    /* Punto de quiebre para móvil */
+  }
+
+  // ------------------------------------
+  // Estructura Principal del Layout
+  // ------------------------------------
+  .gtea-layout {
+    display: grid;
+    min-height: 100vh;
+    background-color: var(--bg-light);
+
+    // ------------------------------------
+    // Estilos de ESCRITORIO (Desktop First - default Grid)
+    // ------------------------------------
+    grid-template-areas:
+      "navbar navbar"
+      "sidebar content";
+
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: var(--navbar-height) 1fr;
+
+    // El sidebar y el navbar en el flujo normal de Grid para desktop
+  }
+
+  /* Asignación de Áreas del Grid */
+
+
+
+  .gtea-sidebar {
+    grid-area: sidebar;
+    position: sticky;
+    top: var(--navbar-height);
+    height: calc(100vh - var(--navbar-height));
+    overflow-y: auto;
+    background-color: white;
+    border-right: 1px solid #e0e0e0;
+    z-index: 10;
+    transition: transform 0.3s ease-in-out;
+  }
+
+
+  // ------------------------------------
+  // 1. Capa de Overlay (Fondo oscuro)
+  // ------------------------------------
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+    /* Debe estar entre el sidebar (10) y el contenido (implícito < 9) */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+  }
+
+
+  // ------------------------------------
+  // 2. Estilos RESPONSIVOS (Mobile-First y Sidebar Deslizante)
+  // ------------------------------------
+  @media (max-width: var(--mobile-breakpoint)) {
+
+    // Estructura de la página en móvil
+    .gtea-layout {
+      grid-template-areas:
+        "navbar"
+        "content";
+      grid-template-columns: 1fr;
+      grid-template-rows: var(--navbar-height) 1fr;
+    }
+
+    // Hamburguesa visible en móvil
+    .gtea-navbar {
+      .menu-toggle {
+        display: block;
+      }
+
+      // Esconder el brand si es necesario para ahorrar espacio, por ejemplo:
+      // .brand { display: none; }
+    }
+
+    // Sidebar fijo y oculto lateralmente
+    .gtea-sidebar {
+      grid-area: unset;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+
+      // Oculto por defecto
+      transform: translateX(calc(0px - var(--sidebar-width)));
+    }
+
+
+    // ------------------------------------
+    // Estado "Menú Abierto"
+    // ------------------------------------
+
+
+    .gtea-layout.menu-open .gtea-sidebar {
+      transform: translateX(0);
+      /* Desliza a la vista */
+    }
+
+    .gtea-layout.menu-open .menu-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

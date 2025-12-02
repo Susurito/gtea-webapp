@@ -1,1 +1,123 @@
-<p>reports-screen works!</p>
+<div class="app-layout">
+    <app-sidebar></app-sidebar>
+    <div class="content-area">
+      <main class="categories-container">
+              <div class="dashboard-container">
+        <header class="section-card">
+          <h2>Reportes y Estadísticas</h2>
+
+          <div class="filters-container">
+            <h3>Filtros de Consulta</h3>
+            <p class="description">Personaliza el periodo y categorías a analizar</p>
+
+            <div class="filter-controls">
+              <div class="input-group">
+                <label for="fechaInicio">Fecha Inicio</label>
+                <input type="text" id="fechaInicio" placeholder="dd/mm/aaaa">
+              </div>
+              <div class="input-group">
+                <label for="fechaFin">Fecha Fin</label>
+                <input type="text" id="fechaFin" placeholder="dd/mm/aaaa">
+              </div>
+              <div class="input-group">
+                <label for="categoria">Categoría</label>
+                <select id="categoria" [(ngModel)]="selectedCategory">
+                  <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label for="organizador">Organizador</label>
+                <select id="organizador" [(ngModel)]="selectedOrganizer">
+                  <option *ngFor="let org of organizers" [value]="org">{{ org }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="filter-actions">
+              <button class="btn btn-primary" (click)="generarReporte()">Generar Reporte</button>
+              <button class="btn btn-secondary" (click)="exportarCSV()">
+                <i class="fas fa-file-export"></i> Exportar CSV
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <section class="kpi-grid">
+          <div class="kpi-card" *ngFor="let kpi of kpis">
+            <div class="kpi-header">
+              <span class="kpi-icon">{{ kpi.icon }}</span>
+              <h4 class="kpi-title">{{ kpi.title }}</h4>
+            </div>
+            <p class="kpi-value">{{ kpi.value | number }}<span class="unit" *ngIf="kpi.title === 'Promedio Cupo' || kpi.title === 'Tasa de Asistencia'">%</span></p>
+            <p class="kpi-change" [class.positive]="kpi.change.startsWith('+')" [class.negative]="kpi.change.startsWith('-')">
+              {{ kpi.change }} <span class="context">{{ kpi.context }}</span>
+            </p>
+          </div>
+        </section>
+
+        <section class="charts-grid">
+
+          <div class="chart-card">
+            <h3 class="chart-title">Gráfico de Barras</h3>
+            <p class="chart-subtitle">(ng2-charts / recharts)</p>
+            <div class="chart-placeholder">
+              Gráfico de Barras
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3 class="chart-title">Gráfico Circular</h3>
+            <p class="chart-subtitle">(ng2-charts / recharts)</p>
+            <div class="chart-placeholder circle-chart-placeholder">
+            <div class="pie-chart-mock" [style.background]="conicGradientStyle"></div>
+            </div>
+          </div>
+
+          <div class="chart-card large">
+            <h3 class="chart-title">Tendencia de Inscripciones</h3>
+            <p class="chart-subtitle">Inscripciones en el tiempo</p>
+            <div class="chart-placeholder">
+              Gráfico de Línea
+              <p>(ng2-charts / recharts)</p>
+            </div>
+          </div>
+
+          <div class="chart-card list-card">
+            <h3 class="chart-title">Top Organizadores</h3>
+            <p class="chart-subtitle">Organizadores con más eventos</p>
+            <div class="organizer-list">
+              <div class="organizer-item" *ngFor="let org of topOrganizers">
+                <span class="organizer-name">{{ org.name }}</span>
+                <div class="bar-container">
+                  <div class="bar-fill"
+                      [style.width]="(org.events / topOrganizers[0].events) * 100 + '%'"
+                      [style.background-color]="org.color">
+                  </div>
+                </div>
+                <span class="organizer-count">{{ org.events }} eventos</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3 class="chart-title">Eventos por Mes</h3>
+            <p class="chart-subtitle">Distribución mensual de eventos</p>
+            <div class="chart-placeholder">
+              Gráfico de Barras/Línea
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3 class="chart-title">Distribución por Categoría</h3>
+            <p class="chart-subtitle">Eventos por tipo</p>
+            <div class="chart-placeholder circle-chart-placeholder">
+              <div class="pie-chart-mock" [style.background]="conicGradientStyle"></div>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+      </main>
+    </div>
+</div>

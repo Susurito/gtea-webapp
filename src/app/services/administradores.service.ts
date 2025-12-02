@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { ErrorsService } from './tools/errors.service';
 import { ValidatorService } from './tools/validator.service';
 import { AuthService } from './auth.service';
+import { FacadeService } from './facade.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,7 +20,8 @@ export class AdministradoresService {
     private http: HttpClient,
     private validatorService: ValidatorService,
     private errorService: ErrorsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private facadeService: FacadeService
   ) { }
 
   public esquemaAdmin(){
@@ -72,6 +74,12 @@ export class AdministradoresService {
     return error;
   }
 
+  public obtenerListaAdmins(): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.get<any>(`${environment.url_api}/lista-admins/`, {headers:headers});
+  }
+
 
 
   /*
@@ -87,6 +95,7 @@ export class AdministradoresService {
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
     return this.http.get<any>(`${environment.url_api}/lista-admins/`, {headers:headers});
   }
+
 
   //Obtener un solo usuario dependiendo su ID
   public getAdminByID(idUser: Number){

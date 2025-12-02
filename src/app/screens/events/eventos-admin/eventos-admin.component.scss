@@ -1,0 +1,297 @@
+// Variables para colores y tipografía
+$primary-blue: #007bff;
+$primary-blue-hover: darken($primary-blue, 10%);
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$bg-light: #f4f6f9;
+$card-bg: #ffffff;
+$border-color: #e5e7eb;
+
+$app-navbar-height: 50px;
+$app-sidebar-width: 250px;
+
+
+
+$primary-color: #007bff;
+$success-color: #28a745;
+$warning-color: #ffc107;
+$danger-color: #dc3545;
+$border-color: #e9ecef;
+$text-color: #343a40;
+$light-bg: #f8f9fa;
+
+.app-layout {
+  display: grid;
+  grid-template-columns: $app-sidebar-width auto;
+  grid-template-rows: $app-navbar-height auto;
+  height: 100vh;
+  // Define las áreas del grid
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar content";
+}
+.navbar {
+  grid-area: navbar;
+  background: #fff;
+  height: $app-navbar-height;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: #eee;
+  width: $app-sidebar-width;
+}
+
+.content-area {
+  grid-area: content;
+  padding: 2rem;
+  background-color: $bg-light;
+  height: 100%;
+  overflow-y: auto;
+}
+
+
+
+.event-management-container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: Arial, sans-serif;
+}
+
+/* --- Encabezado y Botón --- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+
+  h2 {
+    color: $text-color;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .create-btn {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    i {
+      margin-right: 8px;
+      font-size: 0.9rem;
+    }
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+/* --- Barra de Filtros --- */
+.filter-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+
+  .search-input,
+  .date-input,
+  select {
+    height: 40px;
+    padding: 0 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: $text-color;
+    box-sizing: border-box;
+  }
+
+  .search-input {
+    flex-grow: 1;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    i {
+        margin-left: 15px;
+        color: #adb5bd;
+    }
+
+    input {
+        border: none;
+        flex-grow: 1;
+        padding: 0 15px;
+        &:focus {
+            outline: none;
+        }
+    }
+  }
+
+  .date-input,
+  select {
+    width: 200px;
+  }
+
+  select {
+    appearance: none;
+    background: white url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%20197.8L146.2%2057%205.4%20197.8z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 10px center;
+    background-size: 10px;
+    padding-right: 30px;
+  }
+}
+
+/* --- Tabla de Eventos --- */
+.table-wrapper {
+
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+
+  /* Estilo general de las celdas */
+  th, td {
+    padding: 12px 15px;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  /* Encabezado */
+  thead {
+    background-color: $light-bg;
+
+    th {
+      font-weight: 600;
+      color: $text-color;
+      border-bottom: 2px solid $border-color;
+      font-size: 0.9rem;
+    }
+    &.actions-header {
+      text-align: left;
+    }
+  }
+
+  /* Cuerpo de la tabla */
+  tbody {
+    tr {
+      border-bottom: 1px solid $border-color;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      font-size: 0.9rem;
+      color: $text-color;
+    }
+  }
+}
+
+/* --- Tags de Estado --- */
+.status-tag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: white;
+  text-align: center;
+}
+
+.status-publicado {
+  background-color: $success-color;
+}
+
+.status-borrador {
+  background-color: $warning-color;
+  color: $text-color;
+}
+
+.status-cancelado {
+  background-color: $danger-color;
+}
+
+/* --- Botón Publicar (Pub) --- */
+.publish-btn {
+  background-color: $success-color;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+
+/* --- Barra de Desplazamiento Personalizada (Visual) --- */
+.scroll-bar-visual {
+    height: 6px;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.scroll-thumb {
+    width: 60%;
+    height: 100%;
+    background-color: #adb5bd;
+    border-radius: 3px;
+}
+
+
+/* --- Acciones de la Tabla --- */
+.actions-cell {
+    display: flex;
+    gap: 2px;
+
+    button {
+        background: none;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        padding: 6px 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        i {
+            font-size: 0.9rem;
+        }
+    }
+
+    .users-btn {
+        color: $text-color; /* Azul */
+        border-radius: 2dvh;
+        &:hover {
+            background-color: lighten($text-color, 45%);
+        }
+    }
+
+    .edit-btn {
+        color: $primary-color; /* Azul */
+        border-radius: 2dvh;
+        &:hover {
+            background-color: lighten($primary-color, 45%);
+        }
+    }
+
+    .delete-btn {
+        color: $danger-color; /* Rojo */
+        border-radius: 2dvh;
+        &:hover {
+            background-color: lighten($danger-color, 35%);
+        }
+    }
+}

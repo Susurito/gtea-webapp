@@ -2,6 +2,10 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';   // ← IMPORTANTE
 
+import { FormsModule } from '@angular/forms';
+
+
+
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -9,5 +13,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),    // ← PROVEEDOR DE HTTP
+
+    provideRouter(routes),
+    // 2. Agrega `FormsModule` a los providers usando `importProvidersFrom`
+    // Esto lo hace disponible globalmente.
+    FormsModule
   ],
 };

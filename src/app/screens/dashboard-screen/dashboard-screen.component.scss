@@ -1,0 +1,214 @@
+// Variables para colores y tipografía
+$primary-blue: #007bff;
+$primary-blue-hover: darken($primary-blue, 10%);
+$text-primary: #1f2937; // Gris oscuro
+$text-secondary: #6b7280; // Gris medio
+$bg-light: #f4f6f9; // Fondo de la página
+$card-bg: #ffffff;
+$border-color: #e5e7eb;
+$primary-color: #007bff; // Azul para el botón principal
+$secondary-color: #6c757d; // Gris para botones secundarios
+$success-color: #28a745; // Verde para incrementos positivos
+$border-color: #e0e0e0;
+$background-light: #f8f9fa;
+$text-dark: #343a40;
+$card-background: #ffffff;
+
+$app-navbar-height: 50px;
+$app-sidebar-width: 250px;
+
+.app-layout {
+  display: grid;
+  grid-template-columns: $app-sidebar-width auto;
+  grid-template-rows: $app-navbar-height auto;
+  height: 100vh;
+  // Define las áreas del grid
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar content";
+}
+.navbar {
+  grid-area: navbar;
+  background: #fff;
+  height: $app-navbar-height;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: #eee;
+  width: $app-sidebar-width;
+}
+
+.content-area {
+  grid-area: content;
+  padding: 2rem;
+  background-color: $bg-light;
+  height: 100%;
+  overflow-y: auto;
+}
+
+
+
+.dashboard-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: $text-dark;
+}
+
+.dashboard-title {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+/* --- Estilos para la Malla de Métricas --- */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.metric-card {
+  background-color: $card-background;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: $secondary-color;
+
+  .material-icons {
+    font-size: 1.2rem;
+    color: $secondary-color;
+  }
+}
+
+.metric-body {
+  margin-top: 10px;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+.metric-value {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.metric-change {
+  font-size: 0.9rem;
+  &.positive {
+    color: $success-color;
+  }
+}
+
+/* --- Estilos para la Sección Inferior --- */
+.bottom-section-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr; // Dos columnas, la de eventos el doble de ancha
+  gap: 20px;
+}
+
+.panel {
+  background-color: $card-background;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.panel-title {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.panel-subtitle {
+  font-size: 0.9rem;
+  color: $secondary-color;
+  margin-bottom: 15px;
+}
+
+/* Estilos de Eventos Recientes */
+.event-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.event-name {
+  font-weight: 500;
+  margin: 0;
+}
+
+.event-time {
+  font-size: 0.85rem;
+  color: $secondary-color;
+  margin: 0;
+}
+
+.event-status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  &.published {
+    background-color: lighten($success-color, 45%);
+    color: $success-color;
+  }
+}
+
+/* Estilos de Acciones Rápidas */
+.quick-actions-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  .material-icons {
+    margin-right: 8px;
+    font-size: 1.2rem;
+  }
+
+  &.primary {
+    background-color: $primary-color;
+    color: $card-background;
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  &.secondary {
+    background-color: $card-background;
+    color: $text-dark;
+    border-color: $border-color;
+    &:hover {
+      background-color: $background-light;
+    }
+  }
+}
