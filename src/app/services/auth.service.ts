@@ -59,6 +59,15 @@ export class AuthService {
     return error;
   }
 
+  //Iniciar sesión
+  login(username:String, password:String): Observable<any> {
+    var data={
+      username: username,
+      password: password
+    }
+    return this.http.post<any>(`${environment.url_api}/token/`,data);
+  }
+
   // Funciones para utilizar las cookies en web
   retrieveSignedUser(){
     var headers: any;

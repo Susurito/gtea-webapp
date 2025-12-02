@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../../partials/navbar/navbar.component";
 import { FooterComponent } from "../../../partials/footer/footer.component";
 import { Router } from '@angular/router';
+import { EventsService } from '../../../services/events.service';
 
 interface EventItem {
   id: string;
@@ -13,8 +14,9 @@ interface EventItem {
   capacity: string;
   venue: string;
   status: string;
+  modality: string;
+  description: string;
 }
-
 
 @Component({
   selector: 'app-list-screen',
@@ -37,63 +39,70 @@ export class ListScreenComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 6;
 
-  // EVENTOS
-  events: EventItem[] = [
-    {
-      id: "1",
-      title: "Workshop de React Avanzado",
-      category: "Tecnología",
-      date: "15 Oct 2025",
-      time: "14:00 - 17:00",
-      capacity: "30/50",
-      venue: "Aula 101, Edificio A",
-      status: "Publicado"
-    },
-    {
-      id: "2",
-      title: "Seminario de Inteligencia Artificial",
-      category: "IA",
-      date: "20 Oct 2025",
-      time: "10:00 - 13:00",
-      capacity: "45/60",
-      venue: "Auditorio Principal",
-      status: "Publicado"
-    },
-    {
-      id: "3",
-      title: "Taller de Diseño UX/UI",
-      category: "Diseño",
-      date: "25 Oct 2025",
-      time: "15:00 - 18:00",
-      capacity: "20/30",
-      venue: "Lab de Diseño 202",
-      status: "Publicado"
-    },
-    {
-      id: "4",
-      title: "Conferencia de Ciberseguridad",
-      category: "Tecnología",
-      date: "30 Oct 2025",
-      time: "09:00 - 12:00",
-      capacity: "50/80",
-      venue: "Auditorio B",
-      status: "Publicado"
-    },
-  ];
-
+  // EVENTOS REALES DEL BACKEND
+  events: EventItem[] = [];
   filteredEvents: EventItem[] = [];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private eventsService: EventsService
+  ) {}
 
   ngOnInit(): void {
-    this.filterEvents();
+    this.obtenerEventos();
   }
 
-  // FILTROS
+  // ==================================================
+  //      OBTENER EVENTOS DESDE TU API
+  // ==================================================
+  obtenerEventos() {
+    this.eventsService.obtenerListaEventos().subscribe({
+      next: (res) => {
+        console.log("Eventos obtenidos:", res);
+
+        this.events = res.map((item: any) => ({
+          id: item.id,
+          title: item.nombre_evento,
+          category: item.categoria,
+          date: item.fecha_evento ? this.formatDate(item.fecha_evento) : "Sin fecha",
+          time:
+            item.hora_inicio && item.hora_fin
+              ? `${item.hora_inicio.substring(0, 5)} - ${item.hora_fin.substring(0, 5)}`
+              : "Sin horario",
+          capacity: `${item.cupo}`,
+          venue: item.lugar,
+          status: "Publicado",
+          modality: item.modalidad ?? "No especificado",
+          description: item.descripcion ?? ""
+        }));
+
+        this.filterEvents();
+      },
+      error: (err) => {
+        console.error("Error al obtener eventos:", err);
+      }
+    });
+  }
+
+  // ==================================================
+  //            FORMATEAR FECHA
+  // ==================================================
+  formatDate(dateStr: string): string {
+    if (!dateStr) return "Sin fecha";
+
+    const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                   "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+
+    const date = new Date(dateStr + "T00:00:00");
+    return `${date.getDate()} ${meses[date.getMonth()]} ${date.getFullYear()}`;
+  }
+
+  // ==================================================
+  //                  FILTROS
+  // ==================================================
   filterEvents() {
     let data = [...this.events];
 
-    // Buscar
     if (this.searchTerm.trim() !== '') {
       const term = this.searchTerm.toLowerCase();
       data = data.filter(ev =>
@@ -102,20 +111,20 @@ export class ListScreenComponent implements OnInit {
       );
     }
 
-    // Filtro categoría
     if (this.categoryFilter !== 'all') {
       data = data.filter(ev => ev.category === this.categoryFilter);
     }
 
-    // Modalidad (si tuvieras campo, ahorita solo se deja listo)
     if (this.modalityFilter !== 'all') {
-      // ejemplo: data = data.filter(ev => ev.modality === this.modalityFilter);
+      data = data.filter(ev => ev.modality === this.modalityFilter);
     }
 
     this.filteredEvents = data;
   }
 
-  // PAGINACIÓN
+  // ==================================================
+  //               PAGINACIÓN
+  // ==================================================
   get paginatedEvents(): EventItem[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return this.filteredEvents.slice(start, start + this.itemsPerPage);
@@ -129,7 +138,9 @@ export class ListScreenComponent implements OnInit {
     if (page >= 1 && page <= this.totalPages) this.currentPage = page;
   }
 
-  // CLICK CARD
+  // ==================================================
+  //           ABRIR DETALLE DEL EVENTO
+  // ==================================================
   openEventDetail(id: string) {
     this.router.navigate(['/event-detail', id]);
   }

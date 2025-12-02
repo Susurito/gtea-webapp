@@ -37,15 +37,26 @@ export class LoginScreenComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public login(): boolean {
+  public login(): void {
     // Validar
+    this.errors = [];
+
     this.errors = this.authService.validarLogin(this.username, this.password);
 
     if (!$.isEmptyObject(this.errors)) {
-      return false;
+      return; // ✔️ no devuelve ningún valor
     }
 
-    return true;
+    // Llamada al servicio
+    this.authService.login(this.username, this.password).subscribe(
+      (response) => {
+        this.authService.saveUserData(response);
+        this.router.navigate(["dashboard"]);
+      },
+      (error) => {
+        alert("No se pudo iniciar sesión");
+      }
+    );
   }
 
 
