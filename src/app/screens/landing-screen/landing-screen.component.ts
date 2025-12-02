@@ -1,9 +1,12 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../partials/navbar/navbar.component";
 import { FooterComponent } from "../../partials/footer/footer.component";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { EventsService } from '../../services/events.service';
 
 type Evento = {
+  id: string;
   titulo: string;
   tipo: string;
   fecha: string;
@@ -13,68 +16,67 @@ type Evento = {
 
 @Component({
   selector: 'app-landing-screen',
-  imports: [NavbarComponent, FooterComponent, RouterLink],
+  standalone: true,
+  imports: [NavbarComponent, FooterComponent, RouterLink, CommonModule],
   templateUrl: './landing-screen.component.html',
   styleUrl: './landing-screen.component.scss'
 })
-export class LandingScreenComponent {
-  // Sustituir rutas por las imágenes locales del proyecto:
-  // Copiar las imágenes adjuntas a assets/landing/ y mapear aquí.
-  eventos: Evento[] = [
-    {
-      titulo: 'Conferencia Internacional de Inteligencia Artificial',
-      tipo: 'Conferencia',
-      fecha: '12 de Noviembre, 2025',
-      lugar: 'Auditorio Principal',
-      img: 'assets/landing/evento-1.jpg',
-    },
-    {
-      titulo: 'Seminario de Investigación Científica',
-      tipo: 'Seminario',
-      fecha: '18 de Noviembre, 2025',
-      lugar: 'Aula Magna',
-      img: 'assets/landing/evento-2.jpg',
-    },
-    {
-      titulo: 'Workshop de Desarrollo Web Moderno',
-      tipo: 'Workshop',
-      fecha: '28 de Octubre, 2025',
-      lugar: 'Centro de Tecnología',
-      img: 'assets/landing/evento-3.jpg',
-    },
-    {
-      titulo: 'Jornada de Innovación Educativa',
-      tipo: 'Jornada',
-      fecha: '3 de Diciembre, 2025',
-      lugar: 'Sala Innovación',
-      img: 'assets/landing/evento-4.jpg',
-    },
-  ];
+export class LandingScreenComponent implements OnInit {
 
-  // CTA handlers: reemplazar por navegación real (Router) o servicios de auth
-  onRegistrarse(): void {
-    // this.router.navigate(['/auth/register']);
-    alert('Abrir registro');
+  eventos: Evento[] = [];
+
+  constructor(
+    private eventsService: EventsService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.obtenerEventos();
   }
 
-  onIngresar(): void {
-    // this.router.navigate(['/auth/login']);
-    alert('Abrir login');
+  // ==================================================
+  //      OBTENER EVENTOS DEL BACKEND (PÚBLICO)
+  // ==================================================
+  obtenerEventos() {
+    this.eventsService.obtenerListaEventos().subscribe({
+      next: (res) => {
+        // Convertimos igual que en ListScreen
+        const parsed = res.map((item: any) => ({
+          id: item.id,
+          titulo: item.nombre_evento,
+          tipo: item.categoria,
+          fecha: this.formatFecha(item.fecha_evento),
+          lugar: item.lugar,
+          img: item.imagen_url ?? "assets/landing/default.jpg"
+        }));
+
+        // Solo mostramos los primeros 3 en la landing
+        this.eventos = parsed.slice(0, 3);
+      },
+      error: (err) => console.error("Error obteniendo eventos:", err)
+    });
   }
 
-  onComenzar(): void {
-    // this.router.navigate(['/eventos']);
-    window.location.hash = '#eventos';
+  // ==================================================
+  //            FORMATEAR FECHA
+  // ==================================================
+  formatFecha(fechaStr: string): string {
+    if (!fechaStr) return "Sin fecha";
+
+    const meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+    const d = new Date(fechaStr + "T00:00:00");
+
+    return `${d.getDate()} ${meses[d.getMonth()]} ${d.getFullYear()}`;
   }
 
-  verEvento(ev: Evento): void {
-    // this.router.navigate(['/eventos', evId]);
-    alert(`Ver detalles: ${ev.titulo}`);
+  // ==================================================
+  //                  ACCIONES
+  // ==================================================
+  verEvento(id: string) {
+    this.router.navigate(['/event-detail', id]);
   }
 
-  verCatalogo(): void {
-    // this.router.navigate(['/eventos']);
-    alert('Ver catálogo completo');
+  verCatalogo() {
+    this.router.navigate(['/events']);
   }
-
 }

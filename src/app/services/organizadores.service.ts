@@ -1,30 +1,22 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
 import { ErrorsService } from './tools/errors.service';
 import { ValidatorService } from './tools/validator.service';
-import { AuthService } from './auth.service';
-import { FacadeService } from './facade.service';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdministradoresService {
+export class OrganizadoresService {
 
   constructor(
     private http: HttpClient,
     private validatorService: ValidatorService,
     private errorService: ErrorsService,
-    private authService: AuthService,
-    private facadeService: FacadeService
+    private authService: AuthService
   ) { }
 
-  public esquemaAdmin(){
+  public esquemaOrganizador(){
     return {
       'rol':'',
       'first_name': '',
@@ -38,8 +30,8 @@ export class AdministradoresService {
 
 
 
-  //Validación para el formulario administrador
-  public validarAdmin(data: any, editar: boolean){
+  //Validación para el formulario organizador
+  public validarOrganizador(data: any, editar: boolean){
     console.log("Validando admin... ", data);
 
     let error: any = [];
@@ -79,12 +71,6 @@ export class AdministradoresService {
     return error;
   }
 
-  public obtenerListaAdmins(): Observable <any>{
-    var token = this.facadeService.getSessionToken();
-    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
-    return this.http.get<any>(`${environment.url_api}/lista-admins/`, {headers:headers});
-  }
-
 
 
   /*
@@ -100,7 +86,6 @@ export class AdministradoresService {
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
     return this.http.get<any>(`${environment.url_api}/lista-admins/`, {headers:headers});
   }
-
 
   //Obtener un solo usuario dependiendo su ID
   public getAdminByID(idUser: Number){

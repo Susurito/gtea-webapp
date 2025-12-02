@@ -220,3 +220,39 @@ body {
     max-width: 480px;
   }
 }
+
+/* ==== INPUT GROUP PARA PASSWORD ==== */
+.input-group-custom {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .input {
+    padding-right: 42px; // espacio para el icono
+  }
+}
+
+/* ==== ÍCONO MOSTRAR/OCULTAR ==== */
+.input-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+
+  i {
+    font-size: 18px;
+    color: #717182; // gris suave de su paleta
+
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: #0D47A1; // azul oscuro
+    }
+  }
+}

@@ -24,17 +24,15 @@ import { RegistroOrganizadorComponent } from "../../../partials/registro-organiz
     MatButtonModule,
     FormsModule,
     CommonModule,
-    RegistroAdminComponent,
-    RegistroEstudianteComponent,
-    RegistroOrganizadorComponent
-],
+    RegistroEstudianteComponent
+  ],
   templateUrl: './register-screen.component.html',
   styleUrls: ['./register-screen.component.scss']
 })
 export class RegisterScreenComponent implements OnInit {
 
   public tipo: string = "registro-usuarios";
-  public user: any = {};
+  public user: any = { tipo_usuario: 'estudiante' };
   public editar: boolean = false;
   public rol: string = "";
   public idUser: number = 0;
@@ -44,34 +42,19 @@ export class RegisterScreenComponent implements OnInit {
   public isOrganizador: boolean = false;
   public isEstudiante: boolean = false;
 
-  public tipo_user: string = "";
+  public tipo_user: string = "estudiante";
 
   constructor(
-    private location : Location,
+    private location: Location,
     public activatedRoute: ActivatedRoute,
     private router: Router,
-    public authService: AuthService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void { }
 
-  //  Método para capturar el cambio de radio button
-  public radioChange(event: MatRadioChange) {
-    if(event.value === "administrador"){
-      this.isAdmin = true;
-      this.isOrganizador = false;
-      this.isEstudiante = false;
-      this.tipo_user = "administrador";
-    } else if (event.value === "organizador"){
-      this.isAdmin = false;
-      this.isOrganizador = true;
-      this.isEstudiante = false;
-      this.tipo_user = "organizador";
-    } else if (event.value === "estudiante"){
-      this.isAdmin = false;
-      this.isOrganizador = false;
-      this.isEstudiante = true;
-      this.tipo_user = "estudiante";
-    }
+
+  goLogin() {
+    this.router.navigate(['/login']);
   }
 }

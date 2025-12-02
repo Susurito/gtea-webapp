@@ -139,3 +139,45 @@ button {
   --mat-radio-ripple-color: #000;
   --mat-radio-checked-ripple-color: #0092B8;
 }
+
+/* ============================================================
+   Texto de ayuda: ¿Ya tienes cuenta? Inicia sesión
+============================================================ */
+p.helper {
+  margin-top: 2rem;
+  font-size: 15px;
+  color: #555;
+  text-align: center;
+
+  .link {
+    color: #3687cd;
+    font-weight: 500;
+    margin-left: 5px;
+    text-decoration: none;
+    cursor: pointer;
+
+
+    &:hover {
+      color: #2d6dad;
+      text-decoration: underline;
+    }
+  }
+}
+
+
+.link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #007bff; // Color azul para el enlace
+  text-decoration: none; // Quitar subrayado si lo tiene por defecto
+  font-size: 15px;
+  font-weight: 600; // Un poco más negrita
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: darken(#007bff, 10%);
+    text-decoration: underline; // Subrayar al pasar el mouse
+  }
+}
