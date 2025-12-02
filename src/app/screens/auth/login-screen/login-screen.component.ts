@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "../../../partials/navbar/navbar.component";
 import { FooterComponent } from "../../../partials/footer/footer.component";
 import { Router, RouterLink } from "@angular/router";
@@ -35,26 +35,6 @@ export class LoginScreenComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Leer rol desde el facade (lee la cookie o estado)
-    this.rol = this.facadeService.getUserGroup() || '';
-    this.userRole = this.rol;
-    console.log('Rol user: ', this.rol);
-  }
-
-  public goAdmin(): void {
-    this.router.navigate(['/admin']);
-  }
-
-  // Método para pruebas: cambiar rol en tiempo de ejecución
-  setRole(role: string) {
-    this.facadeService.setUserGroup(role);
-    this.rol = role;
-    this.userRole = role;
-    console.log('Rol seteado a:', role);
-  }
-
-  hasRole(role: string): boolean {
-    return this.rol === role;
   }
 
   public login(): void {

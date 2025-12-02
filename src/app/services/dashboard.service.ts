@@ -37,8 +37,8 @@ export class DashboardService {
   private getHeaders(): HttpHeaders {
     const token = this.facadeService.getSessionToken();
     return new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     });
   }
 
@@ -47,7 +47,7 @@ export class DashboardService {
     return this.http.get<Metrics>(`${environment.url_api}/dashboard/metrics/`, { headers: this.getHeaders() });
   }
 
-  public getRecentEvents(): Observable<RecentEvent[]> {
-    return this.http.get<RecentEvent[]>(`${environment.url_api}/dashboard/recent-events/`, { headers: this.getHeaders() });
+  public obtenerListaEventos(): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/lista-eventos/`);
   }
 }

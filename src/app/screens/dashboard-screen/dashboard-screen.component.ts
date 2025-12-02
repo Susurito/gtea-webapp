@@ -3,6 +3,7 @@ import { SidebarComponent } from '../../partials/sidebar/sidebar.component';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { DashboardService, Metrics, RecentEvent } from '../../services/dashboard.service';
 
+
 // Interfaz extendida para el front-end
 interface DisplayEvent extends RecentEvent {
     daysAgo: number;
@@ -25,7 +26,7 @@ export class DashboardScreenComponent implements OnInit {
   public activeUsers: number = 0;
   public activeUsersChange: string = '0%';
 
-  public registrations: number = 0; 
+  public registrations: number = 0;
   public registrationsChange: string = '0%';
 
   public attendanceRate: string = '0%';
@@ -37,12 +38,12 @@ export class DashboardScreenComponent implements OnInit {
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
-    this.loadDashboardData();
+    //this.loadDashboardData();
   }
 
   /**
    * Carga todas las métricas y eventos recientes desde el servicio.
-   */
+
   public loadDashboardData(): void {
     // 1. Cargar Métricas (KPIs)
     this.dashboardService.getDashboardMetrics().subscribe({
@@ -61,7 +62,7 @@ export class DashboardScreenComponent implements OnInit {
     });
 
     // 2. Cargar Eventos Recientes
-    this.dashboardService.getRecentEvents().subscribe({
+    this.dashboardService.obtenerListaEventos().subscribe({
       next: (events: RecentEvent[]) => {
         // Procesar los datos para calcular el tiempo transcurrido
         this.recentEvents = this.processRecentEvents(events);
@@ -69,7 +70,7 @@ export class DashboardScreenComponent implements OnInit {
       error: (err) => console.error('Error cargando eventos recientes:', err)
     });
   }
-
+ */
   /**
    * Procesa los eventos para calcular cuántos días han pasado desde su creación.
    * @param events Lista de eventos con fecha de creación (createdAt).
