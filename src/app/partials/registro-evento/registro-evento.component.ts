@@ -188,6 +188,7 @@ export class RegistroEventoComponent {
     this.location.back();
   }
 
+
   /*
   public cargarResponsables() {
     this.organizadoresService.obtenerListaOrganizador().subscribe(organizador => {
