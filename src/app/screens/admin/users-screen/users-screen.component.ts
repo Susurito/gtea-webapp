@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { SidebarComponent } from "../../../partials/sidebar/sidebar.component";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FacadeService } from '../../../services/facade.service';
 import { UsersService } from '../../../services/users.service';
 import { ConfirmDeleteModalComponent } from '../../../modals/confirm-delete-modal/confirm-delete-modal.component';
 
@@ -43,7 +42,6 @@ export class UsersScreenComponent implements OnInit{
   filterRole: string = '';
 
   constructor(
-    public facadeService: FacadeService,
     public usersService: UsersService,
     private router: Router,
     public dialog: MatDialog
@@ -156,4 +154,19 @@ export class UsersScreenComponent implements OnInit{
   }
   public goEditar(idUser: number){
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

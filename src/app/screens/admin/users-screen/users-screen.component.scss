@@ -276,3 +276,62 @@ $role-administrador: #dc3545; // Rojo
     }
   }
 }
+
+
+ .create-btn {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    i {
+      margin-right: 8px;
+      font-size: 0.9rem;
+    }
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  /* --- Encabezado y Botón --- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+
+  h2 {
+    color: $text-color;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .create-btn {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    i {
+      margin-right: 8px;
+      font-size: 0.9rem;
+    }
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
