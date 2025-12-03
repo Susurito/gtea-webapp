@@ -1,0 +1,226 @@
+// Variables para colores y tipografía
+$primary-blue: #007bff;
+$primary-blue-hover: darken($primary-blue, 10%);
+$text-primary: #1f2937; // Gris oscuro
+$text-secondary: #6b7280; // Gris medio
+$bg-light: #f4f6f9; // Fondo de la página
+$card-bg: #ffffff;
+$border-color: #e5e7eb;
+
+$app-navbar-height: 50px;
+$app-sidebar-width: 250px;
+
+.app-layout {
+  display: grid;
+  grid-template-columns: $app-sidebar-width auto;
+  grid-template-rows: $app-navbar-height auto;
+  height: 100vh;
+  // Define las áreas del grid
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar content";
+}
+.navbar {
+  grid-area: navbar;
+  background: #fff;
+  height: $app-navbar-height;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: #eee;
+  width: $app-sidebar-width;
+}
+
+.content-area {
+  grid-area: content;
+  padding: 2rem;
+  background-color: $bg-light;
+  height: 100%;
+  overflow-y: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos generales del contenedor */
+.inscripciones-container {
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.titulo-principal {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.titulo-seccion {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+.separador {
+    border: 0;
+    height: 1px;
+    background-color: #eee;
+    margin: 30px 0;
+}
+
+/* --- Métricas (Mobile-First) --- */
+.metricas-grid {
+    display: grid;
+    /* En móvil: 1 columna, se expandirá a 3 en desktop */
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.tarjeta-metrica {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.metrica-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.metrica-valor {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #343a40;
+}
+
+/* Adaptación a Desktop (Tablet/PC) */
+@media (min-width: 768px) {
+    .metricas-grid {
+        /* En pantallas más grandes: 3 columnas iguales */
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+/* --- Tarjetas de Inscripción --- */
+.tarjeta-inscripcion {
+    display: flex;
+    flex-direction: column; /* Apilados en móvil */
+    justify-content: space-between;
+    align-items: flex-start; /* Alineación por defecto en móvil */
+
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+    border-left: 5px solid #007bff; /* Color de acento */
+}
+
+.nombre-evento {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.info-linea {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #495057;
+    margin-bottom: 5px;
+}
+
+.icono-fecha, .icono-ubicacion {
+    margin-right: 8px;
+}
+
+.separador-punto {
+    margin: 0 8px;
+    color: #ccc;
+}
+
+/* Estilos para el estado y el botón de acción */
+.estado-accion {
+    /* En móvil, separamos un poco el detalle del evento de la acción */
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+/* Etiquetas de Estado */
+.etiqueta-estado {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+.etiqueta-estado.confirmado {
+    background-color: #28a745; /* Verde para Confirmado */
+}
+
+.etiqueta-estado.pendiente {
+    background-color: #ffc107; /* Amarillo para Pendiente */
+    color: #343a40;
+}
+
+/* Botón de Cancelar */
+.btn-cancelar {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cancelar:hover {
+    background-color: #c82333;
+}
+
+/* Adaptación a Desktop de las Tarjetas de Inscripción */
+@media (min-width: 768px) {
+    .tarjeta-inscripcion {
+        flex-direction: row; /* En desktop: en fila */
+        align-items: center;
+        padding: 20px;
+    }
+
+    .detalle-evento {
+        flex-grow: 1; /* Ocupa el espacio restante */
+    }
+
+    .info-linea {
+        /* En desktop, mostramos fecha y ubicación en la misma línea para ahorrar espacio horizontal */
+        margin-bottom: 0;
+    }
+
+    .estado-accion {
+        width: auto; /* El tamaño es determinado por el contenido */
+        border-top: none;
+        padding-top: 0;
+    }
+}

@@ -119,4 +119,12 @@ export class EventsService {
     return this.http.delete<any>(`${environment.url_api}/eventos-edit/?id=${idUser}`, { headers: headers });
   }
 
+
+  //CHECARRRRRR
+  public publishEvent(eventId: number): Observable<any> {
+    var token = this.authService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.post<any>(`${environment.url_api}/eventos-publish/?id=${eventId}`, {}, { headers: headers });
+  }
+
 }

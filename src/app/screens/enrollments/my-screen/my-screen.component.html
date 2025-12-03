@@ -1,1 +1,74 @@
-<p>my-screen works!</p>
+<div class="app-layout">
+  <app-sidebar></app-sidebar>
+  <div class="content-area">
+    <main class="enrollments-container">
+      <div class="inscripciones-container">
+
+  <h2 class="titulo-principal">Mis Inscripciones</h2>
+
+  <div class="metricas-grid">
+
+    <div class="tarjeta-metrica">
+      <p class="metrica-label">Próximos Eventos</p>
+      <p class="metrica-valor">{{ proximosEventos }}</p>
+    </div>
+
+    <div class="tarjeta-metrica">
+      <p class="metrica-label">Eventos Asistidos</p>
+      <p class="metrica-valor">{{ eventosAsistidos }}</p>
+    </div>
+
+    <div class="tarjeta-metrica">
+      <p class="metrica-label">Tasa de Asistencia</p>
+      <p class="metrica-valor">{{ tasaAsistencia }}%</p>
+    </div>
+
+  </div>
+
+  <hr class="separador">
+
+  <h3 class="titulo-seccion">Historial de Inscripciones</h3>
+
+  <div class="historial-lista">
+
+    <div class="tarjeta-inscripcion" *ngFor="let inscripcion of historialInscripciones">
+
+      <div class="detalle-evento">
+        <div class="nombre-evento">{{ inscripcion.nombre }}</div>
+
+        <div class="info-linea">
+          <span class="icono-fecha">📅</span>
+          <span class="texto-fecha">{{ inscripcion.fecha | date: 'dd MMM yyyy' }}</span>
+          <span class="separador-punto">·</span>
+          <span class="texto-hora">{{ inscripcion.horaInicio }} - {{ inscripcion.horaFin }}</span>
+        </div>
+
+        <div class="info-linea">
+          <span class="icono-ubicacion">📍</span>
+          <span class="texto-ubicacion">{{ inscripcion.ubicacion }}</span>
+        </div>
+      </div>
+
+      <div class="estado-accion">
+        <div class="etiqueta-estado" [ngClass]="{'confirmado': inscripcion.estado === 'Confirmado', 'pendiente': inscripcion.estado === 'Pendiente'}">
+          {{ inscripcion.estado }}
+        </div>
+
+       <button
+          class="btn-cancelar"
+          (click)="delete(inscripcion.id)">
+          ❌ Cancelar
+        </button>
+      </div>
+
+    </div>
+
+    <div *ngIf="historialInscripciones.length === 0" class="mensaje-vacio">
+      No tienes inscripciones en tu historial.
+    </div>
+
+  </div>
+</div>
+    </main>
+  </div>
+</div>

@@ -32,7 +32,6 @@ export interface Evento {
     FormsModule,
     MatIconModule,
     MatDialogModule,
-    ConfirmDeleteModalComponent,
     RouterModule
   ],
   templateUrl: './eventos-admin.component.html',

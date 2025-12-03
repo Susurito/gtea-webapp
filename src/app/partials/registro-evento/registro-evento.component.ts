@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 declare var $: any;
 
 // Angular Material
@@ -16,7 +16,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
-
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,6 +23,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EventsService } from '../../services/events.service';
 import { AdministradoresService } from '../../services/administradores.service';
 import { OrganizadoresService } from '../../services/organizadores.service';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @Component({
   selector: 'app-registro-evento',

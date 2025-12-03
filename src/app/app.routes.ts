@@ -26,5 +26,6 @@ export const routes: Routes = [
   {path: 'mis-inscripciones', component: MyScreenComponent, pathMatch: 'full'},
   {path: 'eventos-admin', component: EventosAdminComponent, pathMatch: 'full'},
   {path: 'register-log', component: RegisterLogeadoComponent, pathMatch: 'full'},
+  
 
 ];

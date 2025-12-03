@@ -1,1 +1,19 @@
-<p>enrollment-cancel-modal works!</p>
+<div class="wrapper">
+  <div class="icon-close">
+      <button class="btn" (click)="cerrar_modal()">
+          <i class="bi bi-x-lg"></i>
+      </button>
+  </div>
+  <div class="body-modal">
+      <h1 class="title-modal">¿Cancelar Inscripción?</h1>
+      <span class="descripcion">Esta acción no se puede deshacer. Se cancelará tu inscripción al evento y liberarás el cupo para otros estudiantes.</span>
+      <div class="buttons-modal">
+          <button mat-button class="btn-regresar" (click)="eliminarInscripcion()" >
+              Si, cancelar inscripción.
+          </button>
+          <button mat-button class="btn-eliminar" (click)="cerrar_modal()">
+              No, mantener inscripción.
+          </button>
+      </div>
+  </div>
+</div>
