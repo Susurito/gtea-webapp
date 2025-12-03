@@ -48,6 +48,10 @@ export class EventsService {
     if (!this.validatorService.required(data["nombre_evento"])) {
       error["nombre_evento"] = this.errorService.required;
     }
+    //DESCRIPCION
+    if (!this.validatorService.required(data["nombre_evento"])) {
+      error["descripcion"] = this.errorService.required;
+    }
     //TIPO DE EVENTO
     if (!this.validatorService.required(data["categoria"])) {
       error["categoria"] = this.errorService.required;
@@ -61,8 +65,8 @@ export class EventsService {
       error["lugar"] = this.errorService.required;
     }
     //MODALIDAD
-    if (!this.validatorService.required(data["lugar"])) {
-      error["lugar"] = this.errorService.required;
+    if (!this.validatorService.required(data["modalidad"])) {
+      error["modalidad"] = this.errorService.required;
     }
     //FECHA DE EVENTO
     if (!this.validatorService.required(data["fecha_evento"])) {
@@ -89,6 +93,7 @@ export class EventsService {
     //Return arreglo
     return error;
   }
+
 
   //Servicio para registrar un nuevo evento
   public registrarEvento(data: any): Observable<any> {

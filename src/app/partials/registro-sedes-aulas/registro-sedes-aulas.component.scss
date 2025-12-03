@@ -1,0 +1,209 @@
+/* ==========================================================================
+   ESTRUCTURA GENERAL
+   ========================================================================== */
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  padding: 1rem;
+}
+
+.section-registro {
+  width: 90%;
+  max-width: 600px; // ✔ Evita que se vea demasiado ancho en pantallas grandes
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.body-registro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2.5rem;
+  gap: 2.2rem;
+  background: #fff;
+}
+
+/* ==========================================================================
+   TITULO
+   ========================================================================== */
+.title-user {
+  font-size: 28px;
+  text-align: center;
+  letter-spacing: 2px;
+  color: #231F20;
+  text-transform: capitalize;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
+}
+
+/* ==========================================================================
+   INPUTS (Angular Material)
+   ========================================================================== */
+mat-form-field {
+  width: 90% !important;
+  text-align: left !important;
+  height: auto;
+}
+
+.mat-form-field-wrapper {
+  padding: 0 !important;
+}
+
+.mat-form-field-flex {
+  align-items: center !important;
+  min-height: 56px !important;
+}
+
+.mat-form-field-infix {
+  padding-top: 1.1rem !important;
+}
+
+.mat-input-element {
+  line-height: 1.2rem !important;
+}
+
+/* ==========================================================================
+   CHECKBOX
+   ========================================================================== */
+.checkbox-row {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  padding-left: 5px;
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+}
+
+.checkbox__label {
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
+}
+
+/* ==========================================================================
+   BOTONES
+   ========================================================================== */
+.section-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem; /* Espaciado consistente */
+  width: 100%;
+  margin-top: 15px;
+}
+
+.btn {
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+  border: none;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    max-width: 280px;
+    font-size: 15px;
+  }
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+
+  &:hover {
+    background-color: darken(#007bff, 10%);
+  }
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+
+  &:hover {
+    background-color: darken(#dc3545, 10%);
+  }
+}
+
+/* ==========================================================================
+   CHECKBOX (Material)
+   ========================================================================== */
+::ng-deep .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background,
+::ng-deep .mdc-checkbox__ripple {
+  background-color: #3687cd !important;
+  border-color: #0092B8 !important;
+}
+
+/* ==========================================================================
+   BREAKPOINTS ADICIONALES
+   ========================================================================== */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-registro {
+    width: 100%;
+  }
+
+  .body-registro {
+    padding-top: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  mat-form-field {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
+
+.invalid-feedback, .feedback-error {
+    display: block !important;
+    width: 100%;
+    font-size: 0.875rem;
+    color: #ff5b5b;
+    font-family: "Roboto", sans-serif;
+    text-align: left;
+    padding-left: 0rem;
+    padding-bottom: 1rem;   // Desktop / pantallas grandes
+}
+
+/* ============================
+   RESPONSIVE (pantallas pequeñas)
+   ============================ */
+@media (max-width: 600px) {
+  .invalid-feedback, .feedback-error {
+      padding-left: 0.4rem;   // Ajuste para móviles
+  }
+}

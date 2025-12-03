@@ -30,12 +30,13 @@
         <mat-form-field class="mat-input form-field" appearance="outline">
           <mat-label>Categoria</mat-label>
           <mat-select [(ngModel)]="evento.categoria">
-            <mat-option *ngFor="let cate of cate" [value]="cate.nombre">
-              {{ cate.nombre }}
+            <mat-option *ngFor="let cat of categoria" [value]="cat.nombre_categoria">
+              {{ cat.nombre_categoria }}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <div *ngIf="errors.categoria" class="invalid-feedback">{{ errors.categoria }}</div>
+
 
         <!--Organizador-->
         <mat-form-field class="mat-input form-field" appearance="outline">
@@ -48,13 +49,17 @@
         </mat-form-field>
         <div *ngIf="errors.organizador" class="invalid-feedback">{{ errors.organizador }}</div>
 
-        <!--Lugar-->
+        <!-- Sede/Aula -->
         <mat-form-field class="mat-input form-field" appearance="outline">
-          <mat-label>Lugar del evento academico</mat-label>
-          <input matInput [(ngModel)]="evento.lugar" placeholder="Escribe el nombre del evento academico"
-            (keypress)="soloLetras($event)">
+          <mat-label>Sede/Aula</mat-label>
+          <mat-select [(ngModel)]="evento.lugar">
+            <mat-option *ngFor="let s of lugar" [value]="s.nombre">
+              {{ s.nombre }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
         <div *ngIf="errors.lugar" class="invalid-feedback">{{ errors.lugar }}</div>
+
 
         <!--Modalidad-->
         <mat-form-field class="mat-input form-field" appearance="outline">

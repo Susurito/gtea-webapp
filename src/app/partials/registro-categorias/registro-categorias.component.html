@@ -1,1 +1,39 @@
-<p>registro-categorias works!</p>
+<div class="wrapper">
+  <div class="section-registro">
+    <div class="body-registro">
+      <div class="container">
+
+        <div class="row mt-3 mb-3">
+          <div class="form-group col-12">
+            <label class="title-user" for="tipo_usuario">Ingresa los datos de las categorias</label>
+          </div>
+        </div>
+        <!-- Aquí empiezan los campos del formulario -->
+        <!--Nombre-->
+        <mat-form-field class="mat-input form-field" appearance="outline">
+          <mat-label>Nombre de la categoria</mat-label>
+          <input matInput [(ngModel)]="categoria.nombre_categoria" placeholder="Escribe el nombre del categoria academico"
+            (keypress)="soloLetras($event)">
+        </mat-form-field>
+        <div *ngIf="errors.nombre_categoria" class="invalid-feedback">{{ errors.nombre_categoria }}</div>
+
+        <!--Descripcion-->
+        <mat-form-field class="mat-input form-field" appearance="outline">
+          <mat-label>Descripcion</mat-label>
+          <input matInput [(ngModel)]="categoria.descripcion" placeholder="Escribe el nombre del categoria academico"
+            (keypress)="signosBasicos($event)">
+          <mat-hint align="end">{{categoria.descripcion?.length || 0}}/300</mat-hint>
+        </mat-form-field>
+        <div *ngIf="errors.descripcion" class="invalid-feedback">{{ errors.descripcion }}</div>
+
+
+
+        <div class="section-buttons">
+          <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+          <button *ngIf="!editar" class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+          <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

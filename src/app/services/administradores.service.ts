@@ -77,17 +77,7 @@ export class AdministradoresService {
     //Return arreglo
     return error;
 
-
   }
-
-  private getAuthHeaders(): HttpHeaders {
-  const token = this.authService.getSessionToken();
-  return new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  });
-}
-
 
   public obtenerListaAdmins(): Observable <any>{
     var token = this.authService.getSessionToken();
