@@ -31,8 +31,7 @@ export class AdministradoresService {
       'last_name': '',
       'email': '',
       'password': '',
-      'confirm_password': '',
-      'terms': false
+      'confirm_password': ''
     }
   }
 
@@ -77,10 +76,21 @@ export class AdministradoresService {
 
     //Return arreglo
     return error;
+
+
   }
 
+  private getAuthHeaders(): HttpHeaders {
+  const token = this.authService.getSessionToken();
+  return new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+}
+
+
   public obtenerListaAdmins(): Observable <any>{
-    var token = this.facadeService.getSessionToken();
+    var token = this.authService.getSessionToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
     return this.http.get<any>(`${environment.url_api}/lista-admins/`, {headers:headers});
   }

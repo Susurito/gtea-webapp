@@ -10,6 +10,7 @@ import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.
 import { VenuesScreenComponent } from './screens/admin/venues-screen/venues-screen.component';
 import { MyScreenComponent } from './screens/enrollments/my-screen/my-screen.component';
 import { EventosAdminComponent } from './screens/events/eventos-admin/eventos-admin.component';
+import { RegisterLogeadoComponent } from './screens/register-logeado/register-logeado.component';
 
 export const routes: Routes = [
   {path:'', component: LandingScreenComponent, pathMatch: 'full'},
@@ -24,5 +25,6 @@ export const routes: Routes = [
   {path: 'reportes', component: ReportsScreenComponent, pathMatch: 'full'},
   {path: 'mis-inscripciones', component: MyScreenComponent, pathMatch: 'full'},
   {path: 'eventos-admin', component: EventosAdminComponent, pathMatch: 'full'},
+  {path: 'register-log', component: RegisterLogeadoComponent, pathMatch: 'full'},
 
 ];

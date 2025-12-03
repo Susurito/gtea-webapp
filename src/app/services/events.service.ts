@@ -81,8 +81,9 @@ export class EventsService {
       error["cupo"] = this.errorService.required;
     }
     //PUBLICO
-    if (!this.validatorService.required(data["publico_json"])) {
-      error["publico_json"] = "Debes seleccionar algun publico para poder registrate";
+    // Aseguramos que publico_json sea array y tenga al menos un elemento
+    if (!Array.isArray(data.publico_json) || data.publico_json.length === 0) {
+      error.publico_json = "Debes seleccionar algún público para poder registrarte";
     }
 
     //Return arreglo
@@ -99,5 +100,23 @@ export class EventsService {
     return this.http.get<any>(`${environment.url_api}/lista-eventos/`);
   }
 
+  //Obtener un solo evento dependiendo su ID
+  public getEventoByID(idUser: Number) {
+    return this.http.get<any>(`${environment.url_api}/eventos/?id=${idUser}`, httpOptions);
+  }
+
+  //Servicio para actualizar evento
+  public editarEvento(data: any): Observable<any> {
+    var token = this.authService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.put<any>(`${environment.url_api}/eventos-edit/`, data, { headers: headers });
+  }
+
+  //Eliminar evento
+  public eliminarEvento(idUser: number): Observable<any> {
+    var token = this.authService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.delete<any>(`${environment.url_api}/eventos-edit/?id=${idUser}`, { headers: headers });
+  }
 
 }
