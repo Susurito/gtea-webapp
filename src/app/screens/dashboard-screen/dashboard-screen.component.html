@@ -1,85 +1,85 @@
 <div class="app-layout">
-    <app-sidebar></app-sidebar>
-    <div class="content-area">
-      <main class="categories-container">
-                <div class="dashboard-container">
-  <h2 class="dashboard-title">Dashboard Administrador</h2>
+  <app-sidebar></app-sidebar>
+  <div class="content-area">
+    <main class="categories-container">
+      <div class="dashboard-container">
+        <h2 class="dashboard-title">Dashboard Administrador</h2>
 
-  <div class="metrics-grid">
-    <div class="metric-card">
-      <div class="metric-header">
-        Total Eventos <i class="material-icons">calendar_today</i>
-      </div>
-      <div class="metric-body">
-        <span class="metric-value">{{ totalEvents }}</span>
-        <span class="metric-change positive">{{ totalEventsChange }}</span>
-      </div>
-    </div>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              Total Eventos <i class="material-icons">calendar_today</i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ totalEvents }}</span>
+              <span class="metric-change positive">{{ totalEventsChange }}</span>
+            </div>
+          </div>
 
-    <div class="metric-card">
-      <div class="metric-header">
-        Usuarios Activos <i class="material-icons">group</i>
-      </div>
-      <div class="metric-body">
-        <span class="metric-value">{{ activeUsers }}</span>
-        <span class="metric-change positive">{{ activeUsersChange }}</span>
-      </div>
-    </div>
+          <div class="metric-card">
+            <div class="metric-header">
+              Usuarios Activos <i class="material-icons">group</i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ activeUsers }}</span>
+              <span class="metric-change positive">{{ activeUsersChange }}</span>
+            </div>
+          </div>
 
-    <div class="metric-card">
-      <div class="metric-header">
-        Inscripciones <i class="material-icons">trending_up</i>
-      </div>
-      <div class="metric-body">
-        <span class="metric-value">{{ registrations }}</span>
-        <span class="metric-change positive">{{ registrationsChange }}</span>
-      </div>
-    </div>
+          <div class="metric-card">
+            <div class="metric-header">
+              Inscripciones <i class="material-icons">trending_up</i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ registrations }}</span>
+              <span class="metric-change positive">{{ registrationsChange }}</span>
+            </div>
+          </div>
 
-    <div class="metric-card">
-      <div class="metric-header">
-        Tasa Asistencia <i class="material-icons">schedule</i>
-      </div>
-      <div class="metric-body">
-        <span class="metric-value">{{ attendanceRate }}</span>
-        <span class="metric-change positive">{{ attendanceRateChange }}</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="bottom-section-grid">
-    <div class="panel">
-      <h3 class="panel-title">Eventos Recientes</h3>
-      <p class="panel-subtitle">Últimos eventos creados</p>
-
-      <div *ngFor="let event of recentEvents" class="event-item">
-        <div class="event-details">
-         <!--  <p class="event-name">{{ event.name }}</p>-->
-          <!--<p class="event-time">Hace {{ event.daysAgo }} días</p>-->
+          <div class="metric-card">
+            <div class="metric-header">
+              Tasa Asistencia <i class="material-icons">schedule</i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ attendanceRate }}</span>
+              <span class="metric-change positive">{{ attendanceRateChange }}</span>
+            </div>
+          </div>
         </div>
-       <!-- <span class="event-status published">{{ event.status }}</span>  -->
+
+        <div class="bottom-section-grid">
+          <div class="panel">
+            <h3 class="panel-title">Eventos Recientes</h3>
+            <p class="panel-subtitle">Últimos eventos creados</p>
+
+            <div *ngFor="let event of recentEvents" class="event-item">
+              <div class="event-details">
+                <!--  <p class="event-name">{{ event.name }}</p>-->
+                <!--<p class="event-time">Hace {{ event.daysAgo }} días</p>-->
+              </div>
+              <!-- <span class="event-status published">{{ event.status }}</span>  -->
+            </div>
+          </div>
+
+          <div class="panel quick-actions-panel">
+            <h3 class="panel-title">Acciones Rápidas</h3>
+            <p class="panel-subtitle">Gestión del sistema</p>
+
+            <button class="action-button primary">
+              <i class="material-icons">event</i> Gestionar Eventos
+            </button>
+
+            <button class="action-button secondary">
+              <i class="material-icons">people_alt</i> Gestionar Usuarios
+            </button>
+
+            <button class="action-button secondary">
+              <i class="material-icons">description</i> Ver Reportes
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="panel quick-actions-panel">
-      <h3 class="panel-title">Acciones Rápidas</h3>
-      <p class="panel-subtitle">Gestión del sistema</p>
-
-      <button class="action-button primary">
-        <i class="material-icons">event</i> Gestionar Eventos
-      </button>
-
-      <button class="action-button secondary">
-        <i class="material-icons">people_alt</i> Gestionar Usuarios
-      </button>
-
-      <button class="action-button secondary">
-        <i class="material-icons">description</i> Ver Reportes
-      </button>
-    </div>
+    </main>
   </div>
-</div>
-
-      </main>
-    </div>
 </div>
