@@ -1,0 +1,102 @@
+<div class="app-layout">
+      <app-sidebar></app-sidebar>
+  <div class="content-area">
+    <main class="categories-container">
+        <div class="container-fluid p-4">
+  <div class="header-section mb-4">
+    <button class="btn-volver" routerLink="/eventos">
+      <i class="fas fa-arrow-left"></i> Volver a Eventos
+    </button>
+  </div>
+
+  <div class="card event-info-card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="card-title">{{ evento.nombre }}</h2>
+      <p class="card-subtitle mb-3 text-muted">Inscritos al Evento</p>
+
+      <div class="row info-grid">
+        <div class="col-3 info-item">
+          <strong>Fecha</strong>
+          <p>{{ evento.fecha }}</p>
+        </div>
+        <div class="col-3 info-item">
+          <strong>Horario</strong>
+          <p>{{ evento.horario }}</p>
+        </div>
+        <div class="col-3 info-item">
+          <strong>Inscritos</strong>
+          <p>{{ evento.inscritos }} de {{ evento.cupo }}</p>
+        </div>
+        <div class="col-3 info-item">
+          <strong>Asistencia</strong>
+          <p>{{ evento.asistenciasMarcadas }} asistencias de {{ evento.inscritos }} marcadas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-bar d-flex justify-content-between align-items-center mb-4">
+    <div class="search-box">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" placeholder="Buscar estudiante..." class="form-control" [(ngModel)]="filtroBusqueda">
+    </div>
+
+    <button class="btn btn-primary btn-marcar-asistencia" disabled>
+      Marcar Asistencia
+    </button>
+  </div>
+
+  <div class="card table-card shadow-sm">
+    <div class="card-body p-0">
+      <table class="table attendance-table table-hover mb-0">
+        <thead>
+          <tr>
+            <th class="col-nombre">Estudiante</th>
+            <th class="col-correo">Correo</th>
+            <th class="col-fecha">Fecha Inscripción</th>
+            <th class="col-asistencia">Asistencia</th>
+            <th class="col-accion">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let estudiante of estudiantesFiltrados">
+            <td class="col-nombre">
+              <i class="fas fa-user-circle user-icon"></i>
+              {{ estudiante.nombre }}
+            </td>
+            <td class="col-correo">{{ estudiante.correo }}</td>
+            <td class="col-fecha">{{ estudiante.fecha_inscripcion | date: 'dd MMM yyyy' }}</td>
+            <td class="col-asistencia">
+              <span class="attendance-tag" [ngClass]="{
+                'tag-asistio': estudiante.asistencia === 'Asistió',
+                'tag-no-asistio': estudiante.asistencia === 'No Asistió',
+                'tag-pendiente': estudiante.asistencia === 'Pendiente'
+              }">
+                {{ estudiante.asistencia }}
+              </span>
+            </td>
+            <td class="col-accion">
+              <button
+                class="btn btn-sm"
+                [disabled]="estudiante.asistencia === 'Asistió'"
+                [ngClass]="{'btn-success': estudiante.asistencia !== 'Asistió', 'btn-secondary': estudiante.asistencia === 'Asistió'}"
+                (click)="marcarAsistencia(estudiante)">
+                {{ estudiante.asistencia === 'Asistió' ? 'Asistencia Marcada' : 'Marcar Asistencia' }}
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="estudiantesFiltrados.length === 0">
+            <td colspan="5" class="text-center py-4 text-muted">No se encontraron estudiantes con el filtro aplicado.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+      </main>
+</div>
+</div>
+

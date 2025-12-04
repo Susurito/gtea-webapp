@@ -17,6 +17,8 @@ import { RegisterLogeadoSedesComponent } from './screens/register-logeado-sedes/
 import { RegisterLogeadoOrganizadorComponent } from './screens/register-logeado-organizador/register-logeado-organizador.component';
 import { EventosComponent } from './screens/student/eventos/eventos.component';
 import { DetallesEventosComponent } from './screens/detalles-eventos/detalles-eventos/detalles-eventos.component';
+import { AsistenciaComponent } from './screens/asistencias-usuarios/asistencia/asistencia.component';
+
 
 export const routes: Routes = [
   {path:'', component: LandingScreenComponent, pathMatch: 'full'},
@@ -43,4 +45,5 @@ export const routes: Routes = [
   {path: 'register-sedes/:id', component: RegisterLogeadoSedesComponent, pathMatch: 'full'},
   {path: 'eventos', component: EventosComponent, pathMatch: 'full'},
   {path: 'detalles-evento/:id', component: DetallesEventosComponent, pathMatch: 'full'},
-];
+  {path: 'asistencia', component: AsistenciaComponent, pathMatch: 'full'},
+];  
