@@ -1,0 +1,277 @@
+// Variables para colores y tipografía
+$primary-blue: #007bff;
+$primary-blue-hover: darken($primary-blue, 10%);
+$text-primary: #1f2937; // Gris oscuro
+$text-secondary: #6b7280; // Gris medio
+$bg-light: #f4f6f9; // Fondo de la página
+$card-bg: #ffffff;
+$border-color: #e5e7eb;
+
+$app-navbar-height: 50px;
+$app-sidebar-width: 250px;
+
+.app-layout {
+  display: grid;
+  grid-template-columns: $app-sidebar-width auto;
+  grid-template-rows: $app-navbar-height auto;
+  height: 100vh;
+  // Define las áreas del grid
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar content";
+}
+.navbar {
+  grid-area: navbar;
+  background: #fff;
+  height: $app-navbar-height;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: #eee;
+  width: $app-sidebar-width;
+}
+
+.content-area {
+  grid-area: content;
+  padding: 2rem;
+  background-color: $bg-light;
+  height: 100%;
+  overflow-y: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// event-detail.component.scss
+
+$primary-color: #28a745; // Color verde para la acción principal
+$secondary-color: #007bff; // Color azul para categoría
+$text-color: #343a40;
+$gray-light: #f8f9fa;
+$card-bg: #fff;
+$border-color: #e9ecef;
+
+.event-detail-page {
+  padding: 20px;
+  background-color: $gray-light;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: $text-color;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.event-container {
+  background-color: $card-bg;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding-bottom: 30px;
+}
+
+/* --- Sección Superior (Imagen y Título) --- */
+.header-section {
+  position: relative;
+
+  .image-placeholder {
+    width: 100%;
+    height: 300px;
+    background-color: #e0e0e0;
+    // Si usas una imagen real:
+    // background-size: cover;
+    // background-position: center;
+  }
+
+  .title-bar {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $border-color;
+
+    .info-tags {
+      display: flex;
+      align-items: center;
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+      color: $text-color;
+    }
+
+    .action-button {
+      padding: 10px 20px;
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+      &:disabled {
+        background-color: #6c757d;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+/* --- Badges/Etiquetas --- */
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-right: 10px;
+  white-space: nowrap;
+
+  &.badge-category {
+    background-color: $secondary-color;
+    color: white;
+  }
+
+  &.badge-published {
+    background-color: $primary-color;
+    color: white;
+  }
+  // Otros estados, si los hubiera:
+  &.badge-draft {
+    background-color: #ffc107;
+    color: $text-color;
+  }
+}
+
+/* --- Detalles del Evento (Grid) --- */
+.details-grid {
+  padding: 0 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px 40px;
+  margin-bottom: 30px;
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+
+    .icon {
+      font-size: 1.5rem;
+      margin-right: 15px;
+      color: $secondary-color; // Iconos azules para el grid
+      width: 25px; // Asegurar alineación
+      text-align: center;
+    }
+
+    .text-content {
+      line-height: 1.4;
+      .label {
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+      .value {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $text-color;
+      }
+    }
+  }
+}
+
+/* --- Descripción y Requisitos --- */
+.content-section {
+  padding: 0 30px;
+  margin-top: 20px;
+
+  h3 {
+    font-size: 1.4rem;
+    color: $text-color;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+
+  .description-text {
+    white-space: pre-wrap; // Para respetar saltos de línea (\n)
+    line-height: 1.6;
+    color: $text-color;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      margin-bottom: 8px;
+      padding-left: 25px;
+      position: relative;
+      line-height: 1.6;
+
+      &::before {
+        content: '•'; // Usar un punto o un checkmark (✔)
+        color: $secondary-color;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+      }
+    }
+  }
+}
+
+/* --- Media Queries (Ajustes para móviles) --- */
+@media (max-width: 768px) {
+  .event-detail-page {
+    padding: 10px;
+  }
+
+  .header-section .title-bar {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .action-button {
+      width: 100%;
+      margin-top: 15px;
+    }
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+
+  .content-section {
+    padding: 0 20px;
+  }
+}

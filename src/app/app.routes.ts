@@ -15,6 +15,8 @@ import { RegisterLogeadoCategoriasComponent } from './screens/register-logeado-c
 import { RegisterLogeadoEstudiantesComponent } from './screens/register-logeado-estudiantes/register-logeado-estudiantes.component';
 import { RegisterLogeadoSedesComponent } from './screens/register-logeado-sedes/register-logeado-sedes.component';
 import { RegisterLogeadoOrganizadorComponent } from './screens/register-logeado-organizador/register-logeado-organizador.component';
+import { EventosComponent } from './screens/student/eventos/eventos.component';
+import { DetallesEventosComponent } from './screens/detalles-eventos/detalles-eventos/detalles-eventos.component';
 
 export const routes: Routes = [
   {path:'', component: LandingScreenComponent, pathMatch: 'full'},
@@ -39,6 +41,6 @@ export const routes: Routes = [
   {path: 'register-logeado-organizador/:id', component: RegisterLogeadoOrganizadorComponent, pathMatch: 'full'},
   {path: 'register-sedes', component: RegisterLogeadoSedesComponent, pathMatch: 'full'},
   {path: 'register-sedes/:id', component: RegisterLogeadoSedesComponent, pathMatch: 'full'},
-
-
+  {path: 'eventos', component: EventosComponent, pathMatch: 'full'},
+  {path: 'detalles-evento/:id', component: DetallesEventosComponent, pathMatch: 'full'},
 ];

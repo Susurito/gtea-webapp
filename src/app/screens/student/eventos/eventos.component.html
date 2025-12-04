@@ -1,0 +1,161 @@
+<div class="app-layout">
+    <app-sidebar></app-sidebar>
+      <div class="content-area">
+            <main class="gestion-container">
+              <h1 class="page-title">Catálogo de Eventos</h1>
+
+      <!-- Filtros -->
+      <section class="card mb-6">
+        <div class="card__content pt-6">
+          <div class="filters">
+            <!-- Buscador -->
+            <div class="search">
+              <span class="icon search__icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </svg>
+              </span>
+              <input id="searchInput" class="input pl-10" type="search" placeholder="Buscar eventos..."
+                [(ngModel)]="searchTerm" (input)="filterEvents()" />
+            </div>
+
+
+
+            <!-- Categoría -->
+            <div class="select">
+              <label class="sr-only" for="categorySelect">Categoría</label>
+              <select id="categorySelect" class="input" [(ngModel)]="categoryFilter" (change)="filterEvents()">
+                <option value="all">Todas las categorías</option>
+                <option value="Tecnología">Tecnología</option>
+                <option value="IA">Inteligencia Artificial</option>
+                <option value="Diseño">Diseño</option>
+              </select>
+            </div>
+
+            <!-- Modalidad -->
+            <div class="select">
+              <label class="sr-only" for="modalitySelect">Modalidad</label>
+              <select id="modalitySelect" class="input" [(ngModel)]="modalityFilter" (change)="filterEvents()">
+                <option value="all">Todas</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Virtual">Virtual</option>
+                <option value="Hibrido">Híbrido</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+       <!-- CARD ESTÁTICA PARA PRUEBAS -->
+   <div class="card card--hover" (click)="verDetalle(1)">
+      <div class="card card--hover">
+        <div class="card__header">
+          <div class="card__media" style="background-image: url('https://via.placeholder.com/400x200'); background-size: cover; background-position: center;"></div>
+
+          <h2 class="card__title">Introducción a la Ciberseguridad</h2>
+
+          <p class="card__description">
+            <span class="badge">Tecnología</span>
+          </p>
+        </div>
+
+        <div class="card__content">
+          <div class="meta">
+
+            <div class="meta__item">
+              <span class="icon">📅</span>
+              12 Dic 2025 • 10:00 - 13:00
+            </div>
+
+            <div class="meta__item">
+              <span class="icon">📍</span>
+              Auditorio 3, Edificio I
+            </div>
+
+            <div class="meta__item">
+              <span class="icon">👥</span>
+              Cupo: 40
+            </div>
+
+          </div>
+        </div>
+        </div>
+      </div>
+      <!-- FIN CARD ESTÁTICA PARA PRUEBAS -->
+
+
+
+
+      <!-- Events Grid -->
+      <section>
+        <!-- Mostrar mensaje si no hay eventos -->
+        <div *ngIf="filteredEvents.length === 0" class="no-events">
+          <p>No se encontraron eventos con los filtros aplicados.</p>
+        </div>
+
+        <!-- Events Grid -->
+        <div id="eventsGrid" class="grid" *ngIf="filteredEvents.length > 0">
+          <div class="card card--hover" *ngFor="let event of paginatedEvents" (click)="openEventDetail(event.id)">
+            <div class="card__header">
+              <div class="card__media"></div>
+              <h2 class="card__title">{{ event.title }}</h2>
+              <p class="card__description">
+                <span class="badge">{{ event.category }}</span>
+              </p>
+            </div>
+
+            <div class="card__content">
+              <div class="meta">
+                <div class="meta__item">
+                  <span class="icon">
+                    <!-- Calendar icon -->
+                  </span>
+                  {{ event.date }} • {{ event.time }}
+                </div>
+                <div class="meta__item">
+                  <span class="icon">
+                    <!-- MapPin icon -->
+                  </span>
+                  {{ event.venue }}
+                </div>
+                <div class="meta__item">
+                  <span class="icon">
+                    <!-- Users icon -->
+                  </span>
+                  Cupo: {{ event.capacity }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </section>
+
+
+      <!-- Pagination -->
+      <nav class="pagination" aria-label="Paginación">
+        <button class="btn btn--outline" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+          Anterior
+        </button>
+
+        <button class="btn" *ngFor="let page of [].constructor(totalPages); let i = index"
+          [ngClass]="{ 'btn--primary': currentPage === i + 1 }" (click)="changePage(i + 1)">
+          {{ i + 1 }}
+        </button>
+
+        <button class="btn btn--outline" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+          Siguiente
+        </button>
+      </nav>
+
+
+            </main>
+      </div>
+</div>
+
