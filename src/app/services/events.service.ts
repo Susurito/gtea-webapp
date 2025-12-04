@@ -49,7 +49,7 @@ export class EventsService {
       error["nombre_evento"] = this.errorService.required;
     }
     //DESCRIPCION
-    if (!this.validatorService.required(data["nombre_evento"])) {
+    if (!this.validatorService.required(data["descripcion"])) {
       error["descripcion"] = this.errorService.required;
     }
     //TIPO DE EVENTO
@@ -77,8 +77,8 @@ export class EventsService {
       error["hora_inicio"] = this.errorService.required;
     }
     //HORA FINAL
-    if (!this.validatorService.required(data["hora_final"])) {
-      error["hora_final"] = this.errorService.required;
+    if (!this.validatorService.required(data["hora_fin"])) {
+      error["hora_fin"] = this.errorService.required;
     }
     //CUPO
     if (!this.validatorService.required(data["cupo"])) {
@@ -94,35 +94,37 @@ export class EventsService {
     return error;
   }
 
-
-  //Servicio para registrar un nuevo evento
-  public registrarEvento(data: any): Observable<any> {
-    return this.http.post<any>(`${environment.url_api}/eventos/`, data, httpOptions);
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.authService.getSessionToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
+
+
 
   //Obtener lista de eventos
   public obtenerListaEventos(): Observable<any> {
     return this.http.get<any>(`${environment.url_api}/lista-eventos/`);
   }
+public getEventoByID(idUser: number): Observable<any> {
+  return this.http.get<any>(`${environment.url_api}/eventos/?id=${idUser}`, {
+    headers: this.getAuthHeaders()
+  });
+}
 
-  //Obtener un solo evento dependiendo su ID
-  public getEventoByID(idUser: Number) {
-    return this.http.get<any>(`${environment.url_api}/eventos/?id=${idUser}`, httpOptions);
-  }
+public registrarEvento(data: FormData): Observable<any> {
+  return this.http.post<any>(`${environment.url_api}/eventos/`, data, { headers: this.getAuthHeaders() });
+}
 
-  //Servicio para actualizar evento
-  public editarEvento(data: any): Observable<any> {
-    var token = this.authService.getSessionToken();
-    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    return this.http.put<any>(`${environment.url_api}/eventos-edit/`, data, { headers: headers });
-  }
+public editarEvento(id: number, data: FormData): Observable<any> {
+  return this.http.put<any>(`${environment.url_api}/eventos-edit/?id=${id}`, data, { headers: this.getAuthHeaders() });
+}
 
-  //Eliminar evento
-  public eliminarEvento(idUser: number): Observable<any> {
-    var token = this.authService.getSessionToken();
-    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    return this.http.delete<any>(`${environment.url_api}/eventos-edit/?id=${idUser}`, { headers: headers });
-  }
+public eliminarEvento(idUser: number): Observable<any> {
+  return this.http.delete<any>(`${environment.url_api}/eventos-edit/?id=${idUser}`, { headers: this.getAuthHeaders() });
+}
+
 
 
   //CHECARRRRRR
