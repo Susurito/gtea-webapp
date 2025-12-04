@@ -17,27 +17,23 @@ interface User {
   eventos: number;
 }
 
-
 @Component({
   selector: 'app-users-screen',
   imports: [SidebarComponent, FormsModule, CommonModule],
   templateUrl: './users-screen.component.html',
   styleUrls: ['./users-screen.component.scss']
 })
-export class UsersScreenComponent implements OnInit{
+export class UsersScreenComponent implements OnInit {
 
-  // Lista completa obtenida de la API. Esta NUNCA se modifica.
   public allUsers: User[] = [];
-  // Lista que se utiliza para pintar la tabla (es la que se filtra).
   public users: User[] = [];
 
-  // --- Propiedades Dinámicas de Estadística ---
+  // Totales obtenidos directamente del backend
   totalUsuarios: number = 0;
   estudiantes: number = 0;
   organizadores: number = 0;
   administradores: number = 0;
 
-  // Variables para filtros (Necesarias para [(ngModel)])
   searchTerm: string = '';
   filterRole: string = '';
 
@@ -48,76 +44,81 @@ export class UsersScreenComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    // 1. Cargar los usuarios del backend al inicio
     this.obtenerUsuarios();
+    this.obtenerTotalesUsuarios();
   }
 
-  // --- LÓGICA DE DATOS ---
+  public obtenerUsuarios() {
+    this.usersService.obtenerListaEstudiantes().subscribe(estudiantes => {
+      this.usersService.obtenerListaOrganizador().subscribe(organizadores => {
+        this.usersService.obtenerListaAdmins().subscribe(admins => {
 
-  public obtenerUsuarios(){
-    this.usersService.obtenerListaUsuarios().subscribe(
-      (response)=>{
-        console.log("Respuesta de la API de Usuarios:", response);
-        // Llama a la función de mapeo y conteo con la respuesta del API
-        this.mapAndCountUsers(response);
-        // Aplica el filtro inicial (muestra todos)
-        this.applyFilter();
-      }, (error)=>{
-        console.error("Error al obtener la lista de usuarios:", error);
-        alert("No se pudo obtener la lista de usuarios. Revisa el backend y el token de sesión.");
-      }
-    );
-  }
+          // Mapear estudiantes
+          const estudiantesMap = estudiantes.map((s: any) => ({
+            id: s.id,
+            nombre: `${s.user.first_name || ''} ${s.user.last_name || ''}`,
+            correo: s.user.email || 'N/A',
+            rol: 'Estudiante' as User['rol'],
+            registrado: new Date(s.fecha_registro).toLocaleDateString('es-ES'),
+            eventos: s.eventos_registrados || 0
+          }));
 
-  /**
-   * Mapea los datos del backend al formato User[] y calcula las estadísticas.
-   * @param rawUsers Lista de usuarios recibida de la API.
-   */
-  private mapAndCountUsers(rawUsers: any[]): void {
-    // Resetear contadores
-    this.totalUsuarios = 0;
-    this.estudiantes = 0;
-    this.organizadores = 0;
-    this.administradores = 0;
+          // Mapear organizadores
+          const organizadoresMap = organizadores.map((o: any) => ({
+            id: o.id,
+            nombre: `${o.user.first_name || ''} ${o.user.last_name || ''}`,
+            correo: o.user.email || 'N/A',
+            rol: 'Organizador' as User['rol'],
+            registrado: new Date(o.fecha_registro).toLocaleDateString('es-ES'),
+            eventos: o.eventos_registrados || 0
+          }));
 
-    // Mapear los datos, asumiendo que tu backend devuelve la estructura correcta.
-    this.allUsers = rawUsers.map(usuario => {
+          // Mapear administradores
+          const adminsMap = admins.map((a: any) => ({
+            id: a.id,
+            nombre: `${a.user.first_name || ''} ${a.user.last_name || ''}`,
+            correo: a.user.email || 'N/A',
+            rol: 'Administrador' as User['rol'],
+            registrado: new Date(a.fecha_registro).toLocaleDateString('es-ES'),
+            eventos: a.eventos_registrados || 0
+          }));
 
-      // Asigna el rol (o un valor por defecto si no existe)
-      const rolMapeado = usuario.rol || 'Estudiante';
 
-      // Conteo de estadísticas
-      if (rolMapeado === 'Estudiante') { this.estudiantes++; }
-      else if (rolMapeado === 'Organizador') { this.organizadores++; }
-      else if (rolMapeado === 'Administrador') { this.administradores++; }
+          // Unir todos
+          this.allUsers = [...estudiantesMap, ...organizadoresMap, ...adminsMap];
 
-      // Formatear la fecha (si viene en formato ISO del backend)
-      const fechaRegistro = new Date(usuario.fecha_registro).toLocaleDateString('es-ES', {
-        year: 'numeric', month: 'short', day: 'numeric'
+          // Totales
+          this.estudiantes = estudiantesMap.length;
+          this.organizadores = organizadoresMap.length;
+          this.administradores = adminsMap.length;
+          this.totalUsuarios = this.allUsers.length;
+
+          // Aplicar filtros
+          this.applyFilter();
+        });
       });
-
-      return {
-        id: usuario.id,
-        // Asegúrate de que los campos 'first_name', 'last_name', 'email' existan en 'usuario.user'
-        nombre: `${usuario.user.first_name || ''} ${usuario.user.last_name || ''}`,
-        correo: usuario.user.email || 'N/A',
-        rol: rolMapeado as User['rol'],
-        registrado: fechaRegistro,
-        eventos: usuario.eventos_registrados || 0, // Asume un campo de conteo en el backend
-      } as User;
     });
-
-    this.totalUsuarios = this.allUsers.length;
   }
 
-  /**
-   * Aplica los filtros de búsqueda y rol sobre la lista completa (allUsers).
-   * Esta función se llama en el (ngModelChange) del input y select.
-   */
-  applyFilter(): void {
-    let filteredList = this.allUsers; // Siempre empezamos desde la lista original
 
-    // 1. Filtrar por término de búsqueda (nombre o correo)
+  // --- Totales de usuarios ---
+  public obtenerTotalesUsuarios() {
+    this.usersService.obtenerTotalesUsuarios().subscribe(
+      (response: any) => {
+        this.administradores = response.Administradores || 0;
+        this.organizadores = response.Organizador || 0;
+        this.estudiantes = response.Estudiantes || 0;
+        this.totalUsuarios = response["Total usuarios"] || 0;
+      },
+      (error) => console.error("Error al obtener totales:", error)
+    );
+
+  }
+
+  // --- Filtro de tabla ---
+  applyFilter(): void {
+    let filteredList = this.allUsers;
+
     if (this.searchTerm) {
       const term = this.searchTerm.toLowerCase();
       filteredList = filteredList.filter(user =>
@@ -127,46 +128,25 @@ export class UsersScreenComponent implements OnInit{
     }
 
     if (this.filterRole && this.filterRole !== '') {
-      filteredList = filteredList.filter(user =>
-        user.rol === this.filterRole
-      );
+      filteredList = filteredList.filter(user => user.rol === this.filterRole);
     }
 
     this.users = filteredList;
-    console.log(`Filtro aplicado: ${this.users.length} usuarios encontrados.`);
   }
-
 
   getRoleClass(rol: string): string {
     switch (rol) {
-        case 'Estudiante': return 'role-estudiante';
-        case 'Organizador': return 'role-organizador';
-        case 'Administrador': return 'role-administrador';
-        default: return '';
+      case 'Estudiante': return 'role-estudiante';
+      case 'Organizador': return 'role-organizador';
+      case 'Administrador': return 'role-administrador';
+      default: return '';
     }
   }
 
   modifyRole(user: User): void {
-    alert(`Modificar rol para ${user.nombre}. Implementar modal/navegación aquí.`);
+    alert(`Modificar rol para ${user.nombre}`);
   }
 
-  public delete(idUser: number){
-  }
-  public goEditar(idUser: number){
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  public delete(idUser: number) { }
+  public goEditar(idUser: number) { }
 }

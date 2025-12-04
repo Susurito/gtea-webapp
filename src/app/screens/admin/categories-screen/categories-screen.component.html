@@ -1,88 +1,82 @@
 <div class="app-layout">
   <app-sidebar></app-sidebar>
   <div class="content-area">
-    <main class="categories-container">
-      <div class="header-section">
-        <h1 class="page-title">Gestión de Categorías</h1>
-        <button class="action-button" (click)="crearCategoria()">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-add">
-            <path fill-rule="evenodd"
-              d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
-              clip-rule="evenodd" />
-          </svg>
+    <main class="gestion-container">
+      <header class="gestion-header">
+        <h2>Gestión de Categorías</h2>
+        <button mat-flat-button color="primary" (click)="crearCategoria()">
+          <mat-icon>add</mat-icon>
           Nueva Categoría
         </button>
-      </div>
+      </header>
 
-      <!-- Sección de Tarjetas de Resumen (Métricas) -->
-      <div class="metrics-grid">
-        <!-- Tarjeta 1: Total Categorías -->
-        <div class="metric-card">
-          <p class="card-label">Total Categorías</p>
-          <!-- VALOR DINÁMICO -->
+      <!-- Tarjetas de resumen -->
+      <section class="summary-cards">
+        <div class="card">
+          <p class="card-title">Total Categorías</p>
           <p class="card-value">{{ totalCategorias }}</p>
         </div>
-
-        <!-- Tarjeta 2: Categoría Más Usada -->
-        <div class="metric-card">
-          <p class="card-label">Categoría Más Usada</p>
-          <!-- VALOR DINÁMICO -->
+        <div class="card">
+          <p class="card-title">Categoría Más Usada</p>
           <p class="card-value">{{ categoriaMasUsada }}</p>
         </div>
-
-        <!-- Tarjeta 3: Total Eventos -->
-        <div class="metric-card">
-          <p class="card-label">Total Eventos</p>
-          <!-- VALOR DINÁMICO -->
+        <div class="card">
+          <p class="card-title">Total Eventos</p>
           <p class="card-value">{{ totalEventos }}</p>
         </div>
-      </div>
+      </section>
 
-      <!-- Sección de la Tabla de Datos -->
-      <div class="data-table-container">
-        <table>
-          <!-- Encabezado de la Tabla -->
-          <thead>
-            <tr>
-              <th class="col-name">Nombre</th>
-              <th class="col-description">Descripción</th>
-              <th class="col-events">Eventos</th>
-              <th class="col-actions">Acciones</th>
-            </tr>
-          </thead>
-          <!-- Cuerpo de la Tabla (Dinamizado) -->
-          <tbody>
-            <tr *ngFor="let categoria of categorias">
-              <td class="cell-name">{{ categoria.nombre }}</td>
-              <td class="cell-description">{{ categoria.descripcion }}</td>
-              <td class="cell-events">{{ categoria.eventos }}</td>
-              <td class="cell-actions">
-                <button class="icon-button edit" (click)="editarCategoria(categoria.id)">
-                  <!-- Icono de Editar -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-                    <path
-                      d="M5.433 13.917V17.5h3.583L17.2 9.283l-3.583-3.583L5.433 13.917zM18.817 7.667l-2.167-2.167a1 1 0 00-1.414 0L14 6.89l3.583 3.583 1.234-1.234a1 1 0 000-1.414z" />
-                  </svg>
-                </button>
-                <button class="icon-button delete" (click)="eliminarCategoria(categoria.id, categoria.nombre)">
-                  <!-- Icono de Eliminar -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-                    <path fill-rule="evenodd"
-                      d="M8.75 1A2.75 2.75 0 006 3.75v.5H4.5a.75.75 0 000 1.5h.75v8.75A2.75 2.75 0 008.5 17h3a2.75 2.75 0 002.75-2.75V5.75h.75a.75.75 0 000-1.5H15V3.75A2.75 2.75 0 0012.25 1h-3.5zm-1.5 2.75a1.25 1.25 0 011.25-1.25h3.5a1.25 1.25 0 011.25 1.25v.5h-6V3.75zM9 8a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 019 8zm3.25 0a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5a.75.75 0 01.75-.75z"
-                      clip-rule="evenodd" />
-                  </svg>
-                </button>
+      <!-- Tabla de categorías -->
+      <div class="table-card">
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSourceCategorias" class="categorias-table"
+            aria-label="Tabla de Categorías">
+
+            <!-- Nombre -->
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <td mat-cell *matCellDef="let categoria">{{ categoria.nombre_categoria }}</td>
+            </ng-container>
+
+            <!-- Descripción -->
+            <ng-container matColumnDef="descripcion">
+              <th mat-header-cell *matHeaderCellDef>Descripción</th>
+              <td mat-cell *matCellDef="let categoria">{{ categoria.descripcion }}</td>
+            </ng-container>
+
+            <!-- Eventos -->
+            <ng-container matColumnDef="eventos">
+              <th mat-header-cell *matHeaderCellDef>Eventos</th>
+              <td mat-cell *matCellDef="let categoria">{{ categoria.eventos || 0 }}</td>
+            </ng-container>
+
+            <!-- Acciones -->
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>Acciones</th>
+              <td mat-cell *matCellDef="let categoria">
+                <div class="action-buttons">
+                  <button mat-icon-button color="accent" (click)="editarCategoria(categoria)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+
+                  <button mat-icon-button color="warn"
+                    (click)="eliminarCategoria(categoria.id, categoria.nombre_categoria)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
               </td>
-            </tr>
-            <tr *ngIf="categorias.length === 0">
-                <td colspan="4" style="text-align: center; padding: 20px; color: #777;">
-                    No hay categorías registradas.
-                </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            </ng-container>
 
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsCategorias"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsCategorias"></tr>
+          </table>
+
+          <!-- Mensaje si no hay categorías -->
+          <div *ngIf="categorias.length === 0" class="no-data">
+            No hay categorías registradas.
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 </div>

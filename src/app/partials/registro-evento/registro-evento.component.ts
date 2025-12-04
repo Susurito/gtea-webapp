@@ -23,7 +23,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EventsService } from '../../services/events.service';
 import { AdministradoresService } from '../../services/administradores.service';
 import { OrganizadoresService } from '../../services/organizadores.service';
+<<<<<<< HEAD
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+=======
+import { CategoriesService } from '../../services/categories.service';
+import { VenuesService } from '../../services/venues.service';
+>>>>>>> ba669707bdc676cd44a75996d0b286b663fcdb58
 
 @Component({
   selector: 'app-registro-evento',
@@ -59,7 +64,8 @@ export class RegistroEventoComponent {
   public esEstudiante: boolean = false;
 
   public responsable: any[] = [];
-  public cate: any[] = [];
+  public categoria: any[] = [];
+  public lugar: any[] = [];
 
   //Para el select1
   public modo: any[] = [
@@ -83,12 +89,16 @@ export class RegistroEventoComponent {
     private eventsService: EventsService,
     private administradoresServices: AdministradoresService,
     private organizadoresService: OrganizadoresService,
+    private categoriesService: CategoriesService,
+    private venuesService: VenuesService,
     public dialog: MatDialog
   ) {
   }
 
   ngOnInit(): void {
     this.cargarResponsables();
+    this.cargarCategorias();
+    this.cargarSedes();
     this.evento = this.eventsService.esquemaEvento();
     //Imprimir datos en consola
     console.log("Evento: ", this.evento)
@@ -184,30 +194,69 @@ export class RegistroEventoComponent {
     });
   }
 
+  public cargarCategorias() {
+    this.categoriesService.obtenerListaCategoria().subscribe(
+      (categorias) => {
+        // Mapear para asegurarnos de tener id y nombre, según tu backend
+        this.categoria = categorias.map((c: any) => ({
+          id: c.id,
+          nombre_categoria: c.nombre_categoria
+        }));
+
+        // Si estamos editando y el evento ya tiene categoría, asignarla
+        if (this.editar && this.evento.categoria) {
+          const catSeleccionada = this.categoria.find(
+            (c) => c.nombre_categoria === this.evento.categoria
+          );
+          if (catSeleccionada) {
+            this.evento.categoria = catSeleccionada.nombre_categoria;
+          }
+        }
+
+        console.log("Categorías cargadas:", this.categoria);
+      },
+      (error) => {
+        console.error("Error al cargar categorías:", error);
+        alert("No se pudieron cargar las categorías");
+      }
+    );
+  }
+
+  public cargarSedes() {
+    this.venuesService.obtenerListaSede().subscribe(
+      (sedes) => {
+        // Mapear sedes para que tengan id y nombre combinado
+        this.lugar = sedes.map((s: any) => ({
+          id: s.id,
+          nombre: `${s.edificio} - ${s.aula}`,  // combinación que se muestra en el select
+        }));
+
+        // Si estamos editando y el evento ya tiene sede asignada, preseleccionarla
+        if (this.editar && this.evento.lugar) {
+          const sedeSeleccionada = this.lugar.find(
+            (s) => `${s.edificio} - ${s.aula}` === this.evento.lugar
+          );
+          if (sedeSeleccionada) {
+            this.evento.lugar = sedeSeleccionada.nombre;
+          }
+        }
+
+        console.log("Sedes cargadas:", this.lugar);
+      },
+      (error) => {
+        console.error("Error al cargar sedes:", error);
+        alert("No se pudieron cargar las sedes");
+      }
+    );
+  }
+
+
+
+
   public regresar() {
     this.location.back();
   }
 
-
-  /*
-  public cargarResponsables() {
-    this.organizadoresService.obtenerListaOrganizador().subscribe(organizador => {
-      this.administradoresServices.obtenerListaAdmins().subscribe(admins => {
-        const organizadorMap = organizador.map((m: any) => ({
-          id: m.id,
-          nombre: `${m.user.first_name} ${m.user.last_name}`
-        }));
-
-        const adminsMap = admins.map((a: any) => ({
-          id: a.id,
-          nombre: `${a.user.first_name} ${a.user.last_name}`
-        }));
-
-        this.responsable = [...organizadorMap, ...adminsMap];
-      });
-    });
-  }
-  */
   public convertirHora12a24(hora12: string): string {
     if (!hora12) return '';
     const [time, modifier] = hora12.split(' ');
@@ -310,8 +359,6 @@ export class RegistroEventoComponent {
     console.log("Array público: ", this.evento.publico_json);
     console.log("¿Es estudiante?", this.esEstudiante);
   }
-
-
 
   public revisarSeleccion(nombre: string): boolean {
     if (this.evento.publico_json) {

@@ -1,1 +1,58 @@
-<p>registro-sedes-aulas works!</p>
+<div class="wrapper">
+  <div class="section-registro">
+    <div class="body-registro">
+      <div class="container">
+        <div class="row mt-3 mb-3">
+          <div class="form-group col-12">
+            <label class="title-user" for="tipo_usuario">Ingresa los datos de la sede</label>
+          </div>
+        </div>
+        <!-- Aquí empiezan los campos del formulario -->
+        <!--EDIFICIO-->
+        <mat-form-field class="mat-input form-field" appearance="outline">
+          <mat-label>Edificio</mat-label>
+          <input matInput [(ngModel)]="sede.edificio" placeholder="Escribe el edificio del evento academico"
+            (keypress)="soloLetras($event)">
+        </mat-form-field>
+        <div *ngIf="errors.edificio" class="invalid-feedback">{{ errors.edificio }}</div>
+
+        <!--AULA-->
+        <mat-form-field class="mat-input form-field" appearance="outline">
+          <mat-label>Aula del evento academico</mat-label>
+          <input matInput [(ngModel)]="sede.aula" placeholder="Escribe el nombre del evento academico"
+          (keypress)="soloLetras($event)">
+        </mat-form-field>
+        <div *ngIf="errors.aula" class="invalid-feedback">{{ errors.aula }}</div>
+
+        <!--CAPACIDAD-->
+        <mat-form-field class="mat-input form-field" appearance="outline">
+          <mat-label>Cupo máximo de asistentes</mat-label>
+          <input matInput [(ngModel)]="sede.capacidad" mask="000" [dropSpecialCharacters]="true" [validation]="false"
+            placeholder="Escribe el capacidad maxima">
+        </mat-form-field>
+        <div *ngIf="errors.capacidad" class="invalid-feedback">{{ errors.capacidad }}</div>
+
+        <!--RECURSOS DISPONIBLES-->
+        <div class="select-publico">
+          <div class="row mt-3 mb-3">
+            <div class="form-group col-12">
+              <label class="title-publico" for="tipo_usuario">Selecciona el recurso</label>
+            </div>
+          </div>
+          <div class="checkbox-group" *ngFor="let recurso of recurso; let i = index">
+            <mat-checkbox class="checkbox-item opc-sc" name="opsc" (change)="checkboxChange($event)"
+              value="{{recurso.nombre}}" [checked]="revisarSeleccion(recurso.nombre)">
+              <div class="d-checkbox-nombre">{{recurso.nombre}}</div>
+            </mat-checkbox>
+          </div>
+          <div *ngIf="errors.recursos_json" class="invalid-feedback">{{ errors.recursos_json }}</div>
+
+        <div class="section-buttons">
+          <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+          <button *ngIf="!editar" class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+          <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
