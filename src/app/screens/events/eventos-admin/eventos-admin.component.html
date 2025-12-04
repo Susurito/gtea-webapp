@@ -35,7 +35,6 @@
               <th>Categoría</th>
               <th>Organizador</th>
               <th>Fecha</th>
-              <th>Estado</th>
               <th>Inscritos</th>
               <th class="actions-header">Acciones</th>
               <th *ngIf="shouldShowPublishColumn"></th>
@@ -46,11 +45,6 @@
                 <td>{{ evento.categoria }}</td>
                 <td>{{ evento.organizador }}</td>
                 <td>{{ evento.fecha }}</td>
-                <td>
-                  <span [ngClass]="['status-tag', 'status-' + evento.estado.toLowerCase()]">
-                    {{ evento.estado }}
-                  </span>
-                </td>
                 <td>{{ evento.inscritos }}</td>
 
                 <!--<td *ngIf="evento.estado === 'Borrador'"> -->

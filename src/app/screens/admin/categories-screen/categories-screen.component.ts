@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CategoriesService } from '../../../services/categories.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteModalComponent } from '../../../modals/confirm-delete-modal/confirm-delete-modal.component';
 
 export interface Categoria {
   id: number;
@@ -93,24 +94,30 @@ export class CategoriesScreenComponent implements OnInit {
   }
 
 
-  /** -------------------------
-   * ELIMINAR CATEGORÍA
-   * ------------------------- **/
-  public eliminarCategoria(id: number, nombre: string): void {
-    if (!confirm(`¿Seguro que deseas eliminar la categoría "${nombre}"?`)) {
-      return;
-    }
+/** -------------------------
+ * ELIMINAR CATEGORÍA
+ * ------------------------- **/
+public eliminarCategoria(id: number, nombre: string): void {
+  const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
+    data: { id, mensaje: `¿Seguro que deseas eliminar la categoría "${nombre}"?` },
+    width: '328px',
+    height: '288px'
+  });
 
-    this.categoriesService.eliminarCategoria(id).subscribe({
-      next: () => {
-        alert("Categoría eliminada correctamente");
-        this.cargarCategorias();
-      },
-      error: (err) => {
-        console.error("Error al eliminar categoría:", err);
-        alert("No se pudo eliminar la categoría");
-      }
-    });
-  }
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === true) {
+      this.categoriesService.eliminarCategoria(id).subscribe({
+        next: () => {
+          alert("Categoría eliminada correctamente");
+          this.cargarCategorias(); // refresca la lista
+        },
+        error: (err) => {
+          console.error("Error al eliminar categoría:", err);
+          alert("No se pudo eliminar la categoría");
+        }
+      });
+    }
+  });
+}
 
 }

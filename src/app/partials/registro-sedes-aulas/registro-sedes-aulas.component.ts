@@ -102,7 +102,7 @@ export class RegistroSedesAulasComponent implements OnInit {
       this.venuesService.editarSede(this.sede).subscribe({
         next: (response) => {
           alert("Sede actualizada correctamente");
-          this.router.navigate(["dashboard"]);
+          this.router.navigate(["sedes"]);
         },
         error: (err) => {
           console.error(err);
@@ -114,7 +114,7 @@ export class RegistroSedesAulasComponent implements OnInit {
       this.venuesService.registrarSede(this.sede).subscribe({
         next: (response) => {
           alert("Sede registrada correctamente");
-          this.router.navigate(["dashboard"]);
+          this.router.navigate(["sedes"]);
         },
         error: (err) => {
           console.error(err);

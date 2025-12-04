@@ -1,37 +1,26 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import { EventsService } from '../../services/events.service';
-
 
 @Component({
   selector: 'app-confirm-delete-modal',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './confirm-delete-modal.component.html',
   styleUrl: './confirm-delete-modal.component.scss'
 })
-export class ConfirmDeleteModalComponent implements OnInit {
+export class ConfirmDeleteModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDeleteModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:any,
-    private EventsService: EventsService
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
-  ngOnInit(): void {}
 
-  public cerrar_modal(){
-    this.dialogRef.close({isDelete:false});
+  public cerrar_modal() {
+    this.dialogRef.close(false);
   }
 
-  public eliminarEvento() {
-    this.EventsService.eliminarEvento(this.data.id).subscribe(
-      (response)=>{
-        console.log(response);
-        this.dialogRef.close({isDelete:true});
-      }, (error)=>{
-        this.dialogRef.close({isDelete:false});
-      }
-    );
+  public confirmar() {
+    this.dialogRef.close(true);
   }
-
 }

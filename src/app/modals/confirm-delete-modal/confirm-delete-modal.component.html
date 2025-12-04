@@ -1,19 +1,25 @@
 <div class="wrapper">
   <div class="icon-close">
-      <button class="btn" (click)="cerrar_modal()">
-          <i class="bi bi-x-lg"></i>
-      </button>
+    <button class="btn" (click)="cerrar_modal()">
+      <i class="bi bi-x-lg"></i>
+    </button>
   </div>
+
   <div class="body-modal">
-      <h1 class="title-modal">Eliminar</h1>
-      <span class="descripcion">¿Está seguro de que deseas eliminar este elemento?</span>
-      <div class="buttons-modal">
-          <button mat-button class="btn-regresar" (click)="cerrar_modal()">
-              Cancelar
-          </button>
-          <button mat-button class="btn-eliminar" (click)="eliminarEvento()">
-              Eliminar
-          </button>
-      </div>
+    <h1 class="title-modal">Eliminar</h1>
+
+    <span class="descripcion">
+      ¿Está seguro de que deseas eliminar este elemento?
+    </span>
+
+    <div class="buttons-modal">
+      <button mat-button class="btn-regresar" (click)="cerrar_modal()">
+        Cancelar
+      </button>
+
+      <button mat-button class="btn-eliminar" (click)="confirmar()">
+        Eliminar
+      </button>
+    </div>
   </div>
 </div>

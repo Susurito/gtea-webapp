@@ -91,7 +91,7 @@ export class RegistroCategoriasComponent implements OnInit {
       this.categoriesService.editarCategoria(this.categoria).subscribe({
         next: (response) => {
           alert("Categoría actualizada correctamente");
-          this.router.navigate(["/categories"]);
+          this.router.navigate(["categorias"]);
         },
         error: (err) => {
           console.error(err);

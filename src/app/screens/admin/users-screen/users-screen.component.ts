@@ -162,16 +162,42 @@ export class UsersScreenComponent implements OnInit {
   }
 
 
-  public eliminarUsuario(userId: number) {
-    // Lógica para eliminar usuario
-    console.log('Eliminar usuario con ID:', userId);
+  public eliminarUsuario(user: User) {
+    const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
+      data: { id: user.id },
+      height: '288px',
+      width: '328px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+
+        let deleteRequest;
+
+        if (user.rol === 'Estudiante') {
+          deleteRequest = this.usersService.eliminarEstudiante(user.id);
+        } else if (user.rol === 'Organizador') {
+          deleteRequest = this.usersService.eliminarOrganizador(user.id);
+        } else {
+          alert("No se puede eliminar un Administrador");
+          return;
+        }
+
+        deleteRequest.subscribe({
+          next: () => {
+            alert("Usuario eliminado correctamente");
+            this.obtenerUsuarios();
+          },
+          error: (err) => {
+            console.error("Error eliminando usuario:", err);
+            alert("No se pudo eliminar el usuario");
+          }
+        });
+      }
+    });
   }
 
 
-  public modifyRole(user: any) {
-    // Lógica para modificar rol
-    console.log('Modificar rol para usuario:', user);
-  } 
 
 }
 
