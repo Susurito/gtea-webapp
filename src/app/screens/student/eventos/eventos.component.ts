@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { SidebarComponent } from "../../../partials/sidebar/sidebar.component";
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from "../../../partials/navbar/navbar.component";
 import { FooterComponent } from "../../../partials/footer/footer.component";
 import { Router } from '@angular/router';
 import { EventsService } from '../../../services/events.service';
 import { FormsModule } from '@angular/forms';
-
+import { Evento } from '../../events/eventos-admin/eventos-admin.component';
 
 interface EventItem {
   id: string;
@@ -20,19 +20,14 @@ interface EventItem {
   description: string;
 }
 
+
 @Component({
-  selector: 'app-list-screen',
-  standalone: true,
-  imports: [
-    CommonModule,
-    NavbarComponent,
-    FooterComponent,
-    FormsModule
-  ],
-  templateUrl: './list-screen.component.html',
-  styleUrls: ['./list-screen.component.scss']
+  selector: 'app-eventos',
+  imports: [SidebarComponent, CommonModule, FormsModule],
+  templateUrl: './eventos.component.html',
+  styleUrls: ['./eventos.component.scss']
 })
-export class ListScreenComponent implements OnInit {
+export class EventosComponent implements OnInit {
 
   searchTerm: string = '';
   categoryFilter: string = 'all';
@@ -49,10 +44,11 @@ export class ListScreenComponent implements OnInit {
   constructor(
     private router: Router,
     private eventsService: EventsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.obtenerEventos();
+      this.obtenerEventos();
+
   }
 
   // ==================================================
@@ -148,6 +144,13 @@ export class ListScreenComponent implements OnInit {
     this.router.navigate(['/event-detail', id]);
   }
 
-  
+
+
+  eventos: Evento[] = [];
+
+  public verDetalle(id: number) {
+    this.router.navigate(['/detalles-evento', id]);
+  }
+
 
 }
