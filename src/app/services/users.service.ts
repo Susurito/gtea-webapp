@@ -73,4 +73,18 @@ export class UsersService {
   }
 
 
+    //Eliminar organizador
+  public eliminarOrganizador(idUser: number): Observable <any>{
+    var token = this.authService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.delete<any>(`${environment.url_api}/Organizador-edit/?id=${idUser}`,{headers:headers});
+  }
+
+  //Eliminar estudiante
+public eliminarEstudiante(idUser: number): Observable <any>{
+var token = this.authService.getSessionToken();
+var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+return this.http.delete<any>(`${environment.url_api}/Estudiantes-edit/?id=${idUser}`,{headers:headers});
+}
+
 }

@@ -7,6 +7,7 @@ import { VenuesService } from '../../../services/venues.service';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ConfirmDeleteModalComponent } from '../../../modals/confirm-delete-modal/confirm-delete-modal.component';
 
 export interface Aula {
   id: number;
@@ -97,8 +98,32 @@ export class VenuesScreenComponent implements OnInit {
     this.router.navigate(['/register-sedes', aula.id]);
   }
 
-  eliminarAula(aula: Aula) {
-    // Aquí abrirías un diálogo de confirmación antes de eliminar
-    alert(`Función: Abrir diálogo de confirmación para eliminar ${aula.aula} (ID: ${aula.id}).`);
+  public eliminarAula(aula: any): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
+      data: {
+        id: aula.id,
+        mensaje: `¿Seguro que deseas eliminar la sede "${aula.edificio}"?`
+      },
+      width: '328px',
+      height: '288px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.venuesService.eliminarSede(aula.id).subscribe({
+          next: () => {
+            alert("Sede eliminada correctamente");
+            this.cargarAulas(); // refresca la lista
+          },
+          error: (err) => {
+            console.error("Error al eliminar sede:", err);
+            alert("No se pudo eliminar la sede");
+          }
+        });
+      }
+    });
   }
+
+
+
 }

@@ -63,24 +63,24 @@ export class VenuesService {
   }
 
 
-public registrarSede(data: any): Observable<any> {
-  const token = this.authService.getSessionToken();
+  public registrarSede(data: any): Observable<any> {
+    const token = this.authService.getSessionToken();
 
-  const headers = new HttpHeaders({
-    'Authorization': 'Bearer ' + token
-    // NO pongas Content-Type si usas FormData
-  });
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token
+      // NO pongas Content-Type si usas FormData
+    });
 
-  // Usar FormData solo si el backend espera multipart/form-data
-  const formData = new FormData();
-  formData.append('edificio', data.edificio);
-  formData.append('aula', data.aula);
-  formData.append('capacidad', data.capacidad);
-  formData.append('recursos_json', JSON.stringify(data.recursos_json));
+    // Usar FormData solo si el backend espera multipart/form-data
+    const formData = new FormData();
+    formData.append('edificio', data.edificio);
+    formData.append('aula', data.aula);
+    formData.append('capacidad', data.capacidad);
+    formData.append('recursos_json', JSON.stringify(data.recursos_json));
 
-  // Cambia la URL a la correcta de tu backend
-  return this.http.post<any>(`${environment.url_api}/sedes/`, formData, { headers });
-}
+    // Cambia la URL a la correcta de tu backend
+    return this.http.post<any>(`${environment.url_api}/sedes/`, formData, { headers });
+  }
 
 
 
@@ -102,10 +102,17 @@ public registrarSede(data: any): Observable<any> {
   }
 
   //Eliminar evento
-  public eliminarSede(idUser: number): Observable<any> {
-    var token = this.authService.getSessionToken();
-    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    return this.http.delete<any>(`${environment.url_api}/sede-edit/?id=${idUser}`, { headers: headers });
+  public eliminarSede(id: number): Observable<any> {
+    const token = this.authService.getSessionToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    // Query param ?id=...
+    return this.http.delete<any>(`${environment.url_api}/sedes-edit/?id=${id}`, { headers });
   }
+
+
 
 }

@@ -121,13 +121,41 @@ export class RegistroOrganizadorComponent implements OnInit {
   }
 
   public registrar(): void {
-    this.errors = {};
+    // Limpiar errores
+    this.errors = [];
+
+    // Validación del formulario
     this.errors = this.organizadoresServices.validarOrganizador(this.organizador, this.editar);
-    if (Object.keys(this.errors).length > 0) {
+
+    if (!$.isEmptyObject(this.errors)) {
       return;
     }
-    console.log("paso la validacion");
+
+    // Validar contraseña
+    if (this.organizador.password === this.organizador.confirm_password) {
+
+      this.organizadoresServices.registrarOrganizador(this.organizador).subscribe(
+        (response) => {
+          alert("Organizador registrado correctamente");
+          console.log("Organizador registrado:", response);
+
+          // 👉 Redirigir siempre al listado de usuarios
+          this.router.navigate(['/usuarios']);
+        },
+        (error) => {
+          console.error(error);
+          alert("No se pudo registrar el organizador");
+        }
+      );
+
+    } else {
+      alert("Las contraseñas no coinciden");
+      this.organizador.password = "";
+      this.organizador.confirm_password = "";
+    }
   }
+
+
 
   public actualizar(): void {
     this.errors = this.organizadoresServices.validarOrganizador(this.organizador, this.editar);

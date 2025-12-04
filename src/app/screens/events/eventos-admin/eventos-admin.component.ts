@@ -51,7 +51,7 @@ export class EventosAdminComponent implements OnInit {
     private eventsService: EventsService,
     private router: Router,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.name_user = this.facadeService.getUserCompleteName();
@@ -141,14 +141,20 @@ export class EventosAdminComponent implements OnInit {
   public eliminarEvento(eventoId: number): void {
     const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
       data: { id: eventoId },
-      height: '288px',
-      width: '328px'
+      width: '328px',
+      height: '288px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result?.isDelete) {
-        this.obtenerEventos();
+      if (result === true) {
+        this.eventsService.eliminarEvento(eventoId).subscribe(
+          () => {
+            this.obtenerEventos(); // refresca
+          },
+          (error) => console.error(error)
+        );
       }
     });
   }
+
 }

@@ -10,6 +10,9 @@ $border-color: #e5e7eb;
 $app-navbar-height: 50px;
 $app-sidebar-width: 250px;
 
+//boton
+$primary-color: #007bff;
+$danger-color: #dc3545;
 .app-layout {
   display: grid;
   grid-template-columns: $app-sidebar-width auto;
@@ -20,6 +23,7 @@ $app-sidebar-width: 250px;
     "navbar navbar"
     "sidebar content";
 }
+
 .navbar {
   grid-area: navbar;
   background: #fff;
@@ -71,12 +75,12 @@ $app-sidebar-width: 250px;
 
     // Icono del botón
     mat-icon {
-        margin-right: 4px;
-        font-size: 18px;
-        height: 18px;
-        width: 18px;
-        position: relative;
-        top: 1px;
+      margin-right: 4px;
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+      position: relative;
+      top: 1px;
     }
   }
 }
@@ -152,48 +156,77 @@ $app-sidebar-width: 250px;
   }
 
   // Ancho de columnas para mejorar la visibilidad
-  th.mat-column-edificio, td.mat-column-edificio { flex: 0 0 150px; }
-  th.mat-column-aula, td.mat-column-aula { flex: 0 0 120px; }
-  th.mat-column-capacidad, td.mat-column-capacidad { flex: 0 0 120px; }
-  th.mat-column-recursos, td.mat-column-recursos { flex: 0 0 250px; }
-  th.mat-column-eventos, td.mat-column-eventos { flex: 0 0 80px; text-align: center; }
-  th.mat-column-acciones, td.mat-column-acciones { flex: 0 0 100px; }
+  th.mat-column-edificio,
+  td.mat-column-edificio {
+    flex: 0 0 150px;
+  }
+
+  th.mat-column-aula,
+  td.mat-column-aula {
+    flex: 0 0 120px;
+  }
+
+  th.mat-column-capacidad,
+  td.mat-column-capacidad {
+    flex: 0 0 120px;
+  }
+
+  th.mat-column-recursos,
+  td.mat-column-recursos {
+    flex: 0 0 250px;
+  }
+
+  th.mat-column-eventos,
+  td.mat-column-eventos {
+    flex: 0 0 80px;
+    text-align: center;
+  }
+
+  th.mat-column-acciones,
+  td.mat-column-acciones {
+    flex: 0 0 100px;
+  }
 
   // Líneas de separación (opcional si Angular Material no las pone por defecto)
   .mat-row {
     border-bottom: 1px solid #dee2e6;
   }
 
-  // Estilo de los botones de acción (Editar y Eliminar)
-  .action-buttons {
+  /* --- Acciones de la Tabla --- */
+  .actions-cell {
     display: flex;
-    gap: 4px;
+    gap: 2px;
 
     button {
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      padding: 0;
+      background: none;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      padding: 6px 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
 
-      mat-icon {
-        font-size: 18px;
-        height: 18px;
-        width: 18px;
+      i {
+        font-size: 0.9rem;
       }
+    }
 
-      // Estilos específicos para los botones de la imagen (simulando los círculos rojos)
-      &:first-child {
-        // Estilo de editar (Lápiz)
-        color: #6c757d; // Gris
-        border: 1px solid #dee2e6;
-        border-radius: 4px;
+    .edit-btn {
+      color: $primary-color;
+      /* Azul */
+      border-radius: 2dvh;
+
+      &:hover {
+        background-color: lighten($primary-color, 45%);
       }
-      &:last-child {
-        // Estilo de eliminar (Bote de basura)
-        color: #dc3545; // Rojo
-        border: 1px solid #dc3545;
-        border-radius: 4px;
-        background-color: #f8d7da; // Fondo rojo muy claro
+    }
+
+    .delete-btn {
+      color: $danger-color;
+      /* Rojo */
+      border-radius: 2dvh;
+
+      &:hover {
+        background-color: lighten($danger-color, 35%);
       }
     }
   }
