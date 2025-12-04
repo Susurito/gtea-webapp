@@ -126,4 +126,12 @@ public eliminarEvento(idUser: number): Observable<any> {
 }
 
 
+
+  //CHECARRRRRR
+  public publishEvent(eventId: number): Observable<any> {
+    var token = this.authService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.post<any>(`${environment.url_api}/eventos-publish/?id=${eventId}`, {}, { headers: headers });
+  }
+
 }

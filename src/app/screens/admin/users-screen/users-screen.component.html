@@ -8,22 +8,105 @@
           <h2>Gestión de Usuarios</h2>
 
 
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Crear Usuario
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="register-logeado-estudiante">Crear Estudiante</a></li>
-              <li><a class="dropdown-item" href="register-logeado-organizador">Crear Organizador</a></li>
-            </ul>
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Crear Usuario
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="register-logeado-estudiante" >Crear Alumno</a></li>
+                <li><a class="dropdown-item" href="register-logeado-organizador">Crear Organizador</a></li>
+              </ul>
+            </div>
+
+
+
+          </header>
+
+
+            <div class="stats-cards">
+              <div class="stat-card">
+                <div class="title">Total Usuarios</div>
+                <div class="value">{{ totalUsuarios }}</div>
+              </div>
+              <div class="stat-card">
+                <div class="title">Estudiantes</div>
+                <div class="value">{{ estudiantes }}</div>
+              </div>
+              <div class="stat-card">
+                <div class="title">Organizadores</div>
+                <div class="value">{{ organizadores }}</div>
+              </div>
+              <div class="stat-card">
+                <div class="title">Administradores</div>
+                <div class="value">{{ administradores }}</div>
+              </div>
+            </div>
+
+            <div class="toolbar">
+              <div class="search-box">
+                <span class="search-icon"></span>
+                <input
+                  type="text"
+                  placeholder="Buscar por nombre o correo..."
+                  [(ngModel)]="searchTerm"
+                  (ngModelChange)="applyFilter()"
+                />
+              </div>
+
+              <div class="filter-select">
+                <select
+                  [(ngModel)]="filterRole"
+                  (ngModelChange)="applyFilter()"
+                >
+                  <option value="">Filtrar por rol</option>
+                  <option value="Estudiante">Estudiante</option>
+                  <option value="Organizador">Organizador</option>
+                  <option value="Administrador">Administrador</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table class="user-table">
+                <thead>
+                  <tr>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Registrado</th>
+                    <th>Eventos</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of users">
+                    <td>
+                      <div class="user-info">
+                        <span class="avatar">👤</span>
+                        {{ user.nombre }}
+                      </div>
+                    </td>
+                    <td>{{ user.correo }}</td>
+                    <td>
+                      <span class="badge" [ngClass]="getRoleClass(user.rol)">
+                        {{ user.rol }}
+                      </span>
+                    </td>
+                    <td>{{ user.registrado }}</td>
+                    <td>{{ user.eventos }}</td>
+                    <td>
+                      <button class="btn-modify" (click)="modifyRole(user)">
+                        Modificar Rol
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="users.length === 0" style="text-align: center; padding: 20px;">
+                  No se encontraron usuarios que coincidan con los filtros.
+              </div>
+            </div>
           </div>
-
-
-
-        </header>
-
-
         <div class="stats-cards">
           <div class="stat-card">
             <div class="title">Total Usuarios</div>
@@ -105,8 +188,6 @@
             No se encontraron usuarios que coincidan con los filtros.
           </div>
         </div>
-      </div>
-
     </main>
   </div>
 </div>

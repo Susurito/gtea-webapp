@@ -1,1 +1,19 @@
-<p>confirm-action-modal works!</p>
+<div class="wrapper">
+  <div class="icon-close">
+      <button class="btn" (click)="cerrar_modal()">
+          <i class="bi bi-x-lg"></i>
+      </button>
+  </div>
+  <div class="body-modal">
+      <h1 class="title-modal">Cambiar</h1>
+      <span class="descripcion">¿Está seguro de que deseas cambiar este elemento?</span>
+      <div class="buttons-modal">
+          <button mat-button class="btn-regresar" >
+              Si
+          </button>
+          <button mat-button class="btn-eliminar" (click)="cerrar_modal()">
+              No
+          </button>
+      </div>
+  </div>
+</div>

@@ -167,5 +167,11 @@ export class UsersScreenComponent implements OnInit {
     console.log('Eliminar usuario con ID:', userId);
   }
 
+
+  public modifyRole(user: any) {
+    // Lógica para modificar rol
+    console.log('Modificar rol para usuario:', user);
+  } 
+
 }
 
