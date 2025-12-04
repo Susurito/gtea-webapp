@@ -1,106 +1,110 @@
 <div class="app-layout">
-    <app-sidebar></app-sidebar>
-      <div class="content-area">
-          <main class="gestion-container">
+  <app-sidebar></app-sidebar>
+  <div class="content-area">
+    <main class="gestion-container">
+      <section class="event-detail-page" *ngIf="eventData as event">
 
-              <div class="event-detail-page" *ngIf="eventData">
-
-  <button class="back-button" (click)="goBack()">
-    &leftarrow; Volver a Eventos
-  </button>
-
-  <div class="event-container">
-
-    <div class="header-section">
-      <div class="image-placeholder" [style.background-image]="'url(' + eventData.imagenUrl + ')'">
-        </div>
-
-      <div class="title-bar">
-        <div>
-          <h2>{{ eventData.titulo }}</h2>
-          <div class="info-tags">
-            <span class="badge badge-category">{{ eventData.categoria }}</span>
-            <span class="badge" [ngClass]="getStateClass(eventData.estado)">{{ eventData.estado }}</span>
-          </div>
-        </div>
-
-        <button
-          class="action-button"
-          (click)="inscribirse()"
-          [disabled]="eventData.estaInscrito || eventData.cupoDisponible <= 0"
-        >
-          <span *ngIf="eventData.estaInscrito">Inscrito ✔️</span>
-          <span *ngIf="!eventData.estaInscrito && eventData.cupoDisponible > 0">Inscribirse</span>
-          <span *ngIf="!eventData.estaInscrito && eventData.cupoDisponible <= 0">Cupo Lleno</span>
+        <button class="back-button" (click)="goBack()">
+          <span aria-hidden="true">&leftarrow;</span> Volver a Eventos
         </button>
-      </div>
-    </div>
 
-    <div class="details-grid">
-      <div class="detail-item">
-        <span class="icon">{{ iconMap['fecha'] }}</span>
-        <div class="text-content">
-          <div class="label">Fecha</div>
-          <div class="value">{{ eventData.fecha }}</div>
-        </div>
-      </div>
+        <article class="event-container">
 
-      <div class="detail-item">
-        <span class="icon">{{ iconMap['horario'] }}</span>
-        <div class="text-content">
-          <div class="label">Horario</div>
-          <div class="value">{{ eventData.horario }}</div>
-        </div>
-      </div>
+          <header class="header-section">
+            <figure class="image-placeholder" [style.background-image]="'url(' + event.imageUrl + ')'">
+            </figure>
 
-      <div class="detail-item">
-        <span class="icon">{{ iconMap['sede'] }}</span>
-        <div class="text-content">
-          <div class="label">Sede</div>
-          <div class="value">{{ eventData.sede }}</div>
-        </div>
-      </div>
+            <div class="title-bar">
+              <div>
+                <h1>{{ event.title }}</h1>
+                <div class="info-tags">
+                  <span class="badge badge-category">{{ event.category }}</span>
+                  <span
+                    class="badge"
+                    [ngClass]="getStateClass(event.status)"
+                    role="status"
+                  >{{ event.status }}</span>
+                </div>
+              </div>
 
-      <div class="detail-item">
-        <span class="icon">{{ iconMap['cupo'] }}</span>
-        <div class="text-content">
-          <div class="label">Cupo Disponible</div>
-          <div class="value">{{ eventData.cupoDisponible }} de {{ eventData.cupoTotal }} inscritos</div>
-        </div>
-      </div>
+              <button
+                class="action-button"
+                (click)="inscribirse()"
+                [disabled]="event.isRegistered || event.capacityAvailable <= 0"
+                [attr.aria-label]="event.isRegistered ? 'Ya estás inscrito' : event.capacityAvailable > 0 ? 'Inscribirse al evento' : 'Cupo lleno, no se puede inscribir'"
+              >
+                <span *ngIf="event.isRegistered">Inscrito ✔️</span>
+                <span *ngIf="!event.isRegistered && event.capacityAvailable > 0">Inscribirse</span>
+                <span *ngIf="!event.isRegistered && event.capacityAvailable <= 0">Cupo Lleno</span>
+              </button>
+            </div>
+          </header>
 
-      <div class="detail-item">
-        <span class="icon">{{ iconMap['organizador'] }}</span>
-        <div class="text-content">
-          <div class="label">Organizador</div>
-          <div class="value">{{ eventData.organizador }}</div>
-        </div>
-      </div>
+          <section class="details-grid">
 
-      <div class="detail-item">
-        <span class="icon">{{ iconMap['modalidad'] }}</span>
-        <div class="text-content">
-          <div class="label">Modalidad</div>
-          <div class="value">{{ eventData.modalidad }}</div>
-        </div>
-      </div>
-    </div>
+            <div class="detail-item">
+              <span class="icon" aria-hidden="true">{{ iconMap['fecha'] }}</span>
+              <div class="text-content">
+                <div class="label">Fecha</div>
+                <div class="value">{{ event.date }}</div>
+              </div>
+            </div>
 
-    <div class="content-section">
+            <div class="detail-item">
+              <span class="icon" aria-hidden="true">{{ iconMap['horario'] }}</span>
+              <div class="text-content">
+                <div class="label">Horario</div>
+                <div class="value">{{ event.time }}</div>
+              </div>
+            </div>
 
-      <h3>Descripción</h3>
-      <p class="description-text">{{ eventData.descripcion }}</p>
+            <div class="detail-item">
+              <span class="icon" aria-hidden="true">{{ iconMap['sede'] }}</span>
+              <div class="text-content">
+                <div class="label">Sede</div>
+                <div class="value">{{ event.venue }}</div>
+              </div>
+            </div>
 
-      <h3>Requisitos</h3>
-      <ul>
-        <li *ngFor="let req of eventData.requisitos">{{ req }}</li>
-      </ul>
+            <div class="detail-item">
+              <span class="icon" aria-hidden="true">{{ iconMap['cupo'] }}</span>
+              <div class="text-content">
+                <div class="label">Cupo Disponible</div>
+                <div class="value">{{ event.capacityAvailable }} de {{ event.capacityTotal }} inscritos</div>
+              </div>
+            </div>
 
-    </div>
+            <div class="detail-item">
+              <span class="icon" aria-hidden="true">{{ iconMap['organizador'] }}</span>
+              <div class="text-content">
+                <div class="label">Organizador</div>
+                <div class="value">{{ event.organizer }}</div>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <span class="icon" aria-hidden="true">{{ iconMap['modalidad'] }}</span>
+              <div class="text-content">
+                <div class="label">Modalidad</div>
+                <div class="value">{{ event.modality }}</div>
+              </div>
+            </div>sss
+          </section>
+
+          <section class="content-section">
+
+            <h3>Descripción</h3>
+            <p class="description-text">{{ event.description }}</p>
+
+            <h3>Requisitos</h3>
+            <ul class="requirements-list">
+              <li *ngFor="let req of event.requirements">{{ req }}</li>
+            </ul>
+
+          </section>
+        </article>
+
+      </section>
+    </main>
   </div>
-</div>
-
-
-          </main>
-      </div>
 </div>
