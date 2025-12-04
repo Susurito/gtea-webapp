@@ -1,12 +1,45 @@
 <div class="app-layout">
   <app-sidebar></app-sidebar>
+
   <div class="content-area">
     <main class="categories-container">
       <div class="dashboard-container">
         <h2 class="dashboard-title">Dashboard {{rol}}</h2>
 
         <div class="metrics-grid">
-          <div class="metric-card">
+
+          <div class="metric-card" *ngIf="hasRole(ROLES.ESTUDIANTE)">
+            <div class="metric-header">
+              Eventos inscritos <i class="material-icons">calendar_today</i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ totalEventsRegistered }}</span>
+              <span class="metric-change positive">{{ totalEventsRegisteredChange }}</span>
+            </div>
+          </div>
+
+
+          <div class="metric-card" *ngIf="hasRole(ROLES.ESTUDIANTE)">
+            <div class="metric-header">
+              Proximos Eventos <i class="material-icons">calendar_today</i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ totalUpcomingEvents }}</span>
+              <span class="metric-change positive">{{ totalUpcomingEventsChange }}</span>
+            </div>
+          </div>
+
+          <div class="metric-card" *ngIf="hasRole(ROLES.ESTUDIANTE)">
+            <div class="metric-header">
+              Eventos asistidos <i class="material-icons">calendar_today</i>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value">{{ totalEventsAttended }}</span>
+              <span class="metric-change positive">{{ totalEventsAttendedChange }}</span>
+            </div>
+          </div>
+
+          <div class="metric-card" *ngIf="hasRole(ROLES.ADMINISTRADOR) || hasRole(ROLES.ORGANIZADOR)">
             <div class="metric-header">
               Total Eventos <i class="material-icons">calendar_today</i>
             </div>
@@ -16,7 +49,7 @@
             </div>
           </div>
 
-          <div class="metric-card">
+          <div class="metric-card" *ngIf="hasRole(ROLES.ADMINISTRADOR)">
             <div class="metric-header">
               Usuarios Activos <i class="material-icons">group</i>
             </div>
@@ -26,7 +59,7 @@
             </div>
           </div>
 
-          <div class="metric-card">
+          <div class="metric-card" *ngIf="hasRole(ROLES.ADMINISTRADOR)">
             <div class="metric-header">
               Inscripciones <i class="material-icons">trending_up</i>
             </div>
@@ -36,7 +69,7 @@
             </div>
           </div>
 
-          <div class="metric-card">
+          <div class="metric-card" *ngIf="hasRole(ROLES.ADMINISTRADOR)">
             <div class="metric-header">
               Tasa Asistencia <i class="material-icons">schedule</i>
             </div>
@@ -54,14 +87,11 @@
 
             <div *ngFor="let event of recentEvents" class="event-item">
               <div class="event-details">
-                <!--  <p class="event-name">{{ event.name }}</p>-->
-                <!--<p class="event-time">Hace {{ event.daysAgo }} días</p>-->
+                </div>
               </div>
-              <!-- <span class="event-status published">{{ event.status }}</span>  -->
-            </div>
           </div>
 
-          <div class="panel quick-actions-panel">
+          <div class="panel quick-actions-panel" *ngIf="hasRole(ROLES.ADMINISTRADOR) || hasRole(ROLES.ORGANIZADOR)">
             <h3 class="panel-title">Acciones Rápidas</h3>
             <p class="panel-subtitle">Gestión del sistema</p>
 
@@ -69,17 +99,16 @@
               <i class="material-icons">event</i> Gestionar Eventos
             </button>
 
-            <button class="action-button secondary">
+            <button class="action-button secondary" *ngIf="hasRole(ROLES.ADMINISTRADOR)">
               <i class="material-icons">people_alt</i> Gestionar Usuarios
             </button>
 
-            <button class="action-button secondary">
+            <button class="action-button secondary" *ngIf="hasRole(ROLES.ADMINISTRADOR)">
               <i class="material-icons">description</i> Ver Reportes
             </button>
           </div>
         </div>
       </div>
-
     </main>
   </div>
 </div>
