@@ -93,6 +93,8 @@ export class OrganizadoresService {
     return this.http.get<any>(`${environment.url_api}/lista-Organizador/`, {headers:headers});
   }
 
+
+
   //Obtener un solo usuario dependiendo su ID
   public getAdminByID(idUser: Number){
     return this.http.get<any>(`${environment.url_api}/Organizador/?id=${idUser}`,httpOptions);

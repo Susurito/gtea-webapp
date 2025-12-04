@@ -91,30 +91,29 @@ export class EstudiantesService {
     return this.http.get<any>(`${environment.url_api}/lista-Estudiantes/`, { headers: headers });
   }
 
-  /*
+
 //Obtener un solo usuario dependiendo su ID
-public getAdminByID(idUser: Number){
-return this.http.get<any>(`${environment.url_api}/admin/?id=${idUser}`,httpOptions);
+public getEstudianteByID(idUser: Number){
+return this.http.get<any>(`${environment.url_api}/Estudiantes/?id=${idUser}`,httpOptions);
 }
 
 //Servicio para actualizar un usuario
-public editarAdmin (data: any): Observable <any>{
+public editarEstudiante (data: any): Observable <any>{
 var token = this.authService.getSessionToken();
 var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
-return this.http.put<any>(`${environment.url_api}/admins-edit/`, data, {headers:headers});
+return this.http.put<any>(`${environment.url_api}/Estudiantes-edit/`, data, {headers:headers});
 }
 //Eliminar Admin
-public eliminarAdmin(idUser: number): Observable <any>{
+public eliminarEstudiante(idUser: number): Observable <any>{
 var token = this.authService.getSessionToken();
 var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
-return this.http.delete<any>(`${environment.url_api}/admins-edit/?id=${idUser}`,{headers:headers});
+return this.http.delete<any>(`${environment.url_api}/Estudiantes-edit/?id=${idUser}`,{headers:headers});
 }
 
 //Obtener el total de cada uno de los usuarios del sistema
 public getTotalUsuarios(){
 var token = this.authService.getSessionToken();
 var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
-return this.http.get<any>(`${environment.url_api}/admins-edit/`, {headers:headers});
+return this.http.get<any>(`${environment.url_api}/Estudiantes-edit/`, {headers:headers});
 }
-*/
 }

@@ -149,15 +149,18 @@ export class UsersScreenComponent implements OnInit {
     }
   }
 
-  public editarUsuario(user: any) {
+  public editarUsuario(user: User) {
     if (user.rol === 'Estudiante') {
-      this.router.navigate(['register-logeado-estudiante', user.id]);
+      // Navegar a registro de estudiante pasando el id
+      this.router.navigate(['/register-logeado-estudiante', user.id]);
     } else if (user.rol === 'Organizador') {
-      this.router.navigate(['register-logeado-organizador', user.id]);
+      // Navegar a registro de organizador pasando el id
+      this.router.navigate(['/register-logeado-organizador', user.id]);
     } else {
       alert('No se puede editar este tipo de usuario');
     }
   }
+
 
   public eliminarUsuario(userId: number) {
     // Lógica para eliminar usuario
