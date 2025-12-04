@@ -10,4 +10,5 @@ import { RegistroEstudianteComponent } from "../../partials/registro-estudiante/
 })
 export class RegisterLogeadoEstudiantesComponent {
 
+
 }

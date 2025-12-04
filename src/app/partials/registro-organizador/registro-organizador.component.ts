@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+declare var $: any;
+
 
 
 @Component({
@@ -50,6 +52,7 @@ export class RegistroOrganizadorComponent implements OnInit {
   public inputType_2: string = 'password';
 
   constructor(
+    private route: ActivatedRoute,
     private location: Location,
     public activatedRoute: ActivatedRoute,
     private organizadoresServices: OrganizadoresService,
@@ -58,12 +61,28 @@ export class RegistroOrganizadorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.organizador = this.organizadoresServices.esquemaOrganizador();
-    //rol del susuario
-    this.organizador.rol = this.rol;
 
-    console.log("Datos organizador: ", this.organizador);
+    this.idUser = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (this.idUser) {
+      this.editar = true;
+
+      this.organizadoresServices.getAdminByID(this.idUser).subscribe({
+        next: (data) => {
+          this.organizador = data;
+        },
+        error: (err) => {
+          console.error('Error al obtener organizador:', err);
+          alert('No se pudieron cargar los datos del organizador');
+        }
+      });
+
+    } else {
+      this.organizador = this.organizadoresServices.esquemaOrganizador();
+    }
   }
+
+
 
 
   //VALIDACIÓN en tiempo real (incluye el checkbox)
@@ -110,10 +129,21 @@ export class RegistroOrganizadorComponent implements OnInit {
     console.log("paso la validacion");
   }
 
-  public actualizar() {
+  public actualizar(): void {
+    this.errors = this.organizadoresServices.validarOrganizador(this.organizador, this.editar);
+    if (Object.keys(this.errors).length > 0) return;
 
+    this.organizadoresServices.editarOrganizador(this.organizador).subscribe({
+      next: () => {
+        alert('Usuario actualizado correctamente');
+        this.router.navigate(['/usuarios']);
+      },
+      error: (err) => {
+        console.error('Error al actualizar el usuario:', err);
+        alert('No se pudo actualizar el usuario');
+      }
+    });
   }
-
   public soloLetras(event: KeyboardEvent) {
     const charCode = event.key.charCodeAt(0);
     // Permitir solo letras (mayúsculas y minúsculas) y espacio

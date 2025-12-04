@@ -61,12 +61,34 @@ export class RegistroEstudianteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.estudiante = this.estudiantesServices.esquemaEstudiante();
-    //rol del susuario
-    this.estudiante.rol = this.rol;
 
-    console.log("Datos estudiante: ", this.estudiante);
+    // Obtener el ID desde la URL
+    this.idUser = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+
+    if (this.idUser) {
+      // modo edición
+      this.editar = true;
+
+      // Obtener los datos del estudiante por ID
+      this.estudiantesServices.getEstudianteByID(this.idUser).subscribe({
+        next: (data) => {
+          this.estudiante = data;
+          console.log("Datos cargados para edición:", this.estudiante);
+        },
+        error: (err) => {
+          console.error('Error al obtener estudiante:', err);
+          alert('No se pudieron cargar los datos del estudiante');
+        }
+      });
+
+    } else {
+      // Modo registro
+      this.estudiante = this.estudiantesServices.esquemaEstudiante();
+      this.estudiante.rol = this.rol;
+      console.log("Datos estudiante (nuevo): ", this.estudiante);
+    }
   }
+
 
   //VALIDACIÓN en tiempo real (incluye el checkbox)
   validate() {
@@ -138,9 +160,25 @@ export class RegistroEstudianteComponent implements OnInit {
     }
   }
 
-  public actualizar() {
+  public actualizar(): void {
 
+    // Validar campos
+    this.errors = this.estudiantesServices.validarEstudiante(this.estudiante, this.editar);
+    if (Object.keys(this.errors).length > 0) return;
+
+    // Enviar al backend
+    this.estudiantesServices.editarEstudiante(this.estudiante).subscribe({
+      next: () => {
+        alert('Estudiante actualizado correctamente');
+        this.router.navigate(['/usuarios']);  // Redirigir
+      },
+      error: (err) => {
+        console.error('Error al actualizar el estudiante:', err);
+        alert('No se pudo actualizar el estudiante');
+      }
+    });
   }
+
 
   public soloLetras(event: KeyboardEvent) {
     const charCode = event.key.charCodeAt(0);
