@@ -30,10 +30,13 @@ export const routes: Routes = [
   {path: 'mis-inscripciones', component: MyScreenComponent, pathMatch: 'full'},
   {path: 'eventos-admin', component: EventosAdminComponent, pathMatch: 'full'},
   {path: 'register-logeado-evento', component: RegisterLogeadoComponent, pathMatch: 'full'},
+  {path: 'register-logeado-evento/:id', component: RegisterLogeadoComponent, pathMatch: 'full'},
   {path: 'register-categorias', component: RegisterLogeadoCategoriasComponent, pathMatch: 'full'},
   {path: 'register-categorias/:id', component: RegisterLogeadoCategoriasComponent, pathMatch: 'full'},
   {path: 'register-logeado-estudiante', component: RegisterLogeadoEstudiantesComponent, pathMatch: 'full'},
+  {path: 'register-logeado-estudiante/:id', component: RegisterLogeadoEstudiantesComponent, pathMatch: 'full'},
   {path: 'register-logeado-organizador', component: RegisterLogeadoOrganizadorComponent, pathMatch: 'full'},
+  {path: 'register-logeado-organizador/:id', component: RegisterLogeadoOrganizadorComponent, pathMatch: 'full'},
   {path: 'register-sedes', component: RegisterLogeadoSedesComponent, pathMatch: 'full'},
   {path: 'register-sedes/:id', component: RegisterLogeadoSedesComponent, pathMatch: 'full'},
 

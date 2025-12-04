@@ -127,7 +127,8 @@ export class EventosAdminComponent implements OnInit {
   //      ACCIONES
   // ==================================================
   public editarEvento(eventoId: number) {
-    this.router.navigate(['registro-eventos', eventoId]);
+    this.router.navigate(['register-logeado-evento', eventoId]);
+
   }
 
   public editarUsuarios(eventoId: number) {

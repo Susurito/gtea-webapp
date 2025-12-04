@@ -86,7 +86,7 @@ export class OrganizadoresService {
     return this.http.post<any>(`${environment.url_api}/Organizador/`,data, httpOptions);
   }
 
-  //Obtener lista admins
+  //Obtener lista organizador
   public obtenerListaOrganizador (): Observable <any>{
     var token = this.authService.getSessionToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});

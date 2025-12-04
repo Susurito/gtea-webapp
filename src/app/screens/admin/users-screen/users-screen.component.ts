@@ -5,7 +5,12 @@ import { SidebarComponent } from "../../../partials/sidebar/sidebar.component";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UsersService } from '../../../services/users.service';
+import { MatIconModule } from '@angular/material/icon';
 import { ConfirmDeleteModalComponent } from '../../../modals/confirm-delete-modal/confirm-delete-modal.component';
+
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+
 
 // Define la interfaz de tus datos
 interface User {
@@ -19,7 +24,7 @@ interface User {
 
 @Component({
   selector: 'app-users-screen',
-  imports: [SidebarComponent, FormsModule, CommonModule],
+  imports: [SidebarComponent, FormsModule, CommonModule, MatIconModule, MatTableModule, MatButtonModule],
   templateUrl: './users-screen.component.html',
   styleUrls: ['./users-screen.component.scss']
 })
@@ -28,6 +33,7 @@ export class UsersScreenComponent implements OnInit {
   public allUsers: User[] = [];
   public users: User[] = [];
 
+  usuarios: User[] = [];
   // Totales obtenidos directamente del backend
   totalUsuarios: number = 0;
   estudiantes: number = 0;
@@ -59,7 +65,7 @@ export class UsersScreenComponent implements OnInit {
             nombre: `${s.user.first_name || ''} ${s.user.last_name || ''}`,
             correo: s.user.email || 'N/A',
             rol: 'Estudiante' as User['rol'],
-            registrado: new Date(s.fecha_registro).toLocaleDateString('es-ES'),
+            registrado: new Date(s.creation).toLocaleDateString('es-ES'),
             eventos: s.eventos_registrados || 0
           }));
 
@@ -69,7 +75,7 @@ export class UsersScreenComponent implements OnInit {
             nombre: `${o.user.first_name || ''} ${o.user.last_name || ''}`,
             correo: o.user.email || 'N/A',
             rol: 'Organizador' as User['rol'],
-            registrado: new Date(o.fecha_registro).toLocaleDateString('es-ES'),
+            registrado: new Date(o.creation).toLocaleDateString('es-ES'),
             eventos: o.eventos_registrados || 0
           }));
 
@@ -79,7 +85,7 @@ export class UsersScreenComponent implements OnInit {
             nombre: `${a.user.first_name || ''} ${a.user.last_name || ''}`,
             correo: a.user.email || 'N/A',
             rol: 'Administrador' as User['rol'],
-            registrado: new Date(a.fecha_registro).toLocaleDateString('es-ES'),
+            registrado: new Date(a.creation).toLocaleDateString('es-ES'),
             eventos: a.eventos_registrados || 0
           }));
 
@@ -143,10 +149,20 @@ export class UsersScreenComponent implements OnInit {
     }
   }
 
-  modifyRole(user: User): void {
-    alert(`Modificar rol para ${user.nombre}`);
+  public editarUsuario(user: any) {
+    if (user.rol === 'Estudiante') {
+      this.router.navigate(['register-logeado-estudiante', user.id]);
+    } else if (user.rol === 'Organizador') {
+      this.router.navigate(['register-logeado-organizador', user.id]);
+    } else {
+      alert('No se puede editar este tipo de usuario');
+    }
   }
 
-  public delete(idUser: number) { }
-  public goEditar(idUser: number) { }
+  public eliminarUsuario(userId: number) {
+    // Lógica para eliminar usuario
+    console.log('Eliminar usuario con ID:', userId);
+  }
+
 }
+

@@ -93,34 +93,37 @@ export class RegistroEventoComponent {
   }
 
   ngOnInit(): void {
+    // Primero inicializa el objeto vacío
+    this.evento = this.eventsService.esquemaEvento();
+
+    // Revisar si viene un ID en la URL
+    const id = this.activatedRoute.snapshot.params['id'];
+
+    if (id !== undefined) {
+      this.editar = true;
+      this.idEvento = id;
+      console.log("ID del evento: ", this.idEvento);
+    }
+
+    // Cargar las listas (independientemente si es editar o registrar)
     this.cargarResponsables();
     this.cargarCategorias();
     this.cargarSedes();
-    this.evento = this.eventsService.esquemaEvento();
-    //Imprimir datos en consola
-    console.log("Evento: ", this.evento)
 
-    // El if valida si existe un parámetro en la URL
-    if (this.activatedRoute.snapshot.params['id'] !== undefined) {
-      this.editar = true;
-      // Asignamos a nuestra variable global el valor del ID que viene por la URL
-      this.idEvento = this.activatedRoute.snapshot.params['id'];
-      console.log("ID del evento: ", this.idEvento);
-
-      // Llamamos al método que obtiene los datos del evento por su ID
+    // Si estamos editando → obtener datos
+    if (this.editar) {
       this.obtenerEventoPorID();
     }
   }
 
 
+
   public obtenerEventoPorID() {
     this.eventsService.getEventoByID(this.idEvento).subscribe(
       (response: any) => {
-        console.log("Evento obtenido del backend:", response);
 
-        // Convertir las horas a 12 horas con AM/PM para que el timepicker las entienda
         response.hora_inicio = this.convertirHora24a12(response.hora_inicio);
-        response.hora_final = this.convertirHora24a12(response.hora_final);
+        response.hora_fin = this.convertirHora24a12(response.hora_fin);
 
         this.evento = response;
 
@@ -132,20 +135,34 @@ export class RegistroEventoComponent {
     );
   }
 
+
   public registrar(): void {
-    //Validación del formulario
     this.errors = [];
 
     this.errors = this.eventsService.validarEvento(this.evento, this.editar);
     if (!$.isEmptyObject(this.errors)) {
-      return; // solo return, no return false
+      return;
     }
 
-    this.eventsService.registrarEvento(this.evento).subscribe(
+    // ---- Convertir objeto en FormData ----
+    const formData = new FormData();
+
+    for (const key in this.evento) {
+      if (this.evento.hasOwnProperty(key)) {
+        // Si es un array (publico_json), convertirlo a JSON
+        if (Array.isArray(this.evento[key])) {
+          formData.append(key, JSON.stringify(this.evento[key]));
+        } else {
+          formData.append(key, this.evento[key]);
+        }
+      }
+    }
+
+    this.eventsService.registrarEvento(formData).subscribe(
       (response) => {
         alert("Evento registrado correctamente");
         console.log("Evento registrado: ", response);
-        this.router.navigate(["home"]);
+        this.router.navigate(["eventos-admin"]);
       },
       (error) => {
         alert("No se pudo registrar el evento");
@@ -155,22 +172,40 @@ export class RegistroEventoComponent {
   }
 
 
-  public actualizar() {
-    /*const dialogRef = this.dialog.open(EditarEventoModalComponent, {
-      data: this.evento, // Le mandas el evento a editar
-      height: '288px',
-      width: '328px',
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result?.isEdit) {
-        alert("Evento editado correctamente");
-        this.router.navigate(["home"]);
-      } else {
-        console.log("Edición cancelada");
+  public actualizar(): void {
+    this.errors = [];
+
+    this.errors = this.eventsService.validarEvento(this.evento, this.editar);
+    if (!$.isEmptyObject(this.errors)) {
+      return;
+    }
+
+    // ---- Convertir objeto en FormData ----
+    const formData = new FormData();
+
+    for (const key in this.evento) {
+      if (this.evento.hasOwnProperty(key)) {
+        if (Array.isArray(this.evento[key])) {
+          formData.append(key, JSON.stringify(this.evento[key]));
+        } else {
+          formData.append(key, this.evento[key]);
+        }
       }
-    });
-    */
+    }
+
+    // Llamar servicio update con ID del evento
+    this.eventsService.editarEvento(this.idEvento, formData).subscribe(
+      (response) => {
+        alert("Evento actualizado correctamente");
+        console.log("Evento actualizado: ", response);
+        this.router.navigate(["eventos-admin"]);
+      },
+      (error) => {
+        console.error("Error al actualizar el evento:", error);
+        alert("No se pudo actualizar el evento");
+      }
+    );
   }
 
   public cargarResponsables() {
@@ -187,6 +222,12 @@ export class RegistroEventoComponent {
         }));
 
         this.responsable = [...organizadorMap, ...adminsMap];
+
+        if (this.editar && this.evento.responsable) {
+          const r = this.responsable.find(x => x.id === this.evento.responsable);
+          if (r) this.evento.responsable = r.id;
+        }
+
       });
     });
   }
@@ -199,6 +240,11 @@ export class RegistroEventoComponent {
           id: c.id,
           nombre_categoria: c.nombre_categoria
         }));
+
+        if (this.editar) {
+          this.evento.categoria = this.evento.categoria_id;
+        }
+
 
         // Si estamos editando y el evento ya tiene categoría, asignarla
         if (this.editar && this.evento.categoria) {
@@ -222,16 +268,22 @@ export class RegistroEventoComponent {
   public cargarSedes() {
     this.venuesService.obtenerListaSede().subscribe(
       (sedes) => {
-        // Mapear sedes para que tengan id y nombre combinado
+
         this.lugar = sedes.map((s: any) => ({
           id: s.id,
-          nombre: `${s.edificio} - ${s.aula}`,  // combinación que se muestra en el select
+          edificio: s.edificio,
+          aula: s.aula,
+          nombre: `${s.edificio} - ${s.aula}`,
         }));
 
-        // Si estamos editando y el evento ya tiene sede asignada, preseleccionarla
+        if (this.editar && this.evento.lugar_id) {
+          this.evento.lugar = this.evento.lugar_id;
+        }
+
+
         if (this.editar && this.evento.lugar) {
           const sedeSeleccionada = this.lugar.find(
-            (s) => `${s.edificio} - ${s.aula}` === this.evento.lugar
+            (s) => s.nombre === this.evento.lugar
           );
           if (sedeSeleccionada) {
             this.evento.lugar = sedeSeleccionada.nombre;
@@ -246,6 +298,7 @@ export class RegistroEventoComponent {
       }
     );
   }
+
 
 
 
@@ -326,8 +379,8 @@ export class RegistroEventoComponent {
 
   public changeHoraFinal(event: any) {
     console.log("Hora final (12h):", event);
-    this.evento.hora_final = this.convertirHora12a24(event);
-    console.log("Hora final guardada (24h):", this.evento.hora_final);
+    this.evento.hora_fin = this.convertirHora12a24(event);
+    console.log("Hora final guardada (24h):", this.evento.hora_fin);
   }
 
   public checkboxChange(event: any) {

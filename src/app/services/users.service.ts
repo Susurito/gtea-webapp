@@ -22,10 +22,15 @@ export class UsersService {
 
 
   //Obtener lista de alumnos
+
+
+
   public obtenerListaUsuarios(): Observable<any> {
     var token = this.authService.getSessionToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     return this.http.get<any>(`${environment.url_api}/lista-alumnos/`, { headers: headers });
+
+    console.log("DiegoGay estuvo aquí");
   }
   //Obtener lista de admins
   public obtenerListaAdmins(): Observable<any> {
@@ -66,5 +71,6 @@ export class UsersService {
     });
     return this.http.get<any>(`${environment.url_api}/admins-edit/`, { headers });
   }
+
 
 }
