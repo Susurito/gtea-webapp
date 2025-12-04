@@ -95,15 +95,15 @@
             <h3 class="panel-title">Acciones Rápidas</h3>
             <p class="panel-subtitle">Gestión del sistema</p>
 
-            <button class="action-button primary">
+            <button class="action-button primary" routerLink="/eventos-admin">
               <i class="material-icons">event</i> Gestionar Eventos
             </button>
 
-            <button class="action-button secondary" *ngIf="hasRole(ROLES.ADMINISTRADOR)">
+            <button class="action-button secondary" *ngIf="hasRole(ROLES.ADMINISTRADOR)" routerLink="/usuarios">
               <i class="material-icons">people_alt</i> Gestionar Usuarios
             </button>
 
-            <button class="action-button secondary" *ngIf="hasRole(ROLES.ADMINISTRADOR)">
+            <button class="action-button secondary" *ngIf="hasRole(ROLES.ADMINISTRADOR)" routerLink="/reportes">
               <i class="material-icons">description</i> Ver Reportes
             </button>
           </div>

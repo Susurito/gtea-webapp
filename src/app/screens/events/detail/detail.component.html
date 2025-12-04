@@ -1,1 +1,94 @@
-<p>detail works!</p>
+<div [class.md:ml-64]="isAuthenticated">
+  <div class="container">
+
+    <!-- Botón Volver -->
+    <button class="btn-outline mb-6" (click)="goTo('events')">
+      ← Volver a Eventos
+    </button>
+
+    <!-- Card de detalle -->
+    <div class="card" *ngIf="event">
+      <div class="card-header">
+        <div class="event-image mb-6"></div>
+
+        <div class="flex-between">
+          <div class="flex-1">
+            <h2 class="card-title mb-2">{{ event?.nombre_evento }}</h2>
+            <div class="flex gap-2">
+              <span class="badge badge-blue">{{ event?.categoria }}</span>
+              <span class="badge badge-green">{{ event?.status }}</span>
+            </div>
+          </div>
+
+          <button class="btn-green" (click)="goTo('/login')">
+            Inscribirse
+          </button>
+        </div>
+      </div>
+
+      <div class="card-content space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="info-card">
+            <span class="icon">📅</span>
+            <div>
+              <p class="label">Fecha</p>
+              <p>{{ event?.fecha_evento }}</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <span class="icon">⏰</span>
+            <div>
+              <p class="label">Horario</p>
+              <p>{{ event?.hora_inicio }} - {{ event?.hora_fin }}</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <span class="icon">📍</span>
+            <div>
+              <p class="label">Sede</p>
+              <p>{{ event?.lugar }}</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <span class="icon">👥</span>
+            <div>
+              <p class="label">Cupo</p>
+              <p>{{ event?.cupo }}</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <span class="icon">🧑</span>
+            <div>
+              <p class="label">Organizador</p>
+              <p>{{ event?.organizador }}</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <span class="icon">🏷️</span>
+            <div>
+              <p class="label">Modalidad</p>
+              <p>{{ event?.modalidad }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3>Descripción</h3>
+          <p>{{ event?.descripcion }}</p>
+        </div>
+
+        <div *ngIf="event?.publico_json?.length">
+          <h3>Requisitos</h3>
+          <ul>
+            <li *ngFor="let req of event.publico_json">{{ req }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

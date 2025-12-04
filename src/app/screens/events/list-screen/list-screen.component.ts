@@ -145,9 +145,9 @@ export class ListScreenComponent implements OnInit {
   //           ABRIR DETALLE DEL EVENTO
   // ==================================================
   openEventDetail(id: string) {
-    this.router.navigate(['/event-detail', id]);
+    this.router.navigate(['/detail-eventos', id]);
   }
 
-  
+
 
 }

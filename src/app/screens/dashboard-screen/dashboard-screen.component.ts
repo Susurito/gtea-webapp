@@ -14,7 +14,7 @@ interface DisplayEvent extends RecentEvent {
 @Component({
     selector: 'app-dashboard-screen',
     // Asegúrate de incluir CommonModule para que *ngIf funcione
-    imports: [SidebarComponent, CommonModule],
+    imports: [SidebarComponent, CommonModule, RouterLink],
     standalone: true,
     templateUrl: './dashboard-screen.component.html',
     styleUrls: ['./dashboard-screen.component.scss']
